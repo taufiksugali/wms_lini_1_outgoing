@@ -1,0 +1,21 @@
+.contener{
+	width: 21.6cm;
+}
+.content{
+	width: 21.6cm;
+	height: 13.9cm;
+}
+.judul{
+	line-height: 0.4rem;
+	height: fit-content;
+	border-bottom: dashed 1px black;
+}
+.judul .logo img{
+	width: 4cm;
+}
+.data{
+	border-bottom: dashed 1px black;
+}
+.rincian{
+	border-bottom: dashed 1px black;
+}

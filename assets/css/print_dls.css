@@ -1,0 +1,117 @@
+
+body,html{
+	position: relative;
+	background-color: #cfcfcf;
+}
+nav{
+	top: 0;
+	z-index: 1;
+	width: 100vw;
+}
+#navigation-wrap{
+	margin-top: 3.4rem;
+	background-color: #383838;
+	height: 20px;
+	width: 100%;
+}
+#navigation-wrap .navigasi-on{
+	position: fixed;
+	height: 15em;
+	width: 10em;
+	right: 10px;
+	border-radius: 50px;
+	box-shadow: 5px 5px 10px black, inset 4px 4px 4px #c9c9c9;
+	color: white;
+	z-index: 3;
+	bottom: 1vh;
+	overflow: hidden;
+	transition: 0.3s;
+
+}
+#navigation-wrap .navigasi-on input{
+	width: 3em;
+	font-size: 0.6rem;
+	font-weight: bold;
+	text-align: center;
+	width: 4.5em;
+}
+#navigation-wrap .navigasi-off{
+	transition: 0.3s;
+	position: fixed;
+	height: 3em;
+	padding-top: 0.7em;
+	width: 3.8em;
+	right: 10px;
+	border-radius: 50px;
+	box-shadow: 5px 5px 10px black, inset 4px 4px 4px #c9c9c9;
+	color: white;
+	z-index: 3;
+	bottom: 1vh;
+	overflow: hidden;
+
+}
+/*#navigation-wrap .navigasi-off::before{
+	content: "Margin";
+}*/
+#navigation-wrap .navigasi-off:hover{
+	cursor: pointer;
+}
+.wrap-arrow{
+	width: 100%;
+}
+.arrow{
+	width: 100%;
+}
+.d-button{
+height: 100%;
+width: 50%;
+background-color: ;
+}
+.d-text{
+height: 100%;
+width: 50%;
+background-color: ;
+font-size: 1.6rem;
+text-shadow: 1px 2px 4px #8a8a8a;
+}
+
+#target-print{
+	font-family: tahoma;
+	background-color: white;
+	width: 21cm;
+	padding: 1cm;
+}
+#pembungkus {
+	border: 1px solid black;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+#judul{
+	font-size: 0.8rem;
+}
+#judul h2{
+	font-family: cooper black;
+	font-style: italic;
+	color: green;
+}
+table,
+table thead,
+table thead tr,
+table thead th,
+table tbody,
+table tbody tr,
+table tbody td{
+	border: solid 1px black;
+	text-align: center;
+}
+#firstTable, #secondTable{
+	width: 100%;
+}
+
+#thirdTable{
+	width: 45%;
+}
+
+#ttd .ttd{
+	max-width: 33%;
+}

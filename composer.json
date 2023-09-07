@@ -1,0 +1,15 @@
+{
+    "name": "lini1/outgoing",
+    "autoload": {
+        "psr-4": {
+            "Lini1\\Outgoing\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "taufiksugali",
+            "email": "tsugaliok@gmail.com"
+        }
+    ],
+    "require": {}
+}

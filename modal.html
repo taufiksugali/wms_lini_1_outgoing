@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Print DO</title>
+  <link rel="stylesheet" href="../assets/css/print_session_kasir.css">
+  <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">  
+</head>
+<body id="pertelaan">
+  <div class="row g-0 py-0 px-4 mb-2">
+    <div class = "col-6">
+      <div class="judul">
+        <h3>Tonase session</h3>
+      </div>
+    </div>
+    <div class = "col-6">
+      <div class = "row g-0 p-0 m-0">
+        <div class="col-6">
+          nett <br>
+          <label for="">Total smu : </label>
+          <input type="text" id="tsmu" disabled> <br>
+          <label for="">Total Admin : </label>
+          <input type="text" id="tadmin" disabled><br>
+          <label for="">Total Sewa Gudang : </label>
+          <input type="text" id="tsg" disabled><br>
+          <label for="">Total Kade : </label>
+          <input type="text" id="tkade" disabled> <br>
+          <label for="">Total AP2 : </label>
+          <input type="text" id="tap2" disabled><br>
+          <label for="">Total Airport Surcharge : </label>
+          <input type="text" id="tas" disabled><br>
+          <label for="">Total Ppn : </label>
+          <input type="text" id="tppn" disabled> <br>
+          <label for="">Total Materai : </label>
+          <input type="text" id="tmaterai" disabled><br>
+          <label for="">Grand Total : </label>
+          <input type="text" id="ttotal" disabled>
+        </div>
+        <div class="col-6">
+          void <br>
+         <label for="">Total smu : </label>
+          <input type="text" id="vsmu" disabled> <br>
+          <label for="">Total Admin : </label>
+          <input type="text" id="vadm" disabled><br>
+          <label for="">Total Sewa Gudang : </label>
+          <input type="text" id="vsg" disabled><br>
+          <label for="">Total Kade : </label>
+          <input type="text" id="vkade" disabled> <br>
+          <label for="">Total AP2 : </label>
+          <input type="text" id="vap2" disabled><br>
+          <label for="">Total Airport Surcharge : </label>
+          <input type="text" id="vas" disabled><br>
+          <label for="">Total Ppn : </label>
+          <input type="text" id="vppn" disabled> <br>
+          <label for="">Total Materai : </label>
+          <input type="text" id="vmaterai" disabled><br>
+          <label for="">Grand Total : </label>
+          <input type="text" id="vtotal" disabled>      
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="d-flex justify-content-center px-4">
+    <table>
+      <thead>
+        <tr>
+          <td>NO</td>
+          <td>SESSION</td>
+          <td>SMU</td>
+          <td>BTB</td>
+          <td>FLIGHT</td>
+          <td>AGENT</td>
+          <td>SHIPPER</td>
+          <td>ADM</td>
+          <td>SEWA GUDANG</td>
+          <td>KADE</td>
+          <td>AP2</td>
+          <td>AIRPORT SURCHARGE</td>
+          <td>PPN</td>
+          <td>MATERAI</td>
+          <td>TOTAL</td>
+          <td>STATUS</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+
+  
+
+
+  <script src="../assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- jquery -->
+  <script src="../assets/jquery/jquery-3.6.0.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#smu').val("");
+      $('#coly').val("");
+      $('#weight').val("");
+      $('#volume').val("");
+      $('#revisi').val("");
+      $('#cancel').val("");
+    })
+    // window.print();
+  </script>
+
+
+
+</body>
+</html> 

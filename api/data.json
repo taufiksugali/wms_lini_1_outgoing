@@ -1,0 +1,33 @@
+{
+	"success":true,
+	"message":"OK",
+	"data":[
+		{
+			"qty":12,
+			"weight_type":"Total",
+			"packing_stackable":1,
+			"packing_turnable":1,
+			"goods_info":"PAKET GABUNGAN",
+			"cargo_type":"General Cargo",
+			"length":20,
+			"width":20,
+			"height":20,
+			"total_vw":24,
+			"total_gw":152,
+			"flight_no":"RI",
+			"iata_dept":"CGK",
+			"iata_dest":"BPN",
+			"departure_date":
+			"2022-04-26 02:32:44",
+			"arrival_date":"2022-04-26 12:55:00",
+			"shipper_name":"J&T EXP BDO",
+			"drop_point":"RA",
+			"shipper_company":"PT CAHAYA UTAMA CAKRAWALA",
+			"consignee_name":"J&T EXP BPN",
+			"pick_up_point":"WH",
+			"consignee_company":"J&T EXP BPN",
+			"booking_date":"2022-04-26 01:39:49",
+			"status":"accepted"
+		}
+	]
+}

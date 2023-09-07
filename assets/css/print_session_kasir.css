@@ -1,0 +1,58 @@
+html,
+body {
+     padding: 0;
+     margin: 0;
+}
+
+#pertelaan {
+     width: 21cm;
+}
+.header table{
+     margin-top: 1em;
+     width: 100%;
+}
+.header table td{
+     padding-left: 1rem;
+     border: solid 1px black;
+     font-size: 0.7rem;
+}
+.rekapitulasi .table-outgoing{
+     width: 6.5cm;
+}
+.rekapitulasi .table-outgoing td{
+    padding-left: 1rem;
+    border: solid 1px black;
+    font-size: 0.7rem;
+}
+.main-table table{
+     width: 100%;
+
+}
+.main-table table td{
+     border: solid 1px black;
+     font-size: 0.6rem;
+     word-wrap: normal;
+     
+
+}
+.main-table table thead tr td{
+     font-size: 0.6rem;
+     font-weight: bold;
+     text-align: center;
+}
+.void-table table{
+     width: 100%;
+
+}
+.void-table table td{
+     border: solid 1px black;
+     font-size: 0.6rem;
+     word-wrap: normal;
+     
+
+}
+.void-table table thead tr td{
+     font-size: 0.6rem;
+     font-weight: bold;
+     text-align: center;
+}

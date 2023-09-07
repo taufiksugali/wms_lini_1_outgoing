@@ -1,0 +1,635 @@
+@font-face{
+	font-family: 'roboto';
+	src: url('../font/roboto/Roboto-Medium.ttf');
+
+}
+html,body{
+	margin:0;
+	padding:0;
+	height:100%;
+	width: 100%;
+}
+body{
+	background-color: #EDEDED;
+}
+/*scroll*/
+::-webkit-scrollbar{
+	width: 8px;
+	height: 8px;
+}
+
+::-webkit-scrollbar-track{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);   
+	background: transparent;
+	border-radius: 20px;    
+}
+
+::-webkit-scrollbar-thumb{
+	background: #4a0074;
+	border-radius: 10px;
+}
+/*batas scroll
+*/
+.btn-ungu{
+	background-color: #4a0074;
+	color: white;
+	border-color: #4a0074;
+}
+
+.select2-selection{
+	height: 31px;
+
+}
+
+.btn-ungu:hover,
+.btn-ungu:active{
+	color: white;
+	box-shadow: 0 0 10px #4a0074;
+	transition: 0.3s;
+}
+.kontener{
+	position: relative;
+	min-height: 100%;
+	padding-bottom: 5em;
+}
+.kontener .loading{
+	height: 100%; 
+	width: 100%;
+	z-index: 100;
+	background-color: rgba(100, 100, 100, 0.5);
+}
+.kontener .loading img{
+	width: 150px;
+	height: 150px;
+}
+.kontener .header{
+	height: 50px;
+	width: 100%;
+}
+.kontener .header .title{
+	width: 100%;
+	background-image: linear-gradient(150deg, whitesmoke, #507A9B);
+	box-shadow: inset 0 0 10px black;
+
+}
+.kontener .header .title img{
+	width: 150px;
+}
+.kontener .header .title .useractive{
+	width: 10em;
+}
+.useractive ul li a{
+	font-weight: 700;
+	color: #222222;
+}
+.useractive ul li a:hover,
+.useractive ul li a:focus,
+.useractive ul li a:active{
+	color: #5B5B5B;
+}
+.useractive ul li ul{
+	background-color: #BDBDBD;
+	box-shadow: 0 0 10px white;
+}
+.useractive ul li ul li{
+	height: 2em;
+	transition: 0.5s;
+}
+.useractive ul li ul li:hover{
+	transition: 0.5s;
+	padding: 0.5em 0;
+	height: 2.5em;
+	background-color: white;
+	color: grey ;
+	border-radius: 5px;
+}
+.kontener .menu{
+	margin-top: 16px;
+	background-color: #7EBAD6;
+}
+.kontener .menu .menu1,
+.kontener .menu .menu2,
+.kontener .menu .menu3{
+	width: fit-content;
+	transition: 0.3s;
+
+}
+.kontener .menu .menu1 h6,
+.kontener .menu .menu2 h6,
+.kontener .menu .menu3 h6{
+	font-family: roboto;
+	font-weight: bold;
+}
+/*batas atas */
+.downmenu{
+	box-shadow: 0 0 5px #4a0074;
+	background-color: rgba(255, 255, 255, 0.95);
+	width: 11em;
+	border: solid 2px #4a0074;
+
+}
+.downmenu>li
+{ position:relative;
+	-webkit-user-select: none; /* Chrome/Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+ */
+	/* Rules below not implemented in browsers yet */
+	-o-user-select: none;
+	user-select: none;
+	cursor:pointer;
+}
+.downmenu>li:hover{
+	background-color: #bababa;
+}
+.downmenu .sub-menu {
+	left: 100%;
+	position: absolute;
+	top: 0;
+	display:none;
+	margin-top: -1px;
+	background-color: rgba(255, 255, 255, 1);
+}
+.right-caret:after,.left-caret:after
+{  content:"";
+	border-bottom: 5px solid transparent;
+	border-top: 5px solid transparent;
+	display: inline-block;
+	height: 0;
+	vertical-align: middle;
+	width: 0;
+	margin-left:5px;
+}
+.right-caret:after
+{ border-left: 5px solid #00ff22;
+}
+.left-caret:after
+{ border-right: 5px solid #ff0000;
+}
+/*batas bawah*/
+
+
+
+
+
+
+.kontener .menu .menu1 .span,
+.kontener .menu .menu2 .span,
+.kontener .menu .menu3 .span{
+	height: 3px;
+	width: 0px;
+	background-color: #4A0074;
+	transition: 0.3s;
+}
+.kontener .menu .menu1 .span2,
+.kontener .menu .menu2 .span2,
+.kontener .menu .menu3 .span2{
+	
+	transition-property: width;
+	transition-duration: 3s;
+}
+
+
+.kontener .menu .menu1 a,
+.kontener .menu .menu2 a,
+.kontener .menu .menu3 a{
+	color: #4A0074;
+	font-weight: bold;
+	font-size: 0.8em;
+}
+.kontener .kontener2{
+	background-color: #EDEDED;
+}
+.kontener .kontener2 .content{
+	background-color: white;
+	box-shadow: 0 0 10px grey;
+	border-radius: 10px;
+}
+.kontener2 .breadcrumb{
+	font-family: roboto;
+}
+.kontener2 .content h6{
+	font-weight: bold;
+	color: #4A0074;
+}
+.kontener2 .content .description{
+	height: fit-content;
+	text-align: right;
+	border-right: solid 2px #A8A8A8;
+}
+.kontener2 .content .description h5{
+	font-weight: bold;
+}
+.kontener2 .content .description p{
+	font-size: 0.8rem;
+}
+.kontener2 .content label{
+	color: #505050;
+}
+.kontener2 .content input,
+.kontener2 .content select{
+	border-radius: 5px;
+	border-color: #4a0078;
+}
+.kontener2 .content input:hover,
+.kontener2 .content input:focus,
+.kontener2 .content input:active,
+.kontener2 .content select:hover,
+.kontener2 .content select:focus,
+.kontener2 .content select:active{
+	outline-color: #9d00ff !important;
+	box-shadow: 0 0 10px #9d00ff !important;
+}
+
+.kontener2 .content .s_print{
+	background-color: #4a0078;
+	color: white;
+}
+.footer{
+	width: 100%;
+	background-color: #7EBAD6;
+	padding-top: 1em;
+	padding-bottom: 0.3em;
+	font-size: .8rem;
+	color: #4A0074;
+}
+
+
+.modal .thedialog{
+	max-width: 70%;
+}
+.modal .modal-dialog .themodal{
+	border-radius: 0px;
+}
+.modal .modal-dialog .themodal .theheader{
+	background-color: #4A0071;
+	color: white;
+	height: 5em;
+	border-radius: 0px;
+}
+.modal .modal-dialog .themodal .modal-body{
+	line-height: 2em;
+	background-color: #e6e6e6;
+	height: 20em;
+	overflow-y: auto;
+	font-size: 1em;
+	margin: 0px 1em 0px 1em;
+	padding: 1em 3em;
+}
+.modal .modal-dialog .themodal .modal-body table{
+	width: 100%;
+}
+.modal .modal-dialog .themodal .modal-body tr,
+.modal .modal-dialog .themodal .modal-body th,
+.modal .modal-dialog .themodal .modal-body td{
+	border: solid 1px black;
+	padding: none;
+}
+.modal .modal-dialog .themodal .modal-body table tbody input{
+	width: 100%;
+	height: 100%;
+	border: none;
+	background-color: #EAEAEA;
+	padding-left: 1em;
+}
+.modal .modal-dialog .themodal .modal-body table tbody input:hover,
+.modal .modal-dialog .themodal .modal-body table tbody input:focus,
+.modal .modal-dialog .themodal .modal-body table tbody input:active{
+	outline: none;
+}
+#formAddFlight{
+	overflow: auto;
+}
+#formAddFlight div #flight{
+	width: 7rem;
+}
+#formAddFlight div #destination{
+	width: 10rem;
+}
+#formAddFlight div #tlc{
+	width: 7rem;
+}
+
+#formAddFlight div button{
+	widows: ;
+}
+
+.content .tableflightnumber{
+	border: solid 1px #4A0071;
+	padding: 1em;
+	border-radius: 10px;
+	overflow: auto;
+	max-height: 20em;
+	box-shadow: inset 0 0 4px #4A0071;
+}
+.content .tableflightnumber table{
+	width: 95%;
+	margin-right: 1em;
+}
+
+.content .sesreport label{
+	color: black;
+	display: block;
+}
+.content .sesreport input{
+	width: 15em;
+	display: inline-block;
+}
+.content .sesreport button,
+.content #manifest button{
+	display: inline-block;
+	border: solid 1px #4A0071;
+	color: #4A0071;
+}
+
+.content .sesreport button:hover,
+.content .sesreport button:focus,
+.content .sesreport button:active,
+.content #manifest button:hover,
+.content #manifest button:focus,
+.content #manifest button:active{
+	background-color: #4A0071;
+	color: white;
+}
+.content #manifest{
+	width: 100%;
+}
+.content #manifest label,
+#manifestPage .header label{
+	color: #4A0071;
+	font-size: 0.75rem;
+	position: absolute;
+	top: -0.055rem;
+	left: 0.7rem;
+	padding-left: 3px;
+	padding-right: 3px;
+	height: 2.5px;
+	background-color: white;
+	line-height: 5px;
+
+}
+#manifestPage .header input{
+	width: ;
+}
+
+#manifestPage #tableManifest{
+	overflow-x: auto;
+}
+#manifestPage #tableManifest input{
+	border: none;
+}
+#manifestPage #tableManifest thead tr th{
+	text-align: center;
+}
+#manifestPage #tableManifest thead tr th,
+#manifestPage #tableManifest tbody tr td{
+	border: solid 1px black;
+}
+
+
+
+
+
+
+
+
+.content .tabel-area{
+	overflow: auto;
+}
+.content .t-sesreport thead th{
+	font-size: 0.8rem;
+}
+.content .t-sesreport tbody td{
+	font-size: 0.7rem;
+}
+.content .t-sesreport tbody .action{
+	width: 30em;
+}
+.content .t-sesreport tbody td button{
+	width: fit-content;
+	font-size: 0.7rem;
+	padding: 5px;
+
+}
+
+/*======================================================================*/
+/*kasir*/
+.field-payment select:hover,
+.field-payment select:active,
+.field-payment select:focus,
+.field-payment input:hover,
+.field-payment input:active,
+.field-payment input:focus{
+	outline-color: #9d00ff !important;
+	box-shadow: 0 0 10px #9d00ff !important;
+}
+.dataTables_wrapper .row:nth-child(2){
+	overflow: auto;
+}
+/*.payment-table{
+	overflow: auto;
+}*/
+.payment-table table{
+}
+.content .payment-table th{
+	font-size: 0.7rem;
+}
+.content .payment-table td{
+	font-size: 0.65rem;
+	text-align: center;
+}
+/*batas kasir*/
+
+/*allreport*/
+#contentAllReport{
+	/*overflow: auto;*/
+}
+
+#contentAllReport #allReportOutgoing th,
+#contentAllReport #allReportOutgoing td,
+#contentAllReport #allReportOutgoingVoid th,
+#contentAllReport #allReportOutgoingVoid td{
+	border: solid 1px #bababa;
+}
+#contentAllReport #allReportOutgoing th,
+#contentAllReport #allReportOutgoingVoid th{
+	font-size: 1rem;
+	padding-left: 3em;
+	padding-right: 3em;
+	width: inherit;
+
+}
+#contentAllReport #allReportOutgoing td,
+#contentAllReport #allReportOutgoingVoid td{
+	font-size: 0.75rem;
+}
+
+#contentAllReport .report-result td{
+	border: solid 1px black;
+	font-size: 0.7rem;
+}
+#contentAllReport .report-result .head{
+	padding-right: 3em;
+	padding-left: 1em;
+	font-weight: bold;
+}
+#contentAllReport .report-result .value{
+	padding-right: 1em;
+	font-style: italic;
+	padding-left: 3em;
+	font-weight: lighter;
+	text-align: right;
+}
+
+
+/*cargo details*/
+#cargoDetails .deskripsi{
+	border: solid 2px #c4c4c4;
+	border-radius: 5px;
+	box-shadow: inset 0px 0px 5px grey;
+}
+#cargoDetails .deskripsi .aktif{
+	background-color: white;
+	width: fit-content;
+	line-height: fit-content;
+	position: relative;
+	padding-bottom: 1.5rem;
+	top: -1.12rem;
+	/*font-size: 1.3rem;*/
+	font-weight: bolder;
+	color: #00524b;
+	border-bottom: solid 2px #c4c4c4;
+	border-left: solid 2px #c4c4c4;
+	border-right: solid 2px #c4c4c4;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	box-shadow: 0px 6px 5px grey;
+	height: 15px;
+	transition: top 0.3s, border 0.2s, box-shadow 0s;
+	/*transition: height 0.3s;*/
+	transition-timing-function: linear;
+	transition-delay: 0s, 0.3s, 0.3s;
+}
+#cargoDetails .deskripsi .normal{
+	width: fit-content;
+	line-height: fit-content;
+	position: relative;
+	top: -2.35rem;
+	border-left: solid 2px transparent;
+	border-right: solid 2px transparent;
+	transition: top 0.3s, border 0.2s;
+
+}
+#cargoDetails .deskripsi .normal:hover{
+	cursor: pointer;
+}
+
+
+
+/*tanggalan detail*/
+
+.kontener2 .t-tanggal th{
+	border: solid 1px white;
+	width: 8em;
+	text-align: center;
+	height: 1.2em;
+	/*background-color: linear-gradient(0deg, rgba(74,0,116,1) 0%, rgba(135,76,168,1) 70%, rgba(184,135,212,1) 100%);*/
+	color: white;
+	font-weight: normal;
+	background: rgb(74,0,116);
+	background: linear-gradient(0deg, rgba(74,0,116,1) 0%, rgba(135,76,168,1) 70%, rgba(184,135,212,1) 100%);
+}
+.kontener2 .t-tanggal td{
+	vertical-align: top;
+	font-size: 0.7rem;
+	position: relative;
+	border: solid 3px white;
+	background: rgb(244,224,157);
+	background: linear-gradient(0deg, rgba(244,224,157,1) 0%, rgba(247,237,203,1) 82%, rgba(246,246,246,1) 100%);
+	min-width: 85px;
+
+}
+.kontener2 .t-tanggal td a{
+	text-decoration: none;
+	color: white;
+}
+.kontener2 .t-tanggal td li{
+	list-style: none;
+	padding-left: 3px;
+}
+.kontener2 .t-tanggal td .li-1{
+	background-color: #ad9f7b;
+}
+.kontener2 .t-tanggal td .li-2{
+	background-color: #85795b;
+}
+.kontener2 .t-tanggal td .li-3{
+	background-color: #59513e;
+}
+.kontener2 .t-tanggal td .li-4{
+	background-color: #302d1f;
+}
+.kontener2 .t-tanggal td .tgl-td{
+	position: absolute;
+	right: 0;
+	top: 0;
+	font-size: 1.3rem;
+	padding-right: 0.2em;
+	color: #783e00;
+}
+.kontener2 .t-tanggal td li:hover{
+	background-color: white;
+	color: black;
+}
+
+#tCreateManifest th,
+#tCreateManifest td{
+	border: solid 1px black;
+	text-align: center;
+}
+#tCreateManifest input{
+	border: none;
+	text-align: center;
+}
+
+
+/* automode capsule */
+.capsule{
+	width: 4rem;
+	height: 1.3rem;
+	border: solid 3px white;
+	line-height: 1.1rem;
+	border-radius: 10px;
+}
+.capsule:hover{
+	cursor: pointer;
+}
+.capsule-off{
+	background-color: lightgrey;
+}
+.capsule-on{
+	background-color: #4a0074;
+}
+.capsule .status-on{
+	font-size: 0.8rem;
+	font-weight: bold;
+	color: white;
+}
+.capsule .status-off{
+	font-size: 0.8rem;
+	font-weight: bold;
+	color: darkslategrey;
+}
+.ball{
+	top: 0px;
+}
+.capsule .ball-off{	
+	right: 100%;
+	left: 0px;
+	transition: left 0.3s;
+}
+.capsule .ball-on{
+	right: 0px;
+	left: 75%;
+	transition: right 0.3s;
+	transition: left 0.3s;
+}

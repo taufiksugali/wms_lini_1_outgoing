@@ -1,0 +1,59 @@
+body,html{
+	height: 100%;
+	background-image: url('../../assets/image/cargo.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	
+}
+
+.contener{
+	width: 100%;
+}
+.d-alert{
+	top: 10em;
+}
+.alert{
+	text-shadow: 0 0 20px black;
+}
+.alert-close:hover,
+.alert-close:active,
+.alert-close:focus{
+	outline:0px !important;
+	-webkit-appearance:none;
+	box-shadow: none !important;
+}
+.contener .right-side{
+}
+
+
+.contener .form-login{
+	background-color: rgba(0, 0, 0, 0.6);
+	border-radius: 30px;
+	height: 95vh;
+	box-shadow: 0px 0px 20px black;
+}
+
+.form-login form{
+	font-size: 1em;
+	font-weight: bolder;
+	color: greenyellow;
+	width: 60%;
+}
+.form .input{
+	border-color:transparent;
+	border-radius: 0px;
+	background-color: rgba(25,25,25, 0.6);
+	color: lightslategrey;
+	font-weight: 700;
+}
+.form .input:hover,
+.form .input:active,
+.form .input:focus{
+	outline:0px !important;
+	-webkit-appearance:none;
+	box-shadow: none !important;
+}
+.form .spinner-border{
+	color: greenyellow;
+}

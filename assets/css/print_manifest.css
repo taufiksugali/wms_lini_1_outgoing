@@ -1,0 +1,196 @@
+
+body,html{
+	position: relative;
+	background-color: #cfcfcf;
+}
+nav{
+	top: 0;
+	z-index: 1;
+	width: 100vw;
+}
+#navigation-wrap{
+	margin-top: 3.4rem;
+	background-color: #383838;
+	height: 20px;
+	width: 100%;
+}
+#navigation-wrap .navigasi-on{
+	position: fixed;
+	height: 15em;
+	width: 10em;
+	right: 10px;
+	border-radius: 50px;
+	box-shadow: 5px 5px 10px black, inset 4px 4px 4px #c9c9c9;
+	color: white;
+	z-index: 3;
+	bottom: 1vh;
+	overflow: hidden;
+	transition: 0.3s;
+
+}
+#navigation-wrap .navigasi-on input{
+	width: 3em;
+	font-size: 0.6rem;
+	font-weight: bold;
+	text-align: center;
+	width: 4.5em;
+}
+#navigation-wrap .navigasi-off{
+	transition: 0.3s;
+	position: fixed;
+	height: 3em;
+	padding-top: 0.7em;
+	width: 3.8em;
+	right: 10px;
+	border-radius: 50px;
+	box-shadow: 5px 5px 10px black, inset 4px 4px 4px #c9c9c9;
+	color: white;
+	z-index: 3;
+	bottom: 1vh;
+	overflow: hidden;
+
+}
+/*#navigation-wrap .navigasi-off::before{
+	content: "Margin";
+}*/
+#navigation-wrap .navigasi-off:hover{
+	cursor: pointer;
+}
+.wrap-arrow{
+	width: 100%;
+}
+.arrow{
+	width: 100%;
+}
+.d-button{
+height: 100%;
+width: 50%;
+background-color: ;
+}
+.d-text{
+height: 100%;
+width: 50%;
+background-color: ;
+font-size: 1.6rem;
+text-shadow: 1px 2px 4px #8a8a8a;
+}
+
+#target-print{
+	font-family: tahoma;
+	background-color: white;
+}
+#target-print table{
+   margin-top: 3.9cm;
+	/*margin-left: 0cm;*/
+}
+
+
+#target-print table td,
+#target-print table th{
+	height: fit-content;
+}
+#target-print table td{
+	padding-top: 1px;
+}
+
+#target-print table .col1{
+	width: 0.95cm;
+	height: 1
+	8px;
+	overflow: hidden;
+}
+#target-print table .col2{
+	width: 4.7cm;
+	overflow: hidden;
+	height: 1
+	8px;
+	font-weight: bold;
+}
+#target-print table .col3{
+	width: 1.25cm;
+	overflow: hidden;
+	height: 21px;
+}
+#target-print table .col4{
+	width: 1.65cm;
+	overflow: hidden;
+	height: 1
+	8px;
+}
+#target-print table .col5{
+	height: 0.6cm;
+	width: 3.05cm;
+	overflow: hidden;
+}
+#target-print table .col6{
+	width: 0.7cm;
+	overflow: hidden;
+}
+#target-print table .col7{
+	width: 1.25cm;
+	overflow: hidden;
+}
+#target-print table .col8{
+	width: 2cm;
+	overflow: hidden;
+}
+#target-print table .col9{
+	width: 2.55cm;
+	overflow: hidden;
+}
+#target-print table .row0{
+	height: 1cm;
+}
+#target-print table .col11{
+	height: 18px;
+	width: 114.72px;
+	overflow: hidden;
+}
+#target-print table .col12{
+	height: 18px;
+	/*width: 124.8px;*/
+	width: 137px;
+	overflow: hidden;
+}
+#target-print table .col13{
+	height: 18px;
+	width: 95.38px;
+	overflow: hidden;
+}
+
+#target-print table .col10{
+	height: 0.4cm;
+	overflow: hidden;
+}
+#target-print table .col14{
+	width: 1.25cm;
+	overflow: hidden;
+	height: 0.5cm;
+	font-weight: bold;
+	font-size: 0.9rem;
+}
+#target-print table .col15{
+	width: 1.65cm;
+	overflow: hidden;
+	height: 0.5cm;
+	font-weight: bold;
+	font-size: 0.9rem;
+}
+
+#target-print table div{
+	width: 100%;
+	height: 100%;
+}
+#target-print .kapten{
+	width: 8.7cm;
+	height: 4cm;
+	padding-top: 2.9cm;
+	font-weight: bold;
+}
+#target-print .staff{
+	width: 9.95cm;
+	height: 5cm;
+	padding-top: 4.5cm;
+	font-weight: bold;
+}
+
