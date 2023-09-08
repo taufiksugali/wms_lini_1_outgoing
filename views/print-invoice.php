@@ -205,7 +205,7 @@ function penyebut($nilai) {
 							Actual Weight: <?php echo $weight; ?>
 						</div>
 						<div>
-							Volume: <?php echo $volume; ?>
+							Volumetric Weight: <?php echo $volume; ?>
 						</div>
 						<div>
 							Chargable Weight: <?php echo $net; ?>
@@ -257,7 +257,7 @@ function penyebut($nilai) {
 						$terbilang = $data->terbilang($total);
 						$penyebut = penyebut($terbilang);
 						?>
-						<i><?php echo ucwords($penyebut)." Rupiah"; ?></i>
+						<i><strong>Terbilang : </strong><?php echo ucwords($penyebut)." Rupiah"; ?></i>
 					</div>
 				</div>
 				<div class="footer">

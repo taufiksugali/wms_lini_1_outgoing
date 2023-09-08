@@ -102,7 +102,7 @@ if(isset($_POST['save'])){
 							<th class="text-center">Manifest ID</th>
 							<th class="text-center">Flight</th>
 							<th class="text-center">Date time</th>
-							<th class="text-center">creator</th>
+							<th class="text-center">Creator</th>
 							<th class="text-center">Action</th>
 						</tr>
 					</thead>

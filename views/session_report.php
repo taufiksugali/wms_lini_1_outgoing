@@ -112,7 +112,7 @@ if(isset($_GET['cancel'])){
             <button type="submit" class="btn btn-outline-primary mb-2" name="print_session"><i class="fa-solid fa-print"></i> printdata</button>
             <button type="submit" class="btn btn-outline-success mb-2" name="save_excel"><i class="fa-solid fa-file-excel"></i> save to excel</button>
           </form>
-          <table class="t-sesreport table table-hover table-striped" id="tSessionReport">
+          <table class="t-sesreport table table-hover table-striped text-nowrap" id="tSessionReport">
             <thead>
               <tr class="tex-center">
                 <th class="text-center">#</th>
@@ -130,7 +130,7 @@ if(isset($_GET['cancel'])){
                 <th class="text-center">VOLUME</th>
                 <th class="text-center">STATUS</th>
                 <th class="text-center">OFFICER</th>
-                <th class="text-center">LAST_EDITOR</th>
+                <th class="text-center">LAST EDITOR</th>
               </tr>
             </thead>
             <tbody>
@@ -163,7 +163,7 @@ if(isset($_GET['cancel'])){
                   <?php 
                   if($cargo->status == "proced" || $cargo->status == "revisi"): ?>
                     <td class="d-flex m-0 py-3 justify-content-between" >
-                      <a href="models/p_btb.php?data=<?php echo $cargo->smu; ?>&print=reprint"><button type="submit" name="reprint" class="btn btn-sm btn-primary">reprint</button></a>
+                      <a href="models/p_btb.php?data=<?php echo $cargo->smu; ?>&print=reprint"><button type="button" name="reprint" class="btn btn-sm btn-primary">reprint</button></a>
 
                       <a id="revisiBtn"
                       data-id="<?php echo $cargo->id; ?>"
@@ -176,7 +176,7 @@ if(isset($_GET['cancel'])){
                       data-quantity="<?php echo $cargo->quantity; ?>"
                       data-weight="<?php echo $cargo->weight; ?>"
                       data-volume="<?php echo $cargo->volume; ?>">
-                      <button name="revisi" class="btn btn-sm btn-warning mx-2" data-bs-toggle="modal" data-bs-target="#editDo">revisi</button>
+                      <button type="button" name="revisi" class="btn btn-sm btn-warning mx-2" data-bs-toggle="modal" data-bs-target="#editDo">revisi</button>
                     </a>
 
                     <form action="models/p_btb.php?data=<?php echo $cargo->smu; ?>" method="post">

@@ -108,10 +108,10 @@ function penyebut($nilai) {
 						QTY: <?php echo $result->quantity; ?> koli
 					</div>
 					<div>
-						Cargo Weight: <?php echo $result->weight; ?> kg
+						Actual Weight: <?php echo $result->weight; ?> kg
 					</div>
 					<div>
-						Volume: <?php echo $result->volume; ?> kg
+						Volumetric Weight: <?php echo $result->volume; ?> kg
 					</div>
 					<div>
 						Chargable Weight: <?php echo $nett; ?> kg
@@ -163,7 +163,7 @@ function penyebut($nilai) {
 					$terbilang = $data->terbilang($result->total);
 					$penyebut = penyebut($terbilang);
 					?>
-					<i><?php echo ucwords($penyebut)." Rupiah"; ?></i>
+					<i><strong>Terbilang : </strong><?php echo ucwords($penyebut)." Rupiah"; ?></i>
 				</div>
 			</div>
 			<div class="footer">

@@ -173,28 +173,28 @@ if(isset($_POST['btn_void'])){
             <button type="submit" class="btn btn-outline-primary mb-2" name="print_session"><i class="fa-solid fa-print"></i> printdata</button>
             <button type="submit" class="btn btn-outline-success mb-2" name="save_session_excel"><i class="fa-solid fa-file-excel"></i> save to excel</button>
           </form>
-          <table class="t-sesreport table table-hover table-striped text-nowrap table-bordered" id="tSessionReport">
+          <table class="t-sesreport table table-hover table-striped text-nowrap table-bordered td-valign-middle" id="tSessionReport">
             <thead>
               <tr class="tex-center">
                 <th class="text-center">#</th>
                 <th class="text-center" style="width: 1000px;">ACTION</th>
                 <th class="text-center">SESSION</th>
-                <th class="text-center">AIR_WILL_BILL</th>
+                <th class="text-center">AIR WILL BILL</th>
                 <th class="text-center">BTB</th>
                 <th class="text-center">AGENT</th>
                 <th class="text-center">SHIPPER</th>
                 <th class="text-center">ADMIN</th>
-                <th class="text-center">SEWA_GUDANG</th>
+                <th class="text-center">SEWA GUDANG</th>
                 <th class="text-center">KADE</th>
                 <th class="text-center">AP2</th>
-                <th class="text-center">A_SURCHARGE</th>
+                <th class="text-center">AIRLINE SURCHARGE</th>
                 <th class="text-center">PPN</th>
                 <th class="text-center">MATERAI</th>
                 <th class="text-center">TOTAL</th>
                 <th class="text-center">PIC</th>
                 <th class="text-center">STATUS</th>
                 <th class="text-center">OFFICER</th>
-                <th class="text-center">LAST_EDITOR</th>
+                <th class="text-center">LAST EDITOR</th>
               </tr>
             </thead>
             <tbody>
