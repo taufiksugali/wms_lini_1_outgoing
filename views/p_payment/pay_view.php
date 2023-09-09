@@ -31,7 +31,11 @@
         $dshipper = "";
         echo "<script>window.location.replace('?page=payment')</script>";
       }
-      $pay = $data->calall($dagent,$dshipper);
+      if(@$_GET['airline']){
+        $pay = $data->calall_by_airline($dagent,$dshipper, $_GET['airline']);
+      }else{
+        $pay = $data->calall($dagent,$dshipper);
+      }
       $total_smu = 0;
       $total_qty = 0;
       $total_weight = 0;

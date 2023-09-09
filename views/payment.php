@@ -19,6 +19,8 @@ $kade = $list->kade;
 $pjkp2u = $list->pjkp2u;
 $materai = $list->materai;
 $as = $list->airport_surcharge;
+
+$airlines = $data->get_all_airline();
 ?>
 <div class = "kontener2 px-5 py-4">
   <nav style="--bs-breadcrumb-divider: '》';" aria-label="breadcrumb">
@@ -48,3 +50,40 @@ $as = $list->airport_surcharge;
     </div>
   </div>
 </div>
+
+<script src="assets/jquery/jquery-3.6.0.js" crossorigin="anonymous"></script>
+<script src="assets/select2/select2.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $(".select2").select2({
+      placeholder: $(this).data('placeholder'),
+      width: '100%',
+    })
+  })
+
+  function getAirline()
+  {
+    let url = window.location.href;
+    let segments = url.split('/');
+    let segment1 = segments[1];
+    let segment2 = segments[2];
+    let segment3 = segments[3];
+    let urlObject = new URL(url);
+    let pageValue = urlObject.searchParams.get('agent');
+    urlObject.searchParams.delete('airline');
+    var clean_url = urlObject.toString();
+
+
+    let airline = $("#airline").val();
+    if(airline != ''){
+      if(airline != 'all'){
+        // console.log(url+'&airline='+airline);
+        window.location.href = clean_url+'&airline='+airline;
+        // console.log(newUrl);
+      }else{
+        window.location.href = clean_url;
+      }
+    }
+
+  }
+</script>

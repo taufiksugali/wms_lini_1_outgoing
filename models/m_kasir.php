@@ -59,6 +59,21 @@ class Kasir{
 
 		return($query);
 	}
+
+	public function calall_by_airline($agent, $shipper, $airline_id) {
+		$db = $this->mysqli->conn;
+		$sql ="SELECT * 
+		FROM cargo 
+		JOIN `smu_code` ON `smu_code`.`code` = `cargo`.`smu_code`
+		WHERE shipper_name='$shipper' 
+		AND cargo.agent_name='$agent'
+		AND smu_code.airline_id = '$airline_id'
+		AND cargo.status BETWEEN 'proced' AND 'revisi' ORDER BY id ASC";
+		$query = $db->query($sql) or die ($db->error);
+
+		return($query);
+	}
+
 	public function countsmu($agent, $shipper) {
 		$db = $this->mysqli->conn;
 		$sql ="SELECT COUNT(smu) AS jumlah FROM cargo WHERE shipper_name='$shipper' AND agent_name='$agent' AND status BETWEEN 'proced' AND 'revisi'";
@@ -259,6 +274,39 @@ class Kasir{
 		WHERE `status` BETWEEN 'proced' AND 'revisi' 
 		GROUP BY `cargo`.`agent_name`, `cargo`.`shipper_name`
 		ORDER BY `cargo`.`id` ASC
+		";
+		$query = $db->query($sql) or die ($db->error);
+
+		return($query);
+	}
+
+	public function get_distinct_payment_by_airline($airline_id)
+	{
+		$db = $this->mysqli->conn;
+		$sql ="SELECT 
+		`cargo`.`agent_name`,
+		`cargo`.`shipper_name`,
+		COUNT(`cargo`.`smu`) AS `smu`,
+		SUM(`cargo`.`quantity`) AS `quantity`,
+		SUM(`cargo`.`weight`) AS `weight`,
+		SUM(`cargo`.`volume`) AS `volume`
+		FROM `cargo`
+		JOIN `smu_code` ON `smu_code`.`code` = `cargo`.`smu_code`
+		WHERE `smu_code`.`airline_id` = '$airline_id'
+		AND (`status` BETWEEN 'proced' AND 'revisi')
+		GROUP BY `cargo`.`agent_name`, `cargo`.`shipper_name`
+		ORDER BY `cargo`.`id` ASC
+		";
+		$query = $db->query($sql) or die ($db->error);
+
+		return($query);
+	}
+
+	public function get_all_airline()
+	{
+		$db = $this->mysqli->conn;
+		$sql ="SELECT *
+		FROM `airlines`
 		";
 		$query = $db->query($sql) or die ($db->error);
 

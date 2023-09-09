@@ -1,7 +1,37 @@
 <div class="payment-table p-3">
-  <table class="table" id="tPayment">
+  <div class="row mb-3">
+      <div class="col-md-3 form-group">
+        <label>
+        Airline
+      </label>
+      <select class="form-control select2" id="airline" data-placeholder="Select Airline">
+        <option></option>
+        <option value="all">All Airline</option>
+        <?php 
+        while ($row = $airlines->fetch_object()){
+          ?>
+          <option 
+          value="<?= $row->airline_id; ?>"
+          <?php 
+          if(@$_GET['airline']){
+            if($row->airline_id == $_GET['airline']){
+              echo "selected";
+            }
+          }
+          ?>
+          ><?= $row->airline_name ;?></option>
+          <?php
+        }
+        ?>
+      </select>
+    </div>
+    <div class="col-md-2 d-flex justify-content-end align-items-end">
+      <button class="btn btn-sm btn-primary px-3" onclick="getAirline()">Find!</button>
+    </div>
+  </div>
+  <table class="table text-nowrap" id="tPayment">
     <thead>
-      <tr>
+      <tr class="text-center">
         <th>sa</th>
         <th>#</th>
         <th>Agent</th>
@@ -22,7 +52,11 @@
     </thead>
     <tbody>
       <?php 
-      $pay = $data->get_distinct_payment();
+      if(@$_GET['airline']){
+        $pay = $data->get_distinct_payment_by_airline($_GET['airline']);
+      }else{
+        $pay = $data->get_distinct_payment();
+      }
       $total_smu = 0;
       $total_qty = 0;
       $total_weight = 0;
@@ -51,7 +85,14 @@
         <tr>
           <td>
             <!-- <a href="?page=payment&agent=<?php //echo $info->agent_name; ?>&shipper=<?php //echo $next->shipper_name; ?>"> -->
-              <form action="?page=payment&agent=<?php echo $info->agent_name; ?>" method="post">
+              <?php 
+              if(@$_GET['airline']){
+                $url = '?page=payment&agent='.$info->agent_name.'&airline='.$_GET['airline'];
+              }else{
+                $url = '?page=payment&agent='.$info->agent_name;
+              }
+              ?>
+              <form action="<?php echo $url; ?>" method="post">
                 <input type="text" name="i_agent" value="<?php echo $info->agent_name; ?>" hidden>
                 <input type="text" name="i_shipper" value="<?php echo $info->shipper_name; ?>" hidden>
                 <button type="submit" class="btn btn-sm btn-outline-primary" name="b_view">view</button>
@@ -62,9 +103,9 @@
             <td><?php echo $info->agent_name; ?></td>
             <td><?php echo $info->shipper_name; ?></td>
             <td><?php echo $tsmu = $info->smu; ?></td>
-            <td><?php echo $tqty = $info->quantity; ?></td>
-            <td><?php echo $tweight = $info->weight; ?></td>
-            <td><?php echo $tvol = $info->volume; ?></td>
+            <td><?php echo number_format($tqty = $info->quantity); ?></td>
+            <td><?php echo number_format($tweight = $info->weight); ?></td>
+            <td><?php echo number_format($tvol = $info->volume); ?></td>
             <td><?php echo $tadm = $adm * $tsmu; ?></td>
             <td>
               <?php
@@ -80,12 +121,12 @@
               echo $tsg = $h_sg * $sg;
               ?>
             </td>
-            <td><?php echo $tkade = $kade * $tweight; ?></td>
-            <td><?php echo $tpjkp2u = $pjkp2u * $tweight; ?></td>
-            <td><?php echo $tas = $as * $h_sg; ?></td>
-            <td><?php echo $ppn = (($tadm + $tsg +$tkade + $tpjkp2u + $tas) * 11) / 100; ?></td>
-            <td><?php echo $tmaterai = (($tadm + $tsg +$tkade + $tpjkp2u + $tas + $ppn) < 10000000) ? 0 : 10000; ?></td>
-            <td><?php echo $total = $tadm + $tsg +$tkade + $tpjkp2u + $tas + $ppn + $tmaterai; ?></td>
+            <td><?php echo number_format($tkade = $kade * $tweight); ?></td>
+            <td><?php echo number_format($tpjkp2u = $pjkp2u * $tweight); ?></td>
+            <td><?php echo number_format($tas = $as * $h_sg); ?></td>
+            <td><?php echo number_format($ppn = (($tadm + $tsg +$tkade + $tpjkp2u + $tas) * 11) / 100); ?></td>
+            <td><?php echo number_format($tmaterai = (($tadm + $tsg +$tkade + $tpjkp2u + $tas + $ppn) < 10000000) ? 0 : 10000); ?></td>
+            <td><?php echo number_format($total = $tadm + $tsg +$tkade + $tpjkp2u + $tas + $ppn + $tmaterai); ?></td>
           </tr>
           <?php 
           $total_smu = $total_smu+$tsmu;
