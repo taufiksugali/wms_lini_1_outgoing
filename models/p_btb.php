@@ -247,6 +247,7 @@ if(isset($_POST['print_session'])){
 }
 if (isset($_POST['save_excel'])) {
   $session = $_GET['data'];
+  $airline = $_POST['airline'];
   $filename = "data".$session.".xls";
   header("Content-Type: application/vnd.ms-excel");
   header("Content-Disposition: attachment; filename= $filename");
@@ -273,7 +274,11 @@ if (isset($_POST['save_excel'])) {
     </thead>
     <tbody>
       <?php 
-      $a = $sesi->cargobyses($session);
+      if($airline == 'all'){
+        $a = $sesi->cargobyses($session);
+      }else{
+        $a = $sesi->cargobysesairline($session, $airline);
+      }
       $no = 0;
       while ($result = $a->fetch_object()) : ?>
         <?php $no++; ?>

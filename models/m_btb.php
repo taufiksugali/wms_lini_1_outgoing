@@ -81,6 +81,20 @@ class Btb{
 
 		return($query);
 	}
+	public function cargobysesairline($session, $airline)
+	{
+		$db = $this->mysqli->conn;
+		$sql ="SELECT * 
+		FROM cargo 
+		JOIN `smu_code` ON `smu_code`.`code` = `cargo`.`smu_code`
+		JOIN `airlines` ON `airlines`.`airline_id` = `smu_code`.`airline_id`
+		WHERE `cargo`.`session` ='$session'
+		AND `airlines`.`airline_name` = '$airline'
+		ORDER BY id ASC";
+		$query = $db->query($sql) or die ($db->error);
+
+		return($query);
+	}
 	public function cargo_by_airline($session, $airline) {
 		$db = $this->mysqli->conn;
 		$sql ="SELECT `cargo`.*

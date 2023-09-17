@@ -62,7 +62,7 @@ if(isset($_GET['cancel'])){
             <div class="row">
               <div class="col-sm-3 mb-2">
                 <label for="">Select Airline:</label>
-                <select class="select2 form-select form-select-sm" name="airline" id="airline" data-placeholder="Select Airline">
+                <select class="select2 form-select form-select-sm" name="airline" id="airline" data-placeholder="Select Airline" >
                   <option></option>
                   <option value="all">All Airline</option>
                   <?php 
@@ -109,6 +109,7 @@ if(isset($_GET['cancel'])){
 
           ?>
           <form action="<?php echo 'models/p_btb.php?data='.$val_session; ?>" method="post" target="_blank"> 
+            <input type="text" name="airline" value="<?= (@$_POST['airline'])? $_POST['airline'] : 'all' ; ?>" id="excel_airline" hidden>
             <button type="submit" class="btn btn-outline-primary mb-2" name="print_session"><i class="fa-solid fa-print"></i> printdata</button>
             <button type="submit" class="btn btn-outline-success mb-2" name="save_excel"><i class="fa-solid fa-file-excel"></i> save to excel</button>
           </form>
@@ -523,4 +524,10 @@ if(isset($_GET['cancel'])){
     $("#volume").val(total);
     $("#volumeX").val(total);
   })
+
+  function setExcelAirline(el)
+  {
+    let airline = el.val();
+    $("#excel_airline").val(airline);
+  }
 </script>
