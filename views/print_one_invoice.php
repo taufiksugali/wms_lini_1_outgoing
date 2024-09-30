@@ -21,11 +21,21 @@ if(isset($_POST['reprint'])){
 	echo "<script>window.close()</script>";
 }
 
-if($result->weight >= 10 || $result->weight > $result->volume){
+// if($result->weight >= 10 || $result->weight > $result->volume){
+// 	$nett = $result->weight;
+// }elseif($result->weight <10 && $result->volume >= 10){
+// 	$nett = $result->volume;
+// }elseif($result->weight <10 && $result->volume < 10){
+// 	$nett = 10;
+// }
+
+if($result->weight > 10 && $result->weight > $result->volume){
 	$nett = $result->weight;
-}elseif($result->weight <10 && $result->volume >= 10){
+}else if($result->weight > 10 && $result->weight <= $result->volume){
 	$nett = $result->volume;
-}elseif($result->weight <10 && $result->volume < 10){
+}else if($result->weight <= 10 && ($result->weight < $result->volume && $result->volume > 10)){
+	$nett = $result->volume;
+}else{
 	$nett = 10;
 }
 
@@ -92,14 +102,19 @@ function penyebut($nilai) {
 							: <?php echo $result->smu; ?>/<?php echo $result->no_do; ?>
 						</div>
 					</div>
-					<div class="kolom d-flex">
-						<div class="info me-2">
-							Tanggal BTB<br>
-							Destination
+					<div>
+						<div class="kolom d-flex">
+							<div class="info me-2">
+								Tanggal BTB<br>
+								Destination
+							</div>
+							<div >
+								: <?php echo $result->tanggal; ?> <br>
+								: <?php echo $result->tlc; ?>
+							</div>
 						</div>
-						<div >
-							: <?php echo $result->tanggal; ?> <br>
-							: <?php echo $result->tlc; ?>
+						<div class="info me-2">
+							RA : <?= @$result->ra_name ; ?>
 						</div>
 					</div>
 				</div>

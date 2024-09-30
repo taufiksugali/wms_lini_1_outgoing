@@ -110,6 +110,7 @@ function penyebut($nilai) {
 			$comodity = $result->comodity;
 			$payment_id = $result->id;
 			$kdairline = $result->airline_id;
+			$ra_name = $result->ra_name;
 
 			// if(!$pic){
 			// 	echo "<script>window.close()</script>";
@@ -150,7 +151,7 @@ function penyebut($nilai) {
 
 			// new data
 			$tsg = $net * $sg;
-			$tpjkp2u = $net===10? 10*$pjkp2u : $weight * $pjkp2u;
+			$tpjkp2u = $weight<=10? 10*$pjkp2u : $weight * $pjkp2u;
 			$tkade = $net===10? 10*$kade : $weight * $kade;
 			$tairport_surcharge = $net * $airport_surcharge;
 			$tppn = round((($tsg + $tpjkp2u + $tkade + $admin + $tairport_surcharge)*11)/100);
@@ -186,14 +187,19 @@ function penyebut($nilai) {
 								: <?php echo $awb; ?>/<?php echo $btb; ?>
 							</div>
 						</div>
-						<div class="kolom d-flex">
-							<div class="info me-2">
-								Tanggal BTB<br>
-								Destination
+						<div>
+							<div class="kolom d-flex">
+								<div class="info me-2">
+									Tanggal BTB<br>
+									Destination
+								</div>
+								<div >
+									: <?php echo $date_btb; ?> <br>
+									: <?php echo $tlc; ?>
+								</div>
 							</div>
-							<div >
-								: <?php echo $date_btb; ?> <br>
-								: <?php echo $tlc; ?>
+							<div class="info me-2">
+								RA : <?= @$ra_name ; ?>
 							</div>
 						</div>
 					</div>

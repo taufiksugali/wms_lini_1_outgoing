@@ -36,6 +36,7 @@ unset($_SESSION['result']);
 $allcode = $m_code->all_code();
 $allclass = $m_code->get_cargo_classes();
 $allagent = $data->get_all_agent();
+$allra = $data->get_all_ra();
 ?>
 
 
@@ -68,7 +69,8 @@ $allagent = $data->get_all_agent();
           <h5>Process</h5>
           <p>Type / select to search or find data</p>
           <div class="mt-3">
-            <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#modalAddAgent"> <i class="fas fa-book"></i> Add Agent</button>
+            <button type="button" class="btn btn-sm btn-warning mb-3" data-bs-toggle="modal" data-bs-target="#modalAddAgent"> <i class="fas fa-book"></i> Add Agent</button>
+            <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#modalAddRA"> <i class="fas fa-book"></i> Add Regulated Agent</button>
           </div>
         </div>
         <div class = "main-form col-sm-5 px-3 ">
@@ -168,7 +170,20 @@ $allagent = $data->get_all_agent();
                <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#modalVolume">Volume</button>
              </div>
            </div>
-           <div class="mt-5 d-flex justify-content-end">
+           <label for="pic" class="form-label mt-3">Regulated Agent<span class="text-danger">*</span></label>
+           <select class="form-control form-control-sm select2" data-placeholder="Select Regulated Agent" name='ra' id="ra" required>
+             <option></option>
+             <?php
+             if(@$allra){
+              while($c_ra = $allra->fetch_object()){
+                ?>
+                <option value="<?= $c_ra->ra_id ?>"><?= $c_ra->ra_name ; ?></option>
+                <?php
+              }
+            }
+            ?>
+          </select>
+          <div class="mt-5 d-flex justify-content-end">
             <button type="submit" class="s_print btn" id="s_print" name="s_print">Save & Print</button>
           </div>
         </div>
@@ -246,6 +261,37 @@ $allagent = $data->get_all_agent();
   </div>
 </div>
 
+
+<div class="modal fade" id="modalAddRA" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog thedialog">
+    <div class="modal-content themodal">
+      <div class="modal-header theheader">
+        <h5 class="modal-title" id="exampleModalLabel">Add new regulated agent</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-12 d-flex">
+            <div>
+
+            </div>
+          </div>
+        </div>
+        <div class="row pt-4">
+          <div class="col-4">
+            <label for="new_ra"><b>Regulated Agent Name</b></label>
+          </div>
+          <div class="col-6">
+            <input type="text" class="form-control" id="new_ra" onkeyup="capital_font($(this))">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-ungu btn" id="save_ra" onclick="add_and_save_ra($('#new_ra').val())">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
@@ -560,6 +606,30 @@ function add_and_save_agent(agent_name){
           }
           $("#new_agent").val('');
           $("#modalAddAgent").modal('hide');
+        }
+      });
+    }
+  }
+}
+
+function add_and_save_ra(ra_name){
+  if(ra_name !== ''){
+    if(confirm('Are you sure to add the regulated agent')){
+      $.ajax({
+        url: 'ajax/ra_name.php?ra_name='+ra_name,
+        type: 'post',
+        data: {},
+        success: function (data) {
+          let result = JSON.parse(data);
+          if(result['status'] == 200){
+            let new_options = new Option(result.ra_name, result.ra_id, false, false);
+            $("#ra").append(new_options).trigger("change");
+            alert("1 regulated agent added !");
+          }else{
+            alert("Add regulated agent error !");
+          }
+          $("#new_ra").val('');
+          $("#modalAddRA").modal('hide');
         }
       });
     }

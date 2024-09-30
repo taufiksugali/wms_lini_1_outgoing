@@ -44,6 +44,7 @@ if (isset($_POST['save_session_excel'])) {
         <th>SMU</th>
         <th>NJG</th>
         <th>BTB</th>
+        <th>REGULATED AGENT</th>
         <th>AGENT</th>
         <th>SHIPPER</th>
         <th>PIC</th>
@@ -79,6 +80,7 @@ if (isset($_POST['save_session_excel'])) {
           <td><?php echo $result->smu; ?></td>
           <td><?php echo $result->njg; ?></td>
           <td><?php echo $result->no_do; ?></td>
+          <td><?php echo @$result->ra_name ; ?></td>
           <td><?php echo $result->agent_name; ?></td>
           <td><?php echo $result->shipper_name; ?></td>
           <td><?php echo $result->pic; ?></td>

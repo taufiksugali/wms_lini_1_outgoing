@@ -67,6 +67,7 @@ $d_print = $data->session($_GET['data']);
 					<th>SMU</th>
 					<th>BTB</th>
 					<th>Comodity</th>
+					<th>RA</th>
 					<th>Agent</th>
 					<th>PIC</th>
 					<th>Quantity</th>
@@ -93,6 +94,7 @@ $d_print = $data->session($_GET['data']);
 						<td><?php echo $print->smu; ?></td>
 						<td><?php echo $print->no_do; ?></td>
 						<td><?php echo $print->comodity; ?></td>
+						<td><?php echo @$print->ra_name ; ?></td>
 						<td><?php echo $print->agent_name; ?></td>
 						<td><?php echo $print->pic; ?></td>
 						<td><?php echo $print->quantity; ?></td>

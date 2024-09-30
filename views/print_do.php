@@ -116,6 +116,11 @@ $destination = $data->destination($print->flight_no)->fetch_object();
 					<td><?= $print->volume ?> kg</td>
 				</tr>
 				<tr>
+					<td>R-AGENT</td>
+					<td>:</td>
+					<td><?= @$print->ra_name ?></td>
+				</tr>
+				<tr>
 					<td>OFFICER</td>
 					<td>:</td>
 					<td><?= ucwords($print->proses_by) ?></td>

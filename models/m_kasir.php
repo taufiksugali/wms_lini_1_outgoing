@@ -112,8 +112,10 @@ class Kasir{
 	public function calltarget($agent, $shipper, $smu) {
 		$db = $this->mysqli->conn;
 		$sql ="SELECT `cargo`.*,
+		`regulated_agents`.`ra_name`,
 		`smu_code`,`airline_id`
 		FROM cargo
+		LEFT JOIN `regulated_agents` ON `regulated_agents`.`ra_id` = `cargo`.`ra_id`
 		LEFT JOIN `smu_code` ON `smu_code`.`code` = `cargo`.`smu_code`
 		WHERE shipper_name='$shipper' AND agent_name='$agent' AND smu='$smu' ORDER BY id ASC";
 		$query = $db->query($sql) or die ($db->error);
@@ -182,7 +184,11 @@ class Kasir{
 	}
 	public function joindata($session) {
 		$db = $this->mysqli->conn;
-		$sql ="SELECT payment.session_kasir, payment.id, payment.smu, payment.njg, cargo.no_do, cargo.agent_name, cargo.shipper_name, payment.admin, payment.sewa_gudang, payment.kade, payment.pjkp2u, payment.airport_tax, payment.ppn, payment.materai, payment.total, cargo.pic, cargo.status, payment.proses_by, payment.stimestamp AS tanggalan, cargo.last_editor FROM payment INNER JOIN cargo ON payment.smu=cargo.smu WHERE session_kasir='$session' ORDER BY payment.njg ASC";
+		$sql ="SELECT payment.session_kasir, payment.id, payment.smu, payment.njg, cargo.no_do, cargo.agent_name, cargo.shipper_name, payment.admin, payment.sewa_gudang, payment.kade, payment.pjkp2u, payment.airport_tax, payment.ppn, payment.materai, payment.total, cargo.pic, cargo.status, payment.proses_by, payment.stimestamp AS tanggalan, cargo.last_editor, regulated_agents.ra_name
+		FROM payment 
+		INNER JOIN cargo ON payment.smu=cargo.smu 
+		LEFT JOIN regulated_agents ON regulated_agents.ra_id = cargo.ra_id
+		WHERE session_kasir='$session' ORDER BY payment.njg ASC";
 		$query = $db->query($sql) or die ($db->error);
 
 		return($query);
@@ -194,6 +200,7 @@ class Kasir{
 		INNER JOIN cargo ON payment.smu=cargo.smu 
 		JOIN `smu_code` ON `smu_code`.`code` = `cargo`.`smu_code`
 		JOIN `airlines` ON `airlines`.`airline_id` = `smu_code`.`airline_id`
+		LEFT JOIN regulated_agents ON regulated_agents.ra_id = cargo.ra_id
 		WHERE session_kasir='$session'
 		AND `airlines`.`airline_name` = '$airline'
 		ORDER BY payment.njg ASC";
@@ -203,7 +210,12 @@ class Kasir{
 	}
 	public function joindata_print($smu) {
 		$db = $this->mysqli->conn;
-		$sql ="SELECT payment.njg, cargo.agent_name, cargo.shipper_name, cargo.pic, cargo.tanggal, payment.smu, cargo.no_do, flight.tlc, cargo.quantity, cargo.weight, cargo.volume, payment.sewa_gudang, payment.admin, payment.kade, payment.pjkp2u, payment.airport_tax, payment.ppn, payment.materai, payment.total, payment.proses_by, payment.stimestamp FROM payment INNER JOIN cargo ON payment.smu=cargo.smu INNER JOIN  flight ON flight.flight_no=cargo.flight_no  WHERE payment.smu='$smu'";
+		$sql ="SELECT payment.njg, cargo.agent_name, cargo.shipper_name, cargo.pic, cargo.tanggal, payment.smu, cargo.no_do, flight.tlc, cargo.quantity, cargo.weight, cargo.volume, payment.sewa_gudang, payment.admin, payment.kade, payment.pjkp2u, payment.airport_tax, payment.ppn, payment.materai, payment.total, payment.proses_by, payment.stimestamp, regulated_agents.ra_name
+		FROM payment 
+		INNER JOIN cargo ON payment.smu=cargo.smu 
+		INNER JOIN  flight ON flight.flight_no=cargo.flight_no  
+		LEFT JOIN regulated_agents ON regulated_agents.ra_id = cargo.ra_id
+		WHERE payment.smu='$smu'";
 		$query = $db->query($sql) or die ($db->error);
 
 		return($query);

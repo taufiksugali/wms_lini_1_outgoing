@@ -6,7 +6,10 @@ class Printdo{
 	}
 	public function panggil($awb) {
 		$db = $this->mysqli->conn;
-		$sql ="SELECT `cargo`.* FROM cargo WHERE smu='$awb'";
+		$sql ="SELECT *
+		FROM cargo 
+		LEFT JOIN regulated_agents ON regulated_agents.ra_id = cargo.ra_id
+		WHERE smu='$awb'";
 		$query = $db->query($sql) or die ($db->error);
 
 		return($query);
@@ -19,7 +22,10 @@ class Printdo{
 		return($query);
 	}public function session($session) {
 		$db = $this->mysqli->conn;
-		$sql ="SELECT * FROM cargo WHERE session='$session' ORDER BY id ASC";
+		$sql ="SELECT * 
+		FROM cargo
+		LEFT JOIN regulated_agents ON regulated_agents.ra_id = cargo.ra_id
+		WHERE session='$session' ORDER BY id ASC";
 		$query = $db->query($sql) or die ($db->error);
 
 		return($query);

@@ -93,6 +93,10 @@ $data = new Btb($connection);
 									</div>
 								</div>
 								<div class="d-flex">
+									<div style="width: 10em;">Regulated Agent</div>
+									<div>: <?php echo @$result->ra_name ?></div>
+								</div>
+								<div class="d-flex">
 									<div style="width: 10em;">Agent</div>
 									<div>: <?php echo $result->agent_name ?></div>
 								</div>

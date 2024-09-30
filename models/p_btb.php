@@ -46,6 +46,7 @@ if(isset($_POST['s_print'])){
   $weight             = $_POST['weight'];
   $volume             = $_POST['volume'];
   $method             = $_POST['method'];
+  $ra_id              = $_POST['ra'];
   $nama               = $_SESSION['name'];
   $tanggal            = date('y-m-d H:i:s');
   $status             = "proced";
@@ -58,7 +59,7 @@ if(isset($_POST['s_print'])){
   }
   
 
-  $data_input = "'$head','$awb','$next_do','$noflight','$shipment_type','$comodity','$agent','$shipper','$pic','$quantity','$weight','$volume','$tanggal','$status','$user','$pharsing'";
+  $data_input = "'$head','$awb','$next_do','$noflight','$shipment_type','$comodity','$agent','$shipper','$pic','$quantity','$weight','$volume','$tanggal','$status','$user','$pharsing','$ra_id'";
   $execute = $sesi->insert($data_input);
 
 
@@ -109,7 +110,7 @@ if(isset($_POST['s_print'])){
       "act_weight": $weight,
       "volume": $volume,
       "caw_weight": $cweight,
-      "btb_duty_officer": "$user"
+      "btb_duty_officer": "$user",
     }
     DATA;
 
@@ -261,6 +262,7 @@ if (isset($_POST['save_excel'])) {
         <th>BTB</th>
         <th>FLIGHT</th>
         <th>COMODITY</th>
+        <th>REGULATED AGENT</th>
         <th>AGENT</th>
         <th>SHIPPER</th>
         <th>PIC</th>
@@ -288,6 +290,7 @@ if (isset($_POST['save_excel'])) {
           <td><?php echo $result->no_do; ?></td>
           <td><?php echo $result->flight_no; ?></td>
           <td><?php echo $result->comodity; ?></td>
+          <td><?php echo @$result->ra_name ; ?></td>
           <td><?php echo $result->agent_name; ?></td>
           <td><?php echo $result->shipper_name; ?></td>
           <td><?php echo $result->pic; ?></td>

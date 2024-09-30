@@ -181,6 +181,7 @@ if(isset($_POST['btn_void'])){
                 <th class="text-center">SESSION</th>
                 <th class="text-center">AIR WILL BILL</th>
                 <th class="text-center">BTB</th>
+                <th class="text-center">REGULATED AGENT</th>
                 <th class="text-center">AGENT</th>
                 <th class="text-center">SHIPPER</th>
                 <th class="text-center">ADMIN</th>
@@ -249,6 +250,7 @@ if(isset($_POST['btn_void'])){
                   <td><?php echo $result2->session_kasir; ?></td>
                   <td><?php echo $result2->smu; ?></td>
                   <td><?php echo $result2->no_do; ?></td>
+                  <td><?php echo @$result2->ra_name ; ?></td>
                   <td><?php echo $result2->agent_name; ?></td>
                   <td><?php echo $result2->shipper_name; ?></td>
                   <td><?php echo number_format($result2->admin); ?></td>

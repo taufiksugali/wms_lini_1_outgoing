@@ -123,6 +123,7 @@ if(isset($_GET['cancel'])){
                 <th class="text-center">BTB</th>
                 <th class="text-center">FLIGHT</th>
                 <th class="text-center">COMODITY</th>
+                <th class="text-center">RA</th>
                 <th class="text-center">AGENT</th>
                 <th class="text-center">SHIPPER</th>
                 <th class="text-center">PIC</th>
@@ -207,6 +208,7 @@ if(isset($_GET['cancel'])){
                 <td><?php echo $cargo->no_do; ?></td>
                 <td><?php echo $cargo->flight_no; ?></td>
                 <td><?php echo $cargo->comodity; ?></td>
+                <td><?php echo @$cargo->ra_name ; ?></td>
                 <td><?php echo $cargo->agent_name; ?></td>
                 <td><?php echo $cargo->shipper_name; ?></td>
                 <td><?php echo $cargo->pic; ?></td>

@@ -76,7 +76,7 @@
           <td><?php echo $adm; ?></td>
           <td><?php echo $tsg = $tnet * $sg; ?></td>
           <td><?php echo $tkade = $tnet===10? $kade*10 : $kade*$tweight; ?></td>
-          <td><?php echo $tpjkp2u = $tnet===10? $pjkp2u*10 : $pjkp2u*$tweight; ?></td>
+          <td><?php echo $tpjkp2u = $tweight<=10? $pjkp2u*10 : $pjkp2u*$tweight; ?></td>
           <td><?php echo $tas = $as * $tnet; ?></td>
           <td><?php echo $ppn = (($adm + $tsg +$tkade + $tpjkp2u + $tas) * 11) / 100; ?></td>
           <td><?php echo $tmaterai = (($adm + $tsg +$tkade + $tpjkp2u + $tas + $ppn) < 10000000) ? 0 : 10000; ?></td>
