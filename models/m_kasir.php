@@ -13,7 +13,7 @@ class Kasir{
 	}
 	public function insert($values) {
 		$db = $this->mysqli->conn;
-		$sql ="INSERT INTO payment (njg, btb, smu, tanggal, admin, sewa_gudang, kade, pjkp2u, airport_tax, ppn, materai, total, proses_by, session_kasir) VALUES $values";
+		$sql ="INSERT INTO payment (njg, btb, smu, tanggal, admin, sewa_gudang, kade, pjkp2u, airport_tax, ppn, materai, total, proses_by, session_kasir, pricelist_id) VALUES $values";
 		$db->query($sql) or die ($db->error);
 	}
 	public function create($pharsing) {
@@ -210,11 +210,12 @@ class Kasir{
 	}
 	public function joindata_print($smu) {
 		$db = $this->mysqli->conn;
-		$sql ="SELECT payment.njg, cargo.agent_name, cargo.shipper_name, cargo.pic, cargo.tanggal, payment.smu, cargo.no_do, flight.tlc, cargo.quantity, cargo.weight, cargo.volume, payment.sewa_gudang, payment.admin, payment.kade, payment.pjkp2u, payment.airport_tax, payment.ppn, payment.materai, payment.total, payment.proses_by, payment.stimestamp, regulated_agents.ra_name
+		$sql ="SELECT payment.njg, cargo.agent_name, cargo.shipper_name, cargo.pic, cargo.tanggal, payment.smu, cargo.no_do, flight.tlc, cargo.quantity, cargo.weight, cargo.volume, payment.sewa_gudang, payment.admin, payment.kade, payment.pjkp2u, payment.airport_tax, payment.ppn, payment.materai, payment.total, payment.proses_by, payment.stimestamp, regulated_agents.ra_name, pricelist.admin as p_admin, pricelist.sg as p_sg, pricelist.kade as p_kade, pricelist.pjkp2u as p_pjkp2u, pricelist.materai as p_materai, pricelist.airport_surcharge as p_airport_surcharge
 		FROM payment 
 		INNER JOIN cargo ON payment.smu=cargo.smu 
 		INNER JOIN  flight ON flight.flight_no=cargo.flight_no  
 		LEFT JOIN regulated_agents ON regulated_agents.ra_id = cargo.ra_id
+		JOIN pricelist on pricelist.pricelist_id = payment.pricelist_id
 		WHERE payment.smu='$smu'";
 		$query = $db->query($sql) or die ($db->error);
 

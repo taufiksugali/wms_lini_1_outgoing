@@ -20,7 +20,7 @@ $kade = $pricelist->kade;
 $pjkp2u = $pricelist->pjkp2u;
 $materai = $pricelist->materai;
 $airport_surcharge = $pricelist->airport_surcharge;
-
+$pricelist_id = $pricelist->pricelist_id;
 if(isset($_POST['print_invoice'])){
 	$agent = $_POST['d_agent'];
 	$shipper = $_POST['d_shipper'];
@@ -162,7 +162,7 @@ function penyebut($nilai) {
 			$date = date("Y-m-d");
 			$name = $_SESSION['name'];
 
-			$values.="('$new_njg','$btb','$awb','$date','$admin','$tsg','$tkade','$tpjkp2u','$tairport_surcharge','$tppn','$tmaterai','$total','$name','$s_kasir'),"
+			$values.="('$new_njg','$btb','$awb','$date','$admin','$tsg','$tkade','$tpjkp2u','$tairport_surcharge','$tppn','$tmaterai','$total','$name','$s_kasir', '$pricelist_id'),"
 			?>
 			<div class="content ">
 				<div class="judul text-center position-relative pt-3">

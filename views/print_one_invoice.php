@@ -5,13 +5,6 @@ require_once('../models/database.php');
 include('../models/m_kasir.php');
 $connection = new Database($host, $user, $pass, $database);
 $data = new Kasir($connection);
-$pricelist= $data->calprice()->fetch_object();
-$admin = $pricelist->admin;
-$sg = $pricelist->sg;
-$kade = $pricelist->kade;
-$pjkp2u = $pricelist->pjkp2u;
-$materai = $pricelist->materai;
-$airport_surcharge = $pricelist->airport_surcharge;
 
 if(isset($_POST['reprint'])){
 	$all = $data->joindata_print($_GET['data']);
@@ -20,6 +13,15 @@ if(isset($_POST['reprint'])){
 }else{
 	echo "<script>window.close()</script>";
 }
+
+// $pricelist= $data->calprice()->fetch_object();
+// $pricelist= $data->getPriceById($result)->fetch_object();
+$admin = $result->p_admin;
+$sg = $result->p_sg;
+$kade = $result->p_kade;
+$pjkp2u = $result->p_pjkp2u;
+$materai = $result->p_materai;
+$airport_surcharge = $result->p_airport_surcharge;
 
 // if($result->weight >= 10 || $result->weight > $result->volume){
 // 	$nett = $result->weight;
