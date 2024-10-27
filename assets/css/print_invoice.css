@@ -1,9 +1,19 @@
+@media print {
+    .content {
+        page-break-before: always; /* Mulai halaman baru sebelum elemen ini */
+    }
+
+    /* Atau, jika Anda ingin page break setelah elemen */
+    .content + .content {
+        page-break-before: always;
+    }
+}
 .contener{
 	width: 21.6cm;
 }
 .content{
 	width: 21.6cm;
-	height: 13.9cm;
+	height: 21cm;
 }
 .judul{
 	line-height: 0.4rem;
