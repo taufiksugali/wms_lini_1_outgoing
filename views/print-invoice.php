@@ -344,7 +344,7 @@ function penyebut($nilai)
 							</tr>
 							<tr>
 								<td class="p-0 ps-4" width="40%">
-									Pajak 11%
+									PPN (11%)
 								</td>
 								<td class="p-0" width="30%">
 								</td>
@@ -408,8 +408,8 @@ function penyebut($nilai)
 							PT Pos Logistik Indonesia <br>
 							Jl. Lapangan Banteng Utara No. 1 , Pasar Baru, Sawah Besar, Jakarta Pusat 10710 <br>
 							NPWP: <strong>0314651654075000</strong> <br>
-							Dokumen dimerupakan dokumen dipersamakan dengan Faktur Pajak<br>
-							sesuai dengan PER 16/PJ/2021
+							Dokumen ini merupakan dokumen dipersamakan dengan Faktur Pajak<br>
+							sesuai dengan Peraturan Direktur Jendral Pajak Nomor 16/PJ/2021
 						</div>
 						<div class="me-4">
 							<img src="../assets/phpqrcode-master/qrgenerator.php?data=<?= $new_njg . '|' . $_SESSION['id'] . '|' . $_SESSION['name'] ?>" alt="QR Code 1" width="120px">

@@ -236,12 +236,13 @@ if ($agent->agent_npwp != null) {
         </div>
         <div class="form-group">
           <label>NPWP</label>
-          <input type="text" class="form-control form-control-sm" id="agent_npwp" name="agent_npwp" pattern="^[0-9.,-]*$" title="Hanya boleh memasukkan angka, titik, koma, atau tanda minus">
+          <input type="text" class="form-control form-control-sm is-invalid" id="agent_npwp" name="agent_npwp">
+          <div class="invalid-feedback">The NPWP number must contain between 15 and 16 digits.</div>
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" name="print_invoice" id="printInvoice" onclick="saveNpwp()">Save</button>
+        <button type="button" class="btn btn-primary" name="print_invoice" disabled id="save_npwp_btn" onclick="saveNpwp()">Save & Print</button>
       </div>
     </div>
   </div>
@@ -326,6 +327,14 @@ if ($agent->agent_npwp != null) {
 <script>
   $('#agent_npwp').on('input', function() {
     this.value = this.value.replace(/[^0-9.,-]/g, '');
+
+    var numOnly = this.value.replace(/[^0-9]/g, '').length;
+    console.log(numOnly);
+    if (numOnly == 15 || numOnly == 16) {
+      $("#save_npwp_btn").prop('disabled', false);
+    } else {
+      $("#save_npwp_btn").prop('disabled', true);
+    }
   });
   const createInvoice = () => {
     if (agentNpwp) {
