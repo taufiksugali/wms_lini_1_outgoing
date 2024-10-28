@@ -202,7 +202,7 @@ if ($agent->agent_npwp != null) {
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" name="print_invoice" id="printInvoice" onclick="createInvoice()">Print</button>
-        <button type="submit" id="post_button" name="print_invoice">post</button>
+        <button type="submit" id="post_button" name="print_invoice" hidden>post</button>
       </div>
       </form>
     </div>
