@@ -327,14 +327,16 @@ function penyebut($nilai)
 						PT Pos Logistik Indonesia <br>
 						Jl. Lapangan Banteng Utara No. 1 , Pasar Baru, Sawah Besar, Jakarta Pusat 10710 <br>
 						NPWP: <strong>0314651654075000</strong> <br>
-						Dokumen ini merupakan dokumen dipersamakan dengan Faktur Pajak<br>
-						sesuai dengan Peraturan Direktur Jendral Pajak Nomor 16/PJ/2021
+						<div class="border border-dark ps-2">
+							Dokumen ini merupakan dokumen dipersamakan dengan Faktur Pajak<br>
+							sesuai dengan Peraturan Direktur Jendral Pajak Nomor 16/PJ/2021
+						</div>
 					</div>
 					<div class="me-4">
 						<img src="../assets/phpqrcode-master/qrgenerator.php?data=<?= $result->njg . '|' . $kasir->id . '|' . $kasir->username ?>" alt="QR Code 1" width="120px">
 					</div>
 				</div>
-				<div class="d-flex justify-content-center">
+				<div class="d-flex justify-content-center mt-3">
 					Reprint by: <?php echo ucwords($_SESSION['name']); ?> on <?php echo date("d-m-Y"); ?>
 				</div>
 			</div>
