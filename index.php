@@ -1,7 +1,7 @@
 <?php
 session_start();
-$_SESSION['print']= "off";
-if(!isset($_SESSION['name'])){
+$_SESSION['print'] = "off";
+if (!isset($_SESSION['name'])) {
   header('location: views/login.php');
   exit();
 }
@@ -18,6 +18,7 @@ $data_user = $get->fetch_object();
 
 <!doctype html>
 <html lang="en">
+
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -43,31 +44,33 @@ $data_user = $get->fetch_object();
 
   <!-- Option 1: Bootstrap Bundle with Popper -->
   <script src="assets/bootstrap/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-  
+
   <!-- timepicker js -->
   <script src="assets/datetimepicker-master/build/jquery.datetimepicker.full.js"></script>
+  <script src="assets/sweetalert/sweetalert2.js"></script>
 
 
   <title>Lini1 Outgoing</title>
 </head>
+
 <body>
   <div class="kontener">
     <div class="loading position-fixed" id="loading">
-      <div class = "d-flex justify-content-center align-items-center" style=" height: 100%; width: 100%;">
+      <div class="d-flex justify-content-center align-items-center" style=" height: 100%; width: 100%;">
         <img src="assets/image/ajax-loader.gif" alt="">
-        
+
       </div>
-      
+
     </div>
     <div class="header position-relative">
-      <div class = "title position-absolute top-0 py-2 px-4 d-flex justify-content-between">
+      <div class="title position-absolute top-0 py-2 px-4 d-flex justify-content-between">
         <img src="assets/image/poslog.png" alt="">
         <div class="useractive position-relative">
-          <div class = "position-absolute end-0">
+          <div class="position-absolute end-0">
             <ul>
               <li class="nav-item dropdown" style="list-style: none;">
                 <a class="nav-link dropdown-toggle pt-4 pe-0" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa-solid fa-user-large"></i> 
+                  <i class="fa-solid fa-user-large"></i>
                   <?php echo ucwords($_SESSION['name']); ?>
                 </a>
                 <ul class="dropdown-menu text-center p-0" aria-labelledby="navbarDropdown">
@@ -81,78 +84,65 @@ $data_user = $get->fetch_object();
       </div>
     </div>
     <!-- menu here -->
-    <?php 
-    if($data_user->hak_akses == "acceptance" || $data_user->hak_akses == "pic"){
+    <?php
+    if ($data_user->hak_akses == "acceptance" || $data_user->hak_akses == "pic") {
       include('views/partials/menu_acceptance.php');
-    }elseif($data_user->hak_akses == "kasir" || $data_user->hak_akses == "supervisor"){
+    } elseif ($data_user->hak_akses == "kasir" || $data_user->hak_akses == "supervisor") {
       include('views/partials/menu_kasir.php');
     }
     ?>
     <!-- batas menu -->
 
-    <?php 
+    <?php
 
-    if(@$_GET['page'] == 'home' || @$_GET['page'] == ''){
+    if (@$_GET['page'] == 'home' || @$_GET['page'] == '') {
       include "views/home.php";
-    } elseif(@$_GET['page'] == 'btb'){
+    } elseif (@$_GET['page'] == 'btb') {
       include "views/btb.php";
-    }
-    elseif(@$_GET['page'] == 'sessionbtb'){
+    } elseif (@$_GET['page'] == 'sessionbtb') {
       include "views/session_btb.php";
-    }
-    elseif(@$_GET['page'] == 'addflight'){
+    } elseif (@$_GET['page'] == 'addflight') {
       include "views/add_flight_number.php";
-    }
-    elseif(@$_GET['page'] == 'session-report'){
+    } elseif (@$_GET['page'] == 'session-report') {
       include "views/session_report.php";
-    }
-    elseif(@$_GET['page'] == 'session-kasir'){
+    } elseif (@$_GET['page'] == 'session-kasir') {
       include "views/session_kasir.php";
-    }
-    elseif(@$_GET['page'] == 'payment'){
+    } elseif (@$_GET['page'] == 'payment') {
       include "views/payment.php";
-    }
-    elseif(@$_GET['page'] == 'finance-report'){
+    } elseif (@$_GET['page'] == 'finance-report') {
       include "views/session_report_kasir.php";
-    }
-    elseif(@$_GET['page'] == 'create_manifest'){
+    } elseif (@$_GET['page'] == 'create_manifest') {
       include "views/dls_view.php";
-    }
-    elseif(@$_GET['page'] == 'view_manifest'){
+    } elseif (@$_GET['page'] == 'view_manifest') {
       include "views/view_manifest.php";
-    }
-    elseif(@$_GET['page'] == 'report_all_tonnage'){
+    } elseif (@$_GET['page'] == 'report_all_tonnage') {
       include "views/report_all_bydate.php";
-    }
-    elseif(@$_GET['page'] == 'cargo_details'){
+    } elseif (@$_GET['page'] == 'cargo_details') {
       include "views/details.php";
-    }
-    elseif(@$_GET['page'] == 'calendar_tonnage'){
+    } elseif (@$_GET['page'] == 'calendar_tonnage') {
       include "views/calendar_tonnage.php";
-    }
-    elseif(@$_GET['page'] == 'finance_manifest'){
+    } elseif (@$_GET['page'] == 'finance_manifest') {
       include "views/finance_manifest.php";
-    }
-    elseif(@$_GET['page'] == 'dls'){
+    } elseif (@$_GET['page'] == 'dls') {
       include "views/dls_view.php";
-    }elseif(@$_GET['page'] == 'add_airline'){
+    } elseif (@$_GET['page'] == 'add_airline') {
       include "views/add_airline.php";
-    }elseif(@$_GET['page'] == 'add_smu_code'){
+    } elseif (@$_GET['page'] == 'add_smu_code') {
       include "views/smu_code.php";
-    }elseif(@$_GET['page'] == 'update_time'){
+    } elseif (@$_GET['page'] == 'update_time') {
       include "views/update_time.php";
     }
     ?>
 
-    <div class ="position-absolute bottom-0 start-0 footer px-4 d-flex justify-content-end">
+    <div class="position-absolute bottom-0 start-0 footer px-4 d-flex justify-content-end">
       <p class="mb-0 me-2"><b>poweredby</b></p>
       <img src="assets/image/lini1.png" alt="" style="height:40px;">
     </div>
   </div>
 
-  
-  
-  
+
+
+
 
 
 
@@ -170,30 +160,30 @@ $data_user = $get->fetch_object();
 
   <!-- js menu handle-->
   <script>
-    $(document).ready(function(){
+    $(document).ready(function() {
       $(window).resize(function() {
-        if($(window).width() < 650){
+        if ($(window).width() < 650) {
           $(".kontener2").removeClass('px-5');
           $(".kontener2").addClass('px-1');
-        }else{
+        } else {
           $(".kontener2").addClass('px-5');
           $(".kontener2").removeClass('px-1');
         }
       });
-      if($(window).width() < 650){
+      if ($(window).width() < 650) {
         $(".kontener2").removeClass('px-5');
         $(".kontener2").addClass('px-1');
-      }else{
+      } else {
         $(".kontener2").addClass('px-5');
         $(".kontener2").removeClass('px-1');
       }
-      
-      $(".menu1, .menu2, .menu3").hover(function(){
+
+      $(".menu1, .menu2, .menu3").hover(function() {
         $(this).css("background-color", "rgba(252, 252, 252, 0.3)");
         $(this).children(".span").css("width", "100%");
         $(this).children("a").css("text-shadow", "0 0 20px white");
         $(this).children("ul").css("text-shadow", "inset 0 0 20px white")
-      }, function(){
+      }, function() {
         $(this).css("background-color", "transparent");
         $(this).children(".span").css("width", "0%");
         $(this).children("a").css("text-shadow", "none");
@@ -204,31 +194,30 @@ $data_user = $get->fetch_object();
 
   <!-- js hide alert -->
   <script>
-    $(document).ready(function(){
-      setTimeout(function(){
-        $(".alert-active").css("display","none");
+    $(document).ready(function() {
+      setTimeout(function() {
+        $(".alert-active").css("display", "none");
       }, 3500);
     });
   </script>
   <!-- calldatatablefunction -->
   <script>
-    $(document).ready(function(){
+    $(document).ready(function() {
       $('#tableFlight').DataTable();
       $('#tSessionReport').DataTable();
       $('#tPayment').DataTable();
       $('#allReportOutgoing').DataTable();
       $('#allReportOutgoingVoid').DataTable();
     });
-
   </script>
 
   <!-- submenu handle -->
   <script>
-    $(function(){
-      $(".dropdown-menu > li > a.trigger").on("click",function(e){
-        var current=$(this).next();
-        var grandparent=$(this).parent().parent();
-        if($(this).hasClass('left-caret')||$(this).hasClass('right-caret')){
+    $(function() {
+      $(".dropdown-menu > li > a.trigger").on("click", function(e) {
+        var current = $(this).next();
+        var grandparent = $(this).parent().parent();
+        if ($(this).hasClass('left-caret') || $(this).hasClass('right-caret')) {
           $(this).toggleClass('right-caret left-caret');
           grandparent.find('.left-caret').not(this).toggleClass('right-caret left-caret');
           grandparent.find(".sub-menu:visible").not(current).hide();
@@ -236,55 +225,56 @@ $data_user = $get->fetch_object();
           e.stopPropagation();
         }
       });
-      $(".dropdown-menu > li > a:not(.trigger)").on("click",function(){
-        var root=$(this).closest('.dropdown');
+      $(".dropdown-menu > li > a:not(.trigger)").on("click", function() {
+        var root = $(this).closest('.dropdown');
         root.find('.left-caret').toggleClass('right-caret left-caret');
         root.find('.sub-menu:visible').hide();
       });
     });
   </script>
 
-  
+
 
   <script>
-    $(document).ready(function(){
-      $("#loading").css("display","none");
+    $(document).ready(function() {
+      $("#loading").css("display", "none");
 
     })
   </script>
 
   <?php
-  if(@$_GET['page'] == 'finance-report'){
+  if (@$_GET['page'] == 'finance-report') {
     if (isset($_POST['search']) || isset($_GET['session'])) {
-      if(isset($_POST['search'])){
-      }elseif(isset($_GET['session'])){ ?>
+      if (isset($_POST['search'])) {
+      } elseif (isset($_GET['session'])) { ?>
         <script>
-          $(document).ready(function(){
+          $(document).ready(function() {
             var smu = '<?php echo $_GET["smu"] ?>';
             $("#tSessionReport_filter label input").val(smu);
-            console.log(smu);         
+            console.log(smu);
 
           })
         </script>
       <?php }
     }
   }
-  if(@$_GET['page'] == 'session-report'){
+  if (@$_GET['page'] == 'session-report') {
     if (isset($_POST['search']) || isset($_GET['session'])) {
-      if(isset($_POST['search'])){
-      }elseif(isset($_GET['session'])){ ?>
+      if (isset($_POST['search'])) {
+      } elseif (isset($_GET['session'])) { ?>
         <script>
-          $(document).ready(function(){
+          $(document).ready(function() {
             var smu = '<?php echo $_GET["smu"] ?>';
             $("#tSessionReport_filter label input").val(smu);
-            console.log(smu);         
+            console.log(smu);
 
           })
         </script>
-      <?php }
+  <?php }
     }
   }
   ?>
 
 </body>
+
 </html>

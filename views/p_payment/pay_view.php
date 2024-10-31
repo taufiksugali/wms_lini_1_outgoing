@@ -217,7 +217,7 @@ if ($agent->agent_npwp != null) {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body bg-white" style="height: 23em !important">
-        <div class="alert alert-primary " role="alert">
+        <!-- <div class="alert alert-primary " role="alert">
           <div class="d-flex align-items-center">
             <i class="fas fa-info-circle me-2 fs-1"></i>
             <div>
@@ -228,7 +228,7 @@ if ($agent->agent_npwp != null) {
           <div class="d-flex justify-content-end">
             <button class="btn btn-success" onclick="printAnyway()">Print Anyway</button>
           </div>
-        </div>
+        </div> -->
 
         <div class="form-group">
           <label>Agent</label>
@@ -243,6 +243,28 @@ if ($agent->agent_npwp != null) {
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" name="print_invoice" disabled id="save_npwp_btn" onclick="saveNpwp()">Save & Print</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="customNpwpModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content themodal">
+      <div class="modal-header theheader">
+        <h5 class="modal-title" id="exampleModalLabel">Personal NPWP</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body bg-white" style="height: 23em !important">
+        <div class="form-group">
+          <label>NPWP</label>
+          <input type="text" class="form-control form-control-sm is-invalid npwp-input" name="custom_npwp" id="custom_npwp">
+          <div class="invalid-feedback">The NPWP number must contain between 15 and 16 digits.</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" name="print_invoice" disabled id="save_npwp_custom_btn" onclick="saveCustomNpwp()">Save & Print</button>
       </div>
     </div>
   </div>
@@ -336,14 +358,46 @@ if ($agent->agent_npwp != null) {
       $("#save_npwp_btn").prop('disabled', true);
     }
   });
-  const createInvoice = () => {
-    if (agentNpwp) {
-      $("#input_npwp").val(agentNpwp);
-      $("#post_button").trigger('click');
+
+  $('.npwp-input').on('input', function() {
+    this.value = this.value.replace(/[^0-9.,-]/g, '');
+
+    var numOnly = this.value.replace(/[^0-9]/g, '').length;
+    console.log(numOnly);
+    if (numOnly == 15 || numOnly == 16) {
+      $("#save_npwp_custom_btn").prop('disabled', false);
     } else {
-      $("#agent_name").val(agentName)
-      $("#modalNpwp").modal('show');
+      $("#save_npwp_custom_btn").prop('disabled', true);
     }
+  });
+
+  const createInvoice = () => {
+    Swal.fire({
+      title: 'Select NPWP Type',
+      text: 'Please select NPWP type below, select personal if the the customer is individual or the regular agent need to use another NPWP number.',
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Agent',
+      cancelButtonText: 'Cancel',
+      denyButtonColor: '#fbff17',
+      denyButtonText: 'Personal',
+      showDenyButton: true,
+    }).then(result => {
+      if (result.isConfirmed) {
+        if (agentNpwp) {
+          $("#input_npwp").val(agentNpwp);
+          $("#post_button").trigger('click');
+          window.location.href = '?page=payment'
+        } else {
+          $("#agent_name").val(agentName)
+          $("#modalNpwp").modal('show');
+        }
+      } else if (result.isDenied) {
+        $("#customNpwpModal").modal('show');
+      }
+    })
   }
 
   const saveNpwp = (el) => {
@@ -362,6 +416,7 @@ if ($agent->agent_npwp != null) {
           $("#modalNpwp").modal('hide');
           $("#input_npwp").val(result.npwp);
           $("#post_button").trigger('click');
+          window.location.href = '?page=payment'
         }
       })
     } else {
@@ -371,5 +426,13 @@ if ($agent->agent_npwp != null) {
 
   const printAnyway = () => {
     $("#post_button").trigger('click');
+  }
+
+  const saveCustomNpwp = (el) => {
+    let npwp = $("#custom_npwp").val();
+    $("#customNpwpModal").modal('hide');
+    $("#input_npwp").val(npwp);
+    $("#post_button").trigger('click');
+    window.location.href = '?page=payment'
   }
 </script>
