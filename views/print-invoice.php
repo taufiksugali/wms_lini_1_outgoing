@@ -422,100 +422,100 @@ function penyebut($nilai)
 				</div>
 			</div>
 		<?php
-			// $data->updatestat($awb);
-			// $url = "https://apisigo.angkasapura2.co.id/api/invo_dtl_v2";
+			$data->updatestat($awb);
+			$url = "https://apisigo.angkasapura2.co.id/api/invo_dtl_v2";
 
-			// $fields = array(
-			// 	'USR' => 'user.api.poslog',
-			// 	'PSW' => 'user.api.poslog',
-			// 	'NO_INVOICE' => $new_njg,
-			// 	'TANGGAL' => date('Y-m-d H:i:s'),
-			// 	'SMU' => $awb,
-			// 	'KDAIRLINE' => $kdairline,
-			// 	'FLIGHT_NUMBER' =>  $send_flight,
-			// 	'DOM_INT' => 'D',
-			// 	'INC_OUT' => 'O',
-			// 	'ASAL' => 'CGK',
-			// 	'TUJUAN' => $des_tlc,
-			// 	'JENIS_KARGO' => $comodity,
-			// 	'TARIF_KARGO' => '1',
-			// 	'KOLI' => $quantity,
-			// 	'BERAT' => $weight,
-			// 	'VOLUME' => $volume,
-			// 	'JML_HARI' => 1,
-			// 	'CARGO_CHG' => $tsg,
-			// 	'KADE' => $tkade,
-			// 	'TOTAL_PENDAPATAN_TANPA_PPN' => $total - $tppn,
-			// 	'TOTAL_PENDAPATAN_DENGAN_PPN' => $total,
-			// 	'PJT_HANDLING_FEE' => '0',
-			// 	'RUSH_HANDLING_FEE' => '0',
-			// 	'RUSH_SERVICE_FEE' => '0',
-			// 	'TRANSHIPMENT_FEE' => '0',
-			// 	'ADMINISTRATION_FEE' => $admin,
-			// 	'DOCUMENTS_FEE' => '0',
-			// 	'PECAH_PU_FEE' => '0',
-			// 	'COOL_COLD_STORAGE_FEE' => '0',
-			// 	'STRONG_ROOM_FEE' => '0',
-			// 	'AC_ROOM_FEE' => '0',
-			// 	'DG_ROOM_FEE' => '0',
-			// 	'AVI_ROOM_FEE' => '0',
-			// 	'DANGEROUS_GOOD_CHECK_FEE' => '0',
-			// 	'DISCOUNT_FEE' => '0',
-			// 	'RKSP_FEE' => '0',
-			// 	'HAWB' => '0',
-			// 	'HAWB_FEE' => '0',
-			// 	'HAWB_MAWB_FEE' => '0',
-			// 	'CSC_FEE' => $tpjkp2u,
-			// 	'ENVIROTAINER_ELEC_FEE' => '0',
-			// 	'ADDITIONAL_COSTS' => $tairport_surcharge,
-			// 	'NAWB_FEE' => '0',
-			// 	'BARCODE_FEE' => '0',
-			// 	'CARGO_DEVELOPMENT_FEE' => '0',
-			// 	'DUTIABLE_SHIPMENT_FEE' => '0',
-			// 	'FHL_FEE' => '0',
-			// 	'FWB_FEE' => '0',
-			// 	'CARGO_INSPECTION_REPORT_FEE' => '0',
-			// 	'MATERAI_FEE' => $tmaterai,
-			// 	'PPN_FEE' => $tppn
-			// );
+			$fields = array(
+				'USR' => 'user.api.poslog',
+				'PSW' => 'user.api.poslog',
+				'NO_INVOICE' => $new_njg,
+				'TANGGAL' => date('Y-m-d H:i:s'),
+				'SMU' => $awb,
+				'KDAIRLINE' => $kdairline,
+				'FLIGHT_NUMBER' =>  $send_flight,
+				'DOM_INT' => 'D',
+				'INC_OUT' => 'O',
+				'ASAL' => 'CGK',
+				'TUJUAN' => $des_tlc,
+				'JENIS_KARGO' => $comodity,
+				'TARIF_KARGO' => '1',
+				'KOLI' => $quantity,
+				'BERAT' => $weight,
+				'VOLUME' => $volume,
+				'JML_HARI' => 1,
+				'CARGO_CHG' => $tsg,
+				'KADE' => $tkade,
+				'TOTAL_PENDAPATAN_TANPA_PPN' => $total - $tppn,
+				'TOTAL_PENDAPATAN_DENGAN_PPN' => $total,
+				'PJT_HANDLING_FEE' => '0',
+				'RUSH_HANDLING_FEE' => '0',
+				'RUSH_SERVICE_FEE' => '0',
+				'TRANSHIPMENT_FEE' => '0',
+				'ADMINISTRATION_FEE' => $admin,
+				'DOCUMENTS_FEE' => '0',
+				'PECAH_PU_FEE' => '0',
+				'COOL_COLD_STORAGE_FEE' => '0',
+				'STRONG_ROOM_FEE' => '0',
+				'AC_ROOM_FEE' => '0',
+				'DG_ROOM_FEE' => '0',
+				'AVI_ROOM_FEE' => '0',
+				'DANGEROUS_GOOD_CHECK_FEE' => '0',
+				'DISCOUNT_FEE' => '0',
+				'RKSP_FEE' => '0',
+				'HAWB' => '0',
+				'HAWB_FEE' => '0',
+				'HAWB_MAWB_FEE' => '0',
+				'CSC_FEE' => $tpjkp2u,
+				'ENVIROTAINER_ELEC_FEE' => '0',
+				'ADDITIONAL_COSTS' => $tairport_surcharge,
+				'NAWB_FEE' => '0',
+				'BARCODE_FEE' => '0',
+				'CARGO_DEVELOPMENT_FEE' => '0',
+				'DUTIABLE_SHIPMENT_FEE' => '0',
+				'FHL_FEE' => '0',
+				'FWB_FEE' => '0',
+				'CARGO_INSPECTION_REPORT_FEE' => '0',
+				'MATERAI_FEE' => $tmaterai,
+				'PPN_FEE' => $tppn
+			);
 
-			// $curl = curl_init();
+			$curl = curl_init();
 
-			// curl_setopt_array($curl, array(
-			// 	CURLOPT_URL => $url,
-			// 	CURLOPT_RETURNTRANSFER => true,
-			// 	CURLOPT_ENCODING => '',
-			// 	CURLOPT_MAXREDIRS => 10,
-			// 	CURLOPT_TIMEOUT => 3,
-			// 	CURLOPT_FOLLOWLOCATION => true,
-			// 	CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-			// 	CURLOPT_CUSTOMREQUEST => 'POST',
-			// 	CURLOPT_POSTFIELDS => $fields,
-			// 	CURLOPT_HTTPHEADER => array(
-			// 		'Cookie: dtCookie=CD78B9A24184B932B72CB79ED316B71D|X2RlZmF1bHR8MQ'
-			// 	),
-			// ));
+			curl_setopt_array($curl, array(
+				CURLOPT_URL => $url,
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_ENCODING => '',
+				CURLOPT_MAXREDIRS => 10,
+				CURLOPT_TIMEOUT => 3,
+				CURLOPT_FOLLOWLOCATION => true,
+				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+				CURLOPT_CUSTOMREQUEST => 'POST',
+				CURLOPT_POSTFIELDS => $fields,
+				CURLOPT_HTTPHEADER => array(
+					'Cookie: dtCookie=CD78B9A24184B932B72CB79ED316B71D|X2RlZmF1bHR8MQ'
+				),
+			));
 
-			// $response = curl_exec($curl);
+			$response = curl_exec($curl);
 
-			// curl_close($curl);
-			// $response = json_decode($response, true);
+			curl_close($curl);
+			$response = json_decode($response, true);
 
-			// if (!$response) {
-			// 	$status = 'no connection';
-			// } else {
-			// 	if ($response['status'] == '200') {
-			// 		$status = 'berhasil';
-			// 	} elseif ($response['status'] == '500') {
-			// 		$status = 'internal server eror';
-			// 	} else {
-			// 		$status = 'Error Unknown';
-			// 	}
-			// }
-			// $fields['PUSH_STATUS'] = $status;
-			// $fields['CREATE_BY'] = $_SESSION['name'];
-			// $fields['PAYMENT_ID'] = intval($data->last_id()->id) + $i + 1;
-			// $data_ap->insert_data($fields);
+			if (!$response) {
+				$status = 'no connection';
+			} else {
+				if ($response['status'] == '200') {
+					$status = 'berhasil';
+				} elseif ($response['status'] == '500') {
+					$status = 'internal server eror';
+				} else {
+					$status = 'Error Unknown';
+				}
+			}
+			$fields['PUSH_STATUS'] = $status;
+			$fields['CREATE_BY'] = $_SESSION['name'];
+			$fields['PAYMENT_ID'] = intval($data->last_id()->id) + $i + 1;
+			$data_ap->insert_data($fields);
 		}
 		$values = substr($values, 0, -1);
 		$insert = $data->insert($values);
