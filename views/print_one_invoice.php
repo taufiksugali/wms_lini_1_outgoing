@@ -225,7 +225,7 @@ function penyebut($nilai)
 								Kade
 							</td>
 							<td class="p-0" width="30%">
-								<?php echo $result->weight; ?> X 1 X <?php echo $kade; ?>
+								<?php echo $nett; ?> X 1 X <?php echo $kade; ?>
 							</td>
 							<td class="p-0 pe-4" width="30%">
 								<div class="d-flex justify-content-between">
@@ -328,8 +328,8 @@ function penyebut($nilai)
 						Jl. Lapangan Banteng Utara No. 1 , Pasar Baru, Sawah Besar, Jakarta Pusat 10710 <br>
 						NPWP: <strong>0314651654075000</strong> <br>
 						<div class="border border-dark ps-2">
-							Dokumen ini merupakan dokumen dipersamakan dengan Faktur Pajak<br>
-							sesuai dengan Peraturan Direktur Jendral Pajak Nomor 16/PJ/2021
+							Dokumen ini merupakan dokumen yang dipersamakan dengan Faktur Pajak<br>
+							sesuai dengan Peraturan Direktur Jenderal Pajak Nomor 16/PJ/2021
 						</div>
 					</div>
 					<div class="me-4">

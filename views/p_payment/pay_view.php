@@ -95,7 +95,7 @@ if ($agent->agent_npwp != null) {
           </td>
           <td><?php echo $adm; ?></td>
           <td><?php echo $tsg = $tnet * $sg; ?></td>
-          <td><?php echo $tkade = $tnet === 10 ? $kade * 10 : $kade * $tweight; ?></td>
+          <td><?php echo $tkade = $kade * $tnet; ?></td>
           <td><?php echo $tpjkp2u = $tweight <= 10 ? $pjkp2u * 10 : $pjkp2u * $tweight; ?></td>
           <td><?php echo $tas = $as * $tnet; ?></td>
           <td><?php echo $ppn = (($adm + $tsg + $tkade + $tpjkp2u + $tas) * 11) / 100; ?></td>
@@ -162,39 +162,89 @@ if ($agent->agent_npwp != null) {
         <form action="views/print-invoice.php" method="post" target="_blank">
           <input type="text" id="input_npwp" name="npwp" hidden>
           <div class="row g-0 p-0">
+
+            <input class="" type="text" value="<?php echo $dagent; ?>" name="d_agent" hidden>
+            <input class="" type="text" value="<?php echo $dshipper; ?>" name="d_shipper" hidden>
+            <input class="" type="text" name="d_smu" id="dSmu" hidden>
+
             <div class="col-4">
               <label for="" class="form-label form-label-sm">Total SMU</label><br>
-              <label for="" class="form-label form-label-sm">Total Adm</label><br>
-              <label for="" class="form-label form-label-sm">Total Sewa Gudang</label><br>
-              <label for="" class="form-label form-label-sm">Total Jasa Kade</label><br>
-              <label for="" class="form-label form-label-sm">Total PJKP2U</label><br>
-              <label for="" class="form-label form-label-sm">Total Airport Surcharge</label><br>
-              <label for="" class="form-label form-label-sm">Total PPN</label><br>
-              <label for="" class="form-label form-label-sm">Total Materai</label><br>
-              <label for="" class="form-label form-label-sm">Grand Total</label>
             </div>
-            <div class="col-4 text-center">
-              <br>
-              <?php echo $adm; ?><br>
-              <?php echo $sg; ?><br>
-              <?php echo $kade; ?><br>
-              <?php echo $pjkp2u; ?><br>
-              <?php echo $as; ?><br>
-              11%<br>
-              <?php echo $materai; ?><br>
+            <div class="col-4">
             </div>
-            <div class="col-4 text-end">
-              <input class="" type="text" value="<?php echo $dagent; ?>" name="d_agent" hidden>
-              <input class="" type="text" value="<?php echo $dshipper; ?>" name="d_shipper" hidden>
-              <input class="" type="text" name="d_smu" id="dSmu" hidden>
+            <div class="col-4">
               <input class="fw-bold text-end form-control form-control-sm form-bayar mb-2 px-3" type="text" id="tSmu" disabled value="50000">
+            </div>
+            <div class="col-4">
+              <label for="" class="form-label form-label-sm">Total Adm</label><br>
+            </div>
+            <div class="col-4">
+              <?php echo $adm; ?>
+            </div>
+            <div class="col-4">
               <input class="fw-bold text-end form-control form-control-sm form-bayar mb-2 px-3" type="text" id="tAdm" disabled value="50000">
+            </div>
+            <div class="col-4">
+              <label for="" class="form-label form-label-sm">Total Sewa Gudang</label><br>
+            </div>
+            <div class="col-4">
+              <?php echo $sg; ?>
+            </div>
+            <div class="col-4">
               <input class="fw-bold text-end form-control form-control-sm form-bayar mb-2 px-3" type="text" id="tSg" disabled value="50000">
+            </div>
+            <div class="col-4">
+              <label for="" class="form-label form-label-sm">Total Jasa Kade</label><br>
+            </div>
+            <div class="col-4">
+              <?php echo $kade; ?>
+            </div>
+            <div class="col-4">
               <input class="fw-bold text-end form-control form-control-sm form-bayar mb-2 px-3" type="text" id="tKade" disabled value="50000">
+            </div>
+            <div class="col-4">
+              <label for="" class="form-label form-label-sm">Total PJKP2U</label><br>
+            </div>
+            <div class="col-4">
+              <?php echo $pjkp2u; ?>
+            </div>
+            <div class="col-4">
               <input class="fw-bold text-end form-control form-control-sm form-bayar mb-2 px-3" type="text" id="tAp2" disabled value="50000">
+            </div>
+            <div class="col-4">
+              <label for="" class="form-label form-label-sm">Total Airport Surcharge</label><br>
+            </div>
+            <div class="col-4">
+              <?php echo $as; ?>
+            </div>
+            <div class="col-4">
               <input class="fw-bold text-end form-control form-control-sm form-bayar mb-2 px-3" type="text" id="tAs" disabled value="50000">
+            </div>
+            <div class="col-4">
+              <label for="" class="form-label form-label-sm">Total PPN</label><br>
+            </div>
+            <div class="col-4">
+              11%
+            </div>
+            <div class="col-4">
               <input class="fw-bold text-end form-control form-control-sm form-bayar mb-2 px-3" type="text" id="tPpn" disabled value="50000">
+            </div>
+
+            <div class="col-4">
+              <label for="" class="form-label form-label-sm">Total Materai</label><br>
+            </div>
+            <div class="col-4">
+              <?php echo $materai; ?>
+            </div>
+            <div class="col-4">
               <input class="fw-bold text-end form-control form-control-sm form-bayar mb-2 px-3" type="text" id="tMaterai" disabled value="50000">
+            </div>
+            <div class="col-4">
+              <label for="" class="form-label form-label-sm">Grand Total</label><br>
+            </div>
+            <div class="col-4">
+            </div>
+            <div class="col-4">
               <input class="fw-bold text-end form-control form-control-sm form-bayar mb-2 px-3" type="text" id="tTotal" disabled value="50000">
             </div>
           </div>
