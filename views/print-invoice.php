@@ -154,8 +154,9 @@ function penyebut($nilai)
 
 			// new data
 			$tsg = $net * $sg;
-			$tpjkp2u = $weight <= 10 ? 10 * $pjkp2u : $weight * $pjkp2u;
-			$tkade = $net * $kade;
+			$tpjkp2u =  $weight <= 10 ? 10 * $pjkp2u : $weight * $pjkp2u;
+			$tkade = $weight <= 10 ? 10 * $kade : $weight * $kade;
+			//  $net * $kade;
 			$tairport_surcharge = $net * $airport_surcharge;
 			$tppn = round((($tsg + $tpjkp2u + $tkade + $admin + $tairport_surcharge) * 11) / 100);
 			if (($tsg + $tpjkp2u + $tkade + $admin + $tairport_surcharge + $tppn) < 10000000) {
@@ -308,7 +309,7 @@ function penyebut($nilai)
 									Kade
 								</td>
 								<td class="p-0" width="30%">
-									<?php echo $net; ?> X 1 X <?php echo $kade; ?>
+									<?php echo $weight; ?> X 1 X <?php echo $kade; ?>
 								</td>
 								<td class="p-0 pe-4" width="30%">
 									<div class="d-flex justify-content-between">

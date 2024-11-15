@@ -225,7 +225,7 @@ function penyebut($nilai)
 								Kade
 							</td>
 							<td class="p-0" width="30%">
-								<?php echo $nett; ?> X 1 X <?php echo $kade; ?>
+								<?php echo $result->weight; ?> X 1 X <?php echo $kade; ?>
 							</td>
 							<td class="p-0 pe-4" width="30%">
 								<div class="d-flex justify-content-between">
