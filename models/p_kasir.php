@@ -13,29 +13,29 @@ $data_user = $get->fetch_object();
 $data_ses = $kasir->fetch_object();
 $session = $data_ses->running;
 $pharsing = $data_ses->pharsing;
-if(isset($_POST['createsession'])){
+if (isset($_POST['createsession'])) {
   $tanggal = date('dmy');
-  $id= $data_user->id;
+  $id = $data_user->id;
   $ses = $data_ses->session;
-  $d_pharsing = $ses.$id.$tanggal;
+  $d_pharsing = $ses . $id . $tanggal;
   $update = $sesi->create($d_pharsing);
   header('location: ../?page=session-kasir');
 }
-if(isset($_POST['endsession'])){
+if (isset($_POST['endsession'])) {
   $sesi->end();
   header('location: ../?page=session-kasir');
 }
-if(isset($_POST['print_session'])){
-  $_SESSION['print']="on";
+if (isset($_POST['print_session'])) {
+  $_SESSION['print'] = "on";
   $data = $_GET['data'];
-  header('location: ../views/print_session_kasir.php?data='.$data);
+  header('location: ../views/print_session_kasir.php?data=' . $data);
 }
 if (isset($_POST['save_session_excel'])) {
   $session = $_GET['data'];
-  $filename = "data".$session.".xls";
+  $filename = "data" . $session . ".xls";
   header("Content-Type: application/vnd.ms-excel");
   header("Content-Disposition: attachment; filename= $filename");
-  ?>
+?>
   Data session : <?php echo $_GET['data']; ?>
   <table border="1px">
     <thead>
@@ -48,6 +48,7 @@ if (isset($_POST['save_session_excel'])) {
         <th>AGENT</th>
         <th>SHIPPER</th>
         <th>PIC</th>
+        <th>NPWP</th>
         <th>ADMIN</th>
         <th>SEWA GUDANG</th>
         <th>KADE</th>
@@ -62,7 +63,7 @@ if (isset($_POST['save_session_excel'])) {
       </tr>
     </thead>
     <tbody>
-      <?php 
+      <?php
       $a = $sesi->joindata($session);
       $no = 0;
       $admin = 0;
@@ -80,10 +81,11 @@ if (isset($_POST['save_session_excel'])) {
           <td><?php echo $result->smu; ?></td>
           <td><?php echo $result->njg; ?></td>
           <td><?php echo $result->no_do; ?></td>
-          <td><?php echo @$result->ra_name ; ?></td>
+          <td><?php echo @$result->ra_name; ?></td>
           <td><?php echo $result->agent_name; ?></td>
           <td><?php echo $result->shipper_name; ?></td>
           <td><?php echo $result->pic; ?></td>
+          <td><?php echo $result->npwp; ?></td>
           <td><?php echo $result->admin; ?></td>
           <td><?php echo $result->sewa_gudang; ?></td>
           <td><?php echo $result->kade; ?></td>
@@ -96,7 +98,7 @@ if (isset($_POST['save_session_excel'])) {
           <td><?php echo $result->proses_by; ?></td>
           <td><?php echo $result->last_editor; ?></td>
         </tr>
-        <?php 
+        <?php
         $admin = $admin + $result->admin;
         $sg = $sg + $result->sewa_gudang;
         $kade = $kade + $result->kade;
@@ -115,14 +117,16 @@ if (isset($_POST['save_session_excel'])) {
         <td></td>
         <td></td>
         <td></td>
-        <td><?php echo number_format($admin); ?></td>
-        <td><?php echo number_format($sg); ?></td>
-        <td><?php echo number_format($kade); ?></td>
-        <td><?php echo number_format($ap2); ?></td>
-        <td><?php echo number_format($as); ?></td>
-        <td><?php echo number_format($ppn); ?></td>
-        <td><?php echo number_format($materai); ?></td>
-        <td><?php echo number_format($total); ?></td>
+        <td></td>
+        <td></td>
+        <td><?php echo $admin; ?></td>
+        <td><?php echo $sg; ?></td>
+        <td><?php echo $kade; ?></td>
+        <td><?php echo $ap2; ?></td>
+        <td><?php echo $as; ?></td>
+        <td><?php echo $ppn; ?></td>
+        <td><?php echo $materai; ?></td>
+        <td><?php echo $total; ?></td>
         <td></td>
         <td></td>
         <td></td>

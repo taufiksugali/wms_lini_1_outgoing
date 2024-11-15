@@ -208,7 +208,7 @@ class Kasir
 	public function joindata($session)
 	{
 		$db = $this->mysqli->conn;
-		$sql = "SELECT payment.session_kasir, payment.id, payment.smu, payment.njg, cargo.no_do, cargo.agent_name, cargo.shipper_name, payment.admin, payment.sewa_gudang, payment.kade, payment.pjkp2u, payment.airport_tax, payment.ppn, payment.materai, payment.total, cargo.pic, cargo.status, payment.proses_by, payment.stimestamp AS tanggalan, cargo.last_editor, regulated_agents.ra_name
+		$sql = "SELECT payment.session_kasir, payment.npwp, payment.id, payment.smu, payment.njg, cargo.no_do, cargo.agent_name, cargo.shipper_name, payment.admin, payment.sewa_gudang, payment.kade, payment.pjkp2u, payment.airport_tax, payment.ppn, payment.materai, payment.total, cargo.pic, cargo.status, payment.proses_by, payment.stimestamp AS tanggalan, cargo.last_editor, regulated_agents.ra_name
 		FROM payment 
 		INNER JOIN cargo ON payment.smu=cargo.smu 
 		LEFT JOIN regulated_agents ON regulated_agents.ra_id = cargo.ra_id
