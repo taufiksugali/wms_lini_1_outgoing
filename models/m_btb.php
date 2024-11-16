@@ -150,6 +150,25 @@ class Btb
 
 		return ($query);
 	}
+
+	public function updateCgo2($id, $data)
+	{
+		$no = 0;
+		$db = $this->mysqli->conn;
+		$sql = "UPDATE cargo SET ";
+		foreach ($data as $key => $value) {
+			if ($no == 0) {
+				$sql .= $key . "='" . $value . "'";
+			} else {
+				$sql .= ", " . $key . "='" . $value . "'";
+			}
+			$no++;
+		}
+		$sql = $sql . " WHERE id = $id";
+		$query = $db->query($sql) or die($db->error);
+
+		return ($query);
+	}
 	public function updatecgoccl($smu)
 	{
 		$db = $this->mysqli->conn;
@@ -293,5 +312,19 @@ class Btb
 		$sql = "UPDATE `agent` SET agent_npwp='$npwp' WHERE agent_id = '$agent_id'";
 		$db->query($sql) or die($db->error);
 		return true;
+	}
+
+	function getCargoById($id)
+	{
+		$db = $this->mysqli->conn;
+		$sql = "SELECT *
+			FROM `cargo`
+			JOIN `regulated_agents` ON `regulated_agents`.`ra_id` = `cargo`.`ra_id`
+			WHERE`id` = '$id'
+			LIMIT 1";
+
+		$query = $db->query($sql)->fetch_object() or die($db->error);
+
+		return ($query);
 	}
 }

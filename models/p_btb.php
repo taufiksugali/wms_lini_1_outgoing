@@ -20,22 +20,22 @@ $do = $sesi->donum()->fetch_object()->no_do;
 $next_do = $do + 1;
 
 
-if(isset($_POST['createsession'])){
+if (isset($_POST['createsession'])) {
   $tanggal = date('dmy');
-  $id= $data_user->id;
+  $id = $data_user->id;
   $ses = $data_ses->session;
-  $d_pharsing = $ses.$id.$tanggal;
+  $d_pharsing = $ses . $id . $tanggal;
   $update = $sesi->create($d_pharsing);
   header('location: ../?page=sessionbtb');
 }
-if(isset($_POST['endsession'])){
+if (isset($_POST['endsession'])) {
   $sesi->end();
   header('location: ../?page=sessionbtb');
 }
 
-if(isset($_POST['s_print'])){
+if (isset($_POST['s_print'])) {
   $head               = $_POST['airlist'];
-  $awb                = $head.'-'.$_POST['awb'];
+  $awb                = $head . '-' . $_POST['awb'];
   $noflight           = $_POST['noflight'];
   $shipment_type      = $_POST['shipment_type'];
   $comodity           = $_POST['comodity'];
@@ -53,33 +53,33 @@ if(isset($_POST['s_print'])){
   $user               = $_SESSION['name'];
   $_SESSION['print']  = "on";
 
-  if($sesi->check_awb($awb) !== true){
+  if ($sesi->check_awb($awb) !== true) {
     header('location: ../?page=btb&error=duplicate');
     exit;
   }
-  
+
 
   $data_input = "'$head','$awb','$next_do','$noflight','$shipment_type','$comodity','$agent','$shipper','$pic','$quantity','$weight','$volume','$tanggal','$status','$user','$pharsing','$ra_id'";
   $execute = $sesi->insert($data_input);
 
 
-  
 
-  if($execute === false){
+
+  if ($execute === false) {
     header('location: ../?page=btb&error=duplicate');
-  }else{
+  } else {
 
     $d_smu = $_POST['awb'];
     $smu1 = substr($d_smu, 0, -4);
     $smu2 = substr($d_smu, 4);
     $d_btb = $sesi->cariBtb($awb)->fetch_object()->no_do;
-    $smupost = $head.$smu1.'-'.$smu2;
+    $smupost = $head . $smu1 . '-' . $smu2;
 
     $destin = $sesi->cariTlc($noflight)->fetch_object()->tlc;
 
-    if($weight > $volume){
+    if ($weight > $volume) {
       $cweight = $weight;
-    }else{
+    } else {
       $cweight = $volume;
     }
 
@@ -91,9 +91,9 @@ if(isset($_POST['s_print'])){
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
     $headers = array(
-     "Accept: application/json",
-     "Content-Type: application/json",
-   );
+      "Accept: application/json",
+      "Content-Type: application/json",
+    );
     curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 
     $data = <<<DATA
@@ -116,80 +116,80 @@ if(isset($_POST['s_print'])){
 
     curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
 
-//for debug only!
+    //for debug only!
     curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 
     $resp = curl_exec($curl);
     curl_close($curl);
-// var_dump($resp)
+    // var_dump($resp)
     $resp = json_decode($resp, TRUE);
-    if(!$resp){
+    if (!$resp) {
       $respond = "no connection";
-    }else{
-      if($resp['success'] == true){    
+    } else {
+      if ($resp['success'] == true) {
         $respond = "berhasil";
-      }else{
+      } else {
         $respond = "gagal";
       }
     }
 
-    if($respond == 'berhasil'){
+    if ($respond == 'berhasil') {
       $_SESSION['result'] = [
         'pesan' => 'Data berhasil terupload',
         'color' => 'success',
-        'aksi' =>$respond
+        'aksi' => $respond
       ];
-    }else{
+    } else {
       $_SESSION['result'] = [
         'pesan' => 'Data gagal terupload',
         'color' => 'danger',
-        'aksi' =>$respond
+        'aksi' => $respond
       ];
     }
 
-  // end post
-    header('location: ../views/print_do.php?data='.$awb);
+    // end post
+    header('location: ../views/print_do.php?data=' . $awb);
   }
 
   // var_dump($next_do);
 }
 
 
-if(isset($_POST['addflight'])){
+if (isset($_POST['addflight'])) {
   $airline_id     = $_POST['airline_id'];
-  if($airline_id  == 'RI'){
+  if ($airline_id  == 'RI') {
     $flight       = $_POST['flight'];
     $destination  = $_POST['destination'];
     $tlc          = $_POST['tlc'];
-    $newflight    = $flight."-".$tlc;    
-  }else{
+    $newflight    = $flight . "-" . $tlc;
+  } else {
     $flight       = $_POST['flight'];
     $destination  = $_POST['destination'];
     $tlc          = $_POST['tlc'];
-    $newflight    = $airline_id."-".$flight;
+    $newflight    = $airline_id . "-" . $flight;
   }
 
   // var_dump($airline_id); die();
 
   $proses = $sesi->insertflight($airline_id, $newflight, $destination, $tlc);
-  if($proses){
+  if ($proses) {
     header('location: ../?page=addflight&proses=berhasil');
-  }else{
+  } else {
     header('location: ../?page=addflight&proses=gagal');
   }
 }
 
-if(isset($_POST['editflight'])){
+if (isset($_POST['editflight'])) {
   $flight = $_POST['flight_number'];
   $destination = $_POST['flight_destination'];
   $tlc = $_POST['flight_tlc'];
   $id = $_POST['flight_id'];
 
   $proses = $sesi->updateflight($id, $flight, $destination, $tlc);
-  if($proses){
+  if ($proses) {
     header('location: ../?page=addflight&proses=berhasil');
-  }else{
+  } else {
     header('location: ../?page=addflight&proses=gagal');
   }
 }
@@ -199,13 +199,13 @@ if(isset($_POST['editflight'])){
 
 
 
-if(isset($_GET['print'])){
-  $smu= $_GET['data'];
+if (isset($_GET['print'])) {
+  $smu = $_GET['data'];
   $reprint = $_GET['print'];
-  $_SESSION['print']="on";
-  header('location: ../views/print_do.php?data='.$smu.'&'.$reprint);
+  $_SESSION['print'] = "on";
+  header('location: ../views/print_do.php?data=' . $smu . '&' . $reprint);
 }
-if(isset($_POST['p_reprint'])){
+if (isset($_POST['p_reprint'])) {
   $id = $_POST['id_smu'];
   $awb = $_POST['awb'];
   $noflight = $_POST['noflight'];
@@ -217,6 +217,7 @@ if(isset($_POST['p_reprint'])){
   $weight = $_POST['weight'];
   $volume = $_POST['volume'];
   $nama = $_SESSION['name'];
+  $ra_id = $_POST['ragent'];
   $tgl = date('y-m-d');
   $tanggal = new DateTime($tgl);
   $status = "revisi";
@@ -226,33 +227,43 @@ if(isset($_POST['p_reprint'])){
   $view = $sesi->cargobyid($id);
   $sview = $view->fetch_object();
   $tanggal2 = new DateTime($sview->tanggal);
-  $divtgl =$tanggal2->diff($tanggal);
+  $divtgl = $tanggal2->diff($tanggal);
   $div = $divtgl->d;
-  // var_dump($div);
-  if($div <= 1){
-    $data = "smu='$awb',flight_no='$noflight',comodity='$comodity',agent_name='$agent',shipper_name='$shipper',pic='$pic',quantity='$quantity',weight='$weight',volume='$volume',tanggal='$tgl',status='$status',last_editor='$user'";
-    $proses = $sesi->updatecgo($data, $id);
-    if(!$proses){
-      header('location: ../?page=session-report&revisi=failed');
-    }else{
-      header('location: ../views/print_do.php?data='.$awb.'&revisi');
-    }
-  }else{
+  $data = "smu='$awb',flight_no='$noflight',comodity='$comodity',agent_name='$agent',shipper_name='$shipper',pic='$pic',quantity='$quantity',weight='$weight',volume='$volume',tanggal='$tgl',status='$status',last_editor='$user'";
+  $dataCargp = [
+    'smu' => $awb,
+    'flight_no' => $noflight,
+    'comodity' => $comodity,
+    'agent_name' => $agent,
+    'shipper_name' => $shipper,
+    'pic' => $pic,
+    'quantity' => $quantity,
+    'weight' => $weight,
+    'volume' => $volume,
+    'tanggal' => $tgl,
+    'status' => $status,
+    'last_editor' => $user,
+    'ra_id' => $ra_id
+  ];
+  $proses = $sesi->updateCgo2($id, $dataCargp);
+  if (!$proses) {
     header('location: ../?page=session-report&revisi=failed');
+  } else {
+    header('location: ../views/print_do.php?data=' . $awb . '&revisi');
   }
 }
-if(isset($_POST['print_session'])){
-  $_SESSION['print']="on";
+if (isset($_POST['print_session'])) {
+  $_SESSION['print'] = "on";
   $data = $_GET['data'];
-  header('location: ../views/print_session.php?data='.$data);
+  header('location: ../views/print_session.php?data=' . $data);
 }
 if (isset($_POST['save_excel'])) {
   $session = $_GET['data'];
   $airline = $_POST['airline'];
-  $filename = "data".$session.".xls";
+  $filename = "data" . $session . ".xls";
   header("Content-Type: application/vnd.ms-excel");
   header("Content-Disposition: attachment; filename= $filename");
-  ?>
+?>
   Data session : <?php echo $_GET['data']; ?>
   <table border="1px">
     <thead>
@@ -275,10 +286,10 @@ if (isset($_POST['save_excel'])) {
       </tr>
     </thead>
     <tbody>
-      <?php 
-      if($airline == 'all'){
+      <?php
+      if ($airline == 'all') {
         $a = $sesi->cargobyses($session);
-      }else{
+      } else {
         $a = $sesi->cargobysesairline($session, $airline);
       }
       $no = 0;
@@ -290,7 +301,7 @@ if (isset($_POST['save_excel'])) {
           <td><?php echo $result->no_do; ?></td>
           <td><?php echo $result->flight_no; ?></td>
           <td><?php echo $result->comodity; ?></td>
-          <td><?php echo @$result->ra_name ; ?></td>
+          <td><?php echo @$result->ra_name; ?></td>
           <td><?php echo $result->agent_name; ?></td>
           <td><?php echo $result->shipper_name; ?></td>
           <td><?php echo $result->pic; ?></td>
@@ -306,21 +317,21 @@ if (isset($_POST['save_excel'])) {
   </table>
 <?php };
 
-if(isset($_POST['p_cancel'])){
-  if($_SESSION['hak_akses'] !== "pic"){
+if (isset($_POST['p_cancel'])) {
+  if ($_SESSION['hak_akses'] !== "pic") {
     header('location: ../?page=session-report&cancel=failed');
-  }else{
+  } else {
     $data = $_GET['data'];
     $proses = $sesi->updatecgoccl($data);
-    if(!$proses){
+    if (!$proses) {
       header('location: ../?page=session-report&cancel=failed');
-    }else{
+    } else {
       header('location: ../?page=session-report&cancel=succes');
     }
   }
 }
 
-if(isset($_POST['add_airline'])){
+if (isset($_POST['add_airline'])) {
   include('m_airline.php');
   $airline = new Airline($connection);
   $data = [
@@ -328,15 +339,14 @@ if(isset($_POST['add_airline'])){
     'airline_name' => $_POST['airline_name'],
   ];
 
-  if($airline->add_new_airline($data)){
+  if ($airline->add_new_airline($data)) {
     header('location: ../?page=add_airline&proses=berhasil');
-  }else{
+  } else {
     header('location: ../?page=add_airline&proses=gagal');
   }
-
 }
 
-if(isset($_POST['add_smucode'])){
+if (isset($_POST['add_smucode'])) {
   include('m_smu_code.php');
   $airline = new Smucode($connection);
   $data = [
@@ -344,11 +354,10 @@ if(isset($_POST['add_smucode'])){
     'code' => $_POST['code'],
   ];
 
-  if($airline->add_new_code($data)){
+  if ($airline->add_new_code($data)) {
     header('location: ../?page=add_smu_code&proses=berhasil');
-  }else{
+  } else {
     header('location: ../?page=add_smu_code&proses=gagal');
   }
-
 }
 ?>

@@ -275,7 +275,7 @@ class Kasir
 	public function all_by_session($session, $status)
 	{
 		$db = $this->mysqli->conn;
-		$sql = "SELECT cargo.smu, cargo.no_do AS no_btb, cargo.tanggal AS tanggalbtb, payment.njg, payment.stimestamp AS tanggalnjg, cargo.agent_name, cargo.shipper_name, cargo.pic, cargo.flight_no, flight.tlc, cargo.comodity, cargo.quantity, cargo.weight, cargo.volume, payment.admin, payment.sewa_gudang, payment.kade, payment.pjkp2u, payment.airport_tax, payment.ppn, payment.materai, payment.total, cargo.session, cargo.proses_by  AS proses_btb, payment.session_kasir, payment.proses_by AS proses_njg, payment.keterangan FROM payment INNER JOIN cargo ON cargo.smu=payment.smu LEFT JOIN flight ON cargo.flight_no=flight.flight_no WHERE cargo.status='$status' AND payment.session_kasir = '$session'";
+		$sql = "SELECT cargo.smu, cargo.no_do AS no_btb, cargo.tanggal AS tanggalbtb, payment.njg, payment.stimestamp AS tanggalnjg, cargo.agent_name, cargo.shipper_name, cargo.pic, cargo.flight_no, flight.tlc, cargo.comodity, cargo.quantity, cargo.weight, cargo.volume, payment.admin, payment.sewa_gudang, payment.kade, payment.pjkp2u, payment.airport_tax, payment.ppn, payment.materai, payment.total, cargo.session, cargo.proses_by  AS proses_btb, payment.session_kasir, payment.npwp, payment.proses_by AS proses_njg, payment.keterangan FROM payment INNER JOIN cargo ON cargo.smu=payment.smu LEFT JOIN flight ON cargo.flight_no=flight.flight_no WHERE cargo.status='$status' AND payment.session_kasir = '$session'";
 		$query = $db->query($sql) or die($db->error);
 
 		return ($query);
