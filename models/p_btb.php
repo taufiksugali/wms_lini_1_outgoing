@@ -46,20 +46,37 @@ if (isset($_POST['s_print'])) {
   $weight             = $_POST['weight'];
   $volume             = $_POST['volume'];
   $method             = $_POST['method'];
+  $shipper_address    = $_POST['shipper_address'];
   $ra_id              = $_POST['ra'];
   $nama               = $_SESSION['name'];
   $tanggal            = date('y-m-d H:i:s');
   $status             = "proced";
   $user               = $_SESSION['name'];
-  $_SESSION['print']  = "on";
 
   if ($sesi->check_awb($awb) !== true) {
     header('location: ../?page=btb&error=duplicate');
     exit;
   }
 
+  if ($head == '' or $comodity == '' or $agent == '' or $shipper == '' or $pic == '' or $quantity == '' or $weight == '' or $shipper_address == '' or $ra_id == '' or $noflight == '' or $shipment_type == '') {
+    header('location: ../?page=btb');
+    $_SESSION['error'] = [
+      'message' => 'Please fill in all fields',
+    ];
+    exit;
+  }
 
-  $data_input = "'$head','$awb','$next_do','$noflight','$shipment_type','$comodity','$agent','$shipper','$pic','$quantity','$weight','$volume','$tanggal','$status','$user','$pharsing','$ra_id'";
+  if (strlen($_POST['awb']) !== 8) {
+    header('location: ../?page=btb');
+    $_SESSION['error'] = [
+      'message' => 'Invalid SMU number, SMU number must be 8 digits',
+    ];
+    exit;
+  }
+  $_SESSION['print']  = "on";
+
+
+  $data_input = "'$head','$awb','$next_do','$noflight','$shipment_type','$comodity','$agent','$shipper','$pic','$quantity','$weight','$volume','$tanggal','$status','$user','$pharsing','$ra_id','$shipper_address'";
   $execute = $sesi->insert($data_input);
 
 
@@ -69,84 +86,84 @@ if (isset($_POST['s_print'])) {
     header('location: ../?page=btb&error=duplicate');
   } else {
 
-    $d_smu = $_POST['awb'];
-    $smu1 = substr($d_smu, 0, -4);
-    $smu2 = substr($d_smu, 4);
-    $d_btb = $sesi->cariBtb($awb)->fetch_object()->no_do;
-    $smupost = $head . $smu1 . '-' . $smu2;
+    // $d_smu = $_POST['awb'];
+    // $smu1 = substr($d_smu, 0, -4);
+    // $smu2 = substr($d_smu, 4);
+    // $d_btb = $sesi->cariBtb($awb)->fetch_object()->no_do;
+    // $smupost = $head . $smu1 . '-' . $smu2;
 
-    $destin = $sesi->cariTlc($noflight)->fetch_object()->tlc;
+    // $destin = $sesi->cariTlc($noflight)->fetch_object()->tlc;
 
-    if ($weight > $volume) {
-      $cweight = $weight;
-    } else {
-      $cweight = $volume;
-    }
+    // if ($weight > $volume) {
+    //   $cweight = $weight;
+    // } else {
+    //   $cweight = $volume;
+    // }
 
-    $url = "https://www.rimbun.avter.co.id/api/check/awb/store";
+    // $url = "https://www.rimbun.avter.co.id/api/check/awb/store";
 
-    $curl = curl_init($url);
-    curl_setopt($curl, CURLOPT_URL, $url);
-    curl_setopt($curl, CURLOPT_POST, true);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    // $curl = curl_init($url);
+    // curl_setopt($curl, CURLOPT_URL, $url);
+    // curl_setopt($curl, CURLOPT_POST, true);
+    // curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
-    $headers = array(
-      "Accept: application/json",
-      "Content-Type: application/json",
-    );
-    curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+    // $headers = array(
+    //   "Accept: application/json",
+    //   "Content-Type: application/json",
+    // );
+    // curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 
-    $data = <<<DATA
-    {
-      "no_awb": "$smupost",
-      "no_btb": $d_btb,
-      "flight_no": "$noflight",
-      "origin": "cgk",
-      "destination": "$destin",
-      "comodity": "$comodity",
-      "agent_name": "$agent",
-      "shipper_name": "$shipper",
-      "colly": $quantity,
-      "act_weight": $weight,
-      "volume": $volume,
-      "caw_weight": $cweight,
-      "btb_duty_officer": "$user",
-    }
-    DATA;
+    // $data = <<<DATA
+    // {
+    //   "no_awb": "$smupost",
+    //   "no_btb": $d_btb,
+    //   "flight_no": "$noflight",
+    //   "origin": "cgk",
+    //   "destination": "$destin",
+    //   "comodity": "$comodity",
+    //   "agent_name": "$agent",
+    //   "shipper_name": "$shipper",
+    //   "colly": $quantity,
+    //   "act_weight": $weight,
+    //   "volume": $volume,
+    //   "caw_weight": $cweight,
+    //   "btb_duty_officer": "$user",
+    // }
+    // DATA;
 
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+    // curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
 
-    //for debug only!
-    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+    // //for debug only!
+    // curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+    // curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 
-    $resp = curl_exec($curl);
-    curl_close($curl);
-    // var_dump($resp)
-    $resp = json_decode($resp, TRUE);
-    if (!$resp) {
-      $respond = "no connection";
-    } else {
-      if ($resp['success'] == true) {
-        $respond = "berhasil";
-      } else {
-        $respond = "gagal";
-      }
-    }
+    // $resp = curl_exec($curl);
+    // curl_close($curl);
+    // // var_dump($resp)
+    // $resp = json_decode($resp, TRUE);
+    // if (!$resp) {
+    //   $respond = "no connection";
+    // } else {
+    //   if ($resp['success'] == true) {
+    //     $respond = "berhasil";
+    //   } else {
+    //     $respond = "gagal";
+    //   }
+    // }
 
-    if ($respond == 'berhasil') {
-      $_SESSION['result'] = [
-        'pesan' => 'Data berhasil terupload',
-        'color' => 'success',
-        'aksi' => $respond
-      ];
-    } else {
-      $_SESSION['result'] = [
-        'pesan' => 'Data gagal terupload',
-        'color' => 'danger',
-        'aksi' => $respond
-      ];
-    }
+    // if ($respond == 'berhasil') {
+    //   $_SESSION['result'] = [
+    //     'pesan' => 'Data berhasil terupload',
+    //     'color' => 'success',
+    //     'aksi' => $respond
+    //   ];
+    // } else {
+    //   $_SESSION['result'] = [
+    //     'pesan' => 'Data gagal terupload',
+    //     'color' => 'danger',
+    //     'aksi' => $respond
+    //   ];
+    // }
 
     // end post
     header('location: ../views/print_do.php?data=' . $awb);
@@ -218,6 +235,7 @@ if (isset($_POST['p_reprint'])) {
   $volume = $_POST['volume'];
   $nama = $_SESSION['name'];
   $ra_id = $_POST['ragent'];
+  $shipper_adress = $_POST['shipper_address'];
   $tgl = date('y-m-d');
   $tanggal = new DateTime($tgl);
   $status = "revisi";
@@ -240,9 +258,9 @@ if (isset($_POST['p_reprint'])) {
     'quantity' => $quantity,
     'weight' => $weight,
     'volume' => $volume,
-    'tanggal' => $tgl,
     'status' => $status,
     'last_editor' => $user,
+    'shipper_address' => $shipper_adress,
     'ra_id' => $ra_id
   ];
   $proses = $sesi->updateCgo2($id, $dataCargp);

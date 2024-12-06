@@ -67,7 +67,7 @@ if (isset($_GET['data'])) {
 			<tbody>
 				<?php
 				$angka = 0;
-				$takedata = $data->all_by_session($session, 'complete');
+				$takedata = $data->getSessionData($session);
 
 				$quantity = 0;
 				$weight = 0;
@@ -84,67 +84,69 @@ if (isset($_GET['data'])) {
 				$g_total = 0;
 				while ($result = $takedata->fetch_object()): ?>
 					<?php
-					$angka++;
+					if ($result->payment_status == 1) {
+						$angka++;
 					?>
-					<tr>
-						<td class="text-center px-1"><?php echo $angka; ?></td>
-						<td class="text-center px-3"><?php echo $result->smu ?></td>
-						<td class="text-start px-3"><?php echo $result->no_btb ?></td>
-						<td class="text-start px-3"><?php echo date('d/m/Y', strtotime($result->tanggalbtb)) ?></td>
-						<td class="text-start px-3"><?php echo $result->njg ?></td>
-						<td class="text-start px-3"><?php echo date('d/m/Y', strtotime($result->tanggalnjg)) ?></td>
-						<td class="text-center px-3"><?php echo $result->agent_name ?></td>
-						<td class="text-center px-3"><?php echo $result->shipper_name ?></td>
-						<td class="text-center px-3"><?php echo $result->pic ?></td>
-						<td class="text-center px-3"><?php echo $result->npwp ?></td>
-						<td class="text-center px-3"><?php echo $result->flight_no ?></td>
-						<td class="text-center px-3"><?php echo $result->tlc ?></td>
-						<td class="text-center px-3"><?php echo $result->comodity ?></td>
-						<td class="text-center px-3"><?php echo $result->quantity ?></td>
-						<td class="text-center px-3"><?php echo $result->weight ?></td>
-						<td class="text-center px-3"><?php echo $n_weight = $result->weight < 10 ? 10 : $result->weight; ?></td>
-						<td class="text-center px-3"><?php echo $result->volume ?></td>
-						<td class="text-center px-3">
-							<?php
-							$a = $result->weight;
-							$b = $result->volume;
-							if ($a <= 10 && $b <= 10) {
-								$nett = 10;
-							} elseif ($a > 10 && $a >= $b) {
-								$nett = $a;
-							} elseif ($b > 10 && $b > $a) {
-								$nett = $b;
-							}
-							echo $nett;
-							?>
-						</td>
-						<td class="text-center px-3"><?php echo $result->admin ?></td>
-						<td class="text-center px-3"><?php echo $result->sewa_gudang ?></td>
-						<td class="text-center px-3"><?php echo $result->kade ?></td>
-						<td class="text-center px-3"><?php echo $result->pjkp2u ?></td>
-						<td class="text-center px-3"><?php echo $result->airport_tax ?></td>
-						<td class="text-center px-3"><?php echo $result->ppn ?></td>
-						<td class="text-center px-3"><?php echo $result->materai ?></td>
-						<td class="text-center px-3"><?php echo $result->total ?></td>
-						<td class="text-center px-3"><?php echo $result->session ?></td>
-						<td class="text-center px-3"><?php echo $result->proses_btb ?></td>
-						<td class="text-center px-3"><?php echo $result->session_kasir ?></td>
-						<td class="text-center px-3"><?php echo $result->proses_njg ?></td>
-					</tr>
+						<tr>
+							<td class="text-center px-1"><?php echo $angka; ?></td>
+							<td class="text-center px-3"><?php echo $result->smu ?></td>
+							<td class="text-start px-3"><?php echo $result->no_btb ?></td>
+							<td class="text-start px-3"><?php echo date('d/m/Y', strtotime($result->tanggalbtb)) ?></td>
+							<td class="text-start px-3"><?php echo $result->njg ?></td>
+							<td class="text-start px-3"><?php echo date('d/m/Y', strtotime($result->tanggalnjg)) ?></td>
+							<td class="text-center px-3"><?php echo $result->agent_name ?></td>
+							<td class="text-center px-3"><?php echo $result->shipper_name ?></td>
+							<td class="text-center px-3"><?php echo $result->pic ?></td>
+							<td class="text-center px-3"><?php echo $result->npwp ?></td>
+							<td class="text-center px-3"><?php echo $result->flight_no ?></td>
+							<td class="text-center px-3"><?php echo $result->tlc ?></td>
+							<td class="text-center px-3"><?php echo $result->comodity ?></td>
+							<td class="text-center px-3"><?php echo $result->quantity ?></td>
+							<td class="text-center px-3"><?php echo $result->weight ?></td>
+							<td class="text-center px-3"><?php echo $n_weight = $result->weight < 10 ? 10 : $result->weight; ?></td>
+							<td class="text-center px-3"><?php echo $result->volume ?></td>
+							<td class="text-center px-3">
+								<?php
+								$a = $result->weight;
+								$b = $result->volume;
+								if ($a <= 10 && $b <= 10) {
+									$nett = 10;
+								} elseif ($a > 10 && $a >= $b) {
+									$nett = $a;
+								} elseif ($b > 10 && $b > $a) {
+									$nett = $b;
+								}
+								echo $nett;
+								?>
+							</td>
+							<td class="text-center px-3"><?php echo $result->admin ?></td>
+							<td class="text-center px-3"><?php echo $result->sewa_gudang ?></td>
+							<td class="text-center px-3"><?php echo $result->kade ?></td>
+							<td class="text-center px-3"><?php echo $result->pjkp2u ?></td>
+							<td class="text-center px-3"><?php echo $result->airport_tax ?></td>
+							<td class="text-center px-3"><?php echo $result->ppn ?></td>
+							<td class="text-center px-3"><?php echo $result->materai ?></td>
+							<td class="text-center px-3"><?php echo $result->total ?></td>
+							<td class="text-center px-3"><?php echo $result->session ?></td>
+							<td class="text-center px-3"><?php echo $result->proses_btb ?></td>
+							<td class="text-center px-3"><?php echo $result->session_kasir ?></td>
+							<td class="text-center px-3"><?php echo $result->proses_njg ?></td>
+						</tr>
 					<?php
-					$quantity = $quantity + $result->quantity;
-					$weight = $weight + $result->weight;
-					$nweight = $nweight + $n_weight;
-					$volume = $volume + $result->volume;
-					$net = $net + $nett;
-					$admin = $admin + $result->admin;
-					$sg = $sg + $result->sewa_gudang;
-					$kade = $kade + $result->kade;
-					$ap2 = $ap2 + $result->pjkp2u;
-					$airtax = $airtax + $result->airport_tax;
-					$ppn = $ppn + $result->ppn;
-					$materai = $materai + $result->materai;
-					$g_total = $g_total + $result->total;
+						$quantity = $quantity + $result->quantity;
+						$weight = $weight + $result->weight;
+						$nweight = $nweight + $n_weight;
+						$volume = $volume + $result->volume;
+						$net = $net + $nett;
+						$admin = $admin + $result->admin;
+						$sg = $sg + $result->sewa_gudang;
+						$kade = $kade + $result->kade;
+						$ap2 = $ap2 + $result->pjkp2u;
+						$airtax = $airtax + $result->airport_tax;
+						$ppn = $ppn + $result->ppn;
+						$materai = $materai + $result->materai;
+						$g_total = $g_total + $result->total;
+					}
 					?>
 				<?php endwhile;
 				?>
@@ -217,12 +219,13 @@ if (isset($_GET['data'])) {
 					<th class="text-center">BTB_issued_by</th>
 					<th class="text-center">Session_Of_NJG</th>
 					<th class="text-center">NJG_issued_by</th>
+					<th class="text-center">Void By</th>
 					<th class="text-center">keterangan</th>
 				</tr>
 			</thead>
 			<tbody>
 				<?php
-				$takedatavoid = $data->all_by_session($session, "void");
+				$takedatavoid = $data->getSessionData($session);
 				$nomor = 0;
 
 				$quantityvoid = 0;
@@ -240,69 +243,71 @@ if (isset($_GET['data'])) {
 				$g_totalvoid = 0;
 				while ($resultvoid = $takedatavoid->fetch_object()): ?>
 					<?php
-					$nomor++
+					if ($resultvoid->payment_status == 0) {
+						$nomor++
 					?>
-					<tr>
-						<td class="text-center px-3" style="width: fit-content;"><?php echo $nomor ?></td>
-						<td class="text-center px-3"><?php echo $resultvoid->smu ?></td>
-						<td class="text-start px-3"><?php echo $resultvoid->no_do ?></td>
-						<td class="text-start px-3"><?php echo $resultvoid->tanggalbtb ?></td>
-						<td class="text-start px-3"><?php echo $resultvoid->njg ?></td>
-						<td class="text-start px-3"><?php echo $resultvoid->tanggalnjg ?></td>
-						<td class="text-center px-3"><?php echo $resultvoid->agent_name ?></td>
-						<td class="text-center px-3"><?php echo $resultvoid->shipper_name ?></td>
-						<td class="text-center px-3"><?php echo $resultvoid->pic ?></td>
-						<td class="text-center px-3"><?php echo $resultvoid->flight_no ?></td>
-						<td class="text-center px-3"><?php echo $resultvoid->tlc ?></td>
-						<td class="text-center px-3"><?php echo $resultvoid->comodity ?></td>
-						<td class="text-center px-3"><?php echo $resultvoid->quantity ?></td>
-						<td class="text-center px-3"><?php echo $resultvoid->weight ?></td>
-						<td class="text-center px-3"><?php echo $vn_weight = $resultvoid->weight < 10 ? 10 : $resultvoid->weight; ?></td>
-						<td class="text-center px-3"><?php echo $resultvoid->volume ?></td>
-						<td class="text-center px-3">
-							<?php
-							$c = $resultvoid->weight;
-							$d = $resultvoid->volume;
-							if ($c <= 10 && $d <= 10) {
-								$nettvoid = 10;
-							} elseif ($c > 10 && $c >= $d) {
-								$nettvoid = $a;
-							} elseif ($d > 10 && $d > $c) {
-								$nettvoid = $b;
-							}
-							echo $nettvoid;
-							?>
-						</td>
-						<td class="text-center px-3"><?php echo $resultvoid->admin ?></td>
-						<td class="text-center px-3"><?php echo $resultvoid->sewa_gudang ?></td>
-						<td class="text-center px-3"><?php echo $resultvoid->kade ?></td>
-						<td class="text-center px-3"><?php echo $resultvoid->pjkp2u ?></td>
-						<td class="text-center px-3"><?php echo $resultvoid->airport_tax ?></td>
-						<td class="text-center px-3"><?php echo $resultvoid->ppn ?></td>
-						<td class="text-center px-3"><?php echo $resultvoid->materai ?></td>
-						<td class="text-center px-3"><?php echo $resultvoid->total ?></td>
-						<td class="text-center px-3"><?php echo $resultvoid->session ?></td>
-						<td class="text-center px-3"><?php echo $resultvoid->proses_btb ?></td>
-						<td class="text-center px-3"><?php echo $resultvoid->session_kasir ?></td>
-						<td class="text-center px-3"><?php echo $resultvoid->proses_njg ?></td>
-						<td class="text-center px-3"><?php echo $resultvoid->keterangan ?></td>
-					</tr>
+						<tr>
+							<td class="text-center px-3" style="width: fit-content;"><?php echo $nomor ?></td>
+							<td class="text-center px-3"><?php echo $resultvoid->smu ?></td>
+							<td class="text-start px-3"><?php echo $resultvoid->no_btb ?></td>
+							<td class="text-start px-3"><?php echo $resultvoid->tanggalbtb ?></td>
+							<td class="text-start px-3"><?php echo $resultvoid->njg ?></td>
+							<td class="text-start px-3"><?php echo $resultvoid->tanggalnjg ?></td>
+							<td class="text-center px-3"><?php echo $resultvoid->agent_name ?></td>
+							<td class="text-center px-3"><?php echo $resultvoid->shipper_name ?></td>
+							<td class="text-center px-3"><?php echo $resultvoid->pic ?></td>
+							<td class="text-center px-3"><?php echo $resultvoid->flight_no ?></td>
+							<td class="text-center px-3"><?php echo $resultvoid->tlc ?></td>
+							<td class="text-center px-3"><?php echo $resultvoid->comodity ?></td>
+							<td class="text-center px-3"><?php echo $resultvoid->quantity ?></td>
+							<td class="text-center px-3"><?php echo $resultvoid->weight ?></td>
+							<td class="text-center px-3"><?php echo $vn_weight = $resultvoid->weight < 10 ? 10 : $resultvoid->weight; ?></td>
+							<td class="text-center px-3"><?php echo $resultvoid->volume ?></td>
+							<td class="text-center px-3">
+								<?php
+								$c = $resultvoid->weight;
+								$d = $resultvoid->volume;
+								if ($c <= 10 && $d <= 10) {
+									$nettvoid = 10;
+								} elseif ($c > 10 && $c >= $d) {
+									$nettvoid = $a;
+								} elseif ($d > 10 && $d > $c) {
+									$nettvoid = $b;
+								}
+								echo $nettvoid;
+								?>
+							</td>
+							<td class="text-center px-3"><?php echo $resultvoid->admin ?></td>
+							<td class="text-center px-3"><?php echo $resultvoid->sewa_gudang ?></td>
+							<td class="text-center px-3"><?php echo $resultvoid->kade ?></td>
+							<td class="text-center px-3"><?php echo $resultvoid->pjkp2u ?></td>
+							<td class="text-center px-3"><?php echo $resultvoid->airport_tax ?></td>
+							<td class="text-center px-3"><?php echo $resultvoid->ppn ?></td>
+							<td class="text-center px-3"><?php echo $resultvoid->materai ?></td>
+							<td class="text-center px-3"><?php echo $resultvoid->total ?></td>
+							<td class="text-center px-3"><?php echo $resultvoid->session ?></td>
+							<td class="text-center px-3"><?php echo $resultvoid->proses_btb ?></td>
+							<td class="text-center px-3"><?php echo $resultvoid->session_kasir ?></td>
+							<td class="text-center px-3"><?php echo $resultvoid->proses_njg ?></td>
+							<td class="text-center px-3"><?php echo @$resultvoid->void_by ?? $resultvoid->last_editor ?></td>
+							<td class="text-center px-3"><?php echo $resultvoid->keterangan ?></td>
+						</tr>
 					<?php
 
-					$quantityvoid = $quantityvoid + $resultvoid->quantity;
-					$weightvoid = $weightvoid + $resultvoid->weight;
-					$vnweight = $vnweight + +$vn_weight;
-					$volumevoid = $volumevoid + $resultvoid->volume;
-					$netvoid = $netvoid + $nettvoid;
-					$adminvoid = $adminvoid + $resultvoid->admin;
-					$sgvoid = $sgvoid + $resultvoid->sewa_gudang;
-					$kadevoid = $kadevoid + $resultvoid->kade;
-					$ap2void = $ap2void + $resultvoid->pjkp2u;
-					$airtaxvoid = $airtaxvoid + $resultvoid->airport_tax;
-					$ppnvoid = $ppnvoid + $resultvoid->ppn;
-					$materaivoid = $materaivoid + $resultvoid->materai;
-					$g_totalvoid = $g_totalvoid + $resultvoid->total;
-
+						$quantityvoid = $quantityvoid + $resultvoid->quantity;
+						$weightvoid = $weightvoid + $resultvoid->weight;
+						$vnweight = $vnweight + +$vn_weight;
+						$volumevoid = $volumevoid + $resultvoid->volume;
+						$netvoid = $netvoid + $nettvoid;
+						$adminvoid = $adminvoid + $resultvoid->admin;
+						$sgvoid = $sgvoid + $resultvoid->sewa_gudang;
+						$kadevoid = $kadevoid + $resultvoid->kade;
+						$ap2void = $ap2void + $resultvoid->pjkp2u;
+						$airtaxvoid = $airtaxvoid + $resultvoid->airport_tax;
+						$ppnvoid = $ppnvoid + $resultvoid->ppn;
+						$materaivoid = $materaivoid + $resultvoid->materai;
+						$g_totalvoid = $g_totalvoid + $resultvoid->total;
+					}
 					?>
 				<?php endwhile;
 				?>

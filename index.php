@@ -131,6 +131,10 @@ $data_user = $get->fetch_object();
       include "views/smu_code.php";
     } elseif (@$_GET['page'] == 'update_time') {
       include "views/update_time.php";
+    } elseif (@$_GET['page'] == 'flightschedule') {
+      include "views/flightschedule.php";
+    } elseif (@$_GET['page'] == 'agent') {
+      include "views/agent.php";
     }
     ?>
 

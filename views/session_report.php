@@ -362,7 +362,7 @@ if (isset($_GET['cancel'])) {
 					<h5 class="modal-title" id="exampleModalLabel">Revisi data</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
-				<div class="modal-body">
+				<div class="modal-body" style="height: auto;">
 					<div class="row gx-2 p-0 m-0">
 						<div class="col-md-6">
 							<input type="text" class="form-control form-control-sm" id="idSmu" name="id_smu" hidden>
@@ -393,6 +393,9 @@ if (isset($_GET['cancel'])) {
 							</div>
 							<label for="shipper" class="form-label mt-3">Shipper Name</label>
 							<input type="text" class="form-control form-control-sm" id="shipper" placeholder="name-shipper*" name="shipper">
+
+							<label for="shipper_address" class="form-label mt-3">Shipper Address</label>
+							<textarea name="shipper_address" class="form-control form-control-sm" id="shipper_address"></textarea>
 						</div>
 						<div class="col-md-6">
 							<label for="pic" class="form-label">PIC</label>
@@ -596,6 +599,7 @@ if (isset($_GET['cancel'])) {
 				$("#volumeX").val(result.data.volume);
 				$("#ragent").val(result.data.ra_id);
 				$("#ragent").trigger("change");
+				$("#shipper_address").val(result.data.shipper_address);
 
 				result.flights.forEach((flight) => {
 					$("#noflight").append(`<option value="${flight.flight_no}" ${flight.flight_no == result.data.flight_no ? 'selected' : ''}>${flight.flight_no}</option>`);

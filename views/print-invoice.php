@@ -8,43 +8,21 @@ include('../models/m_data_ap2.php');
 $connection = new Database($host, $user, $pass, $database);
 $data = new Kasir($connection);
 $data_ap = new Data_ap2($connection);
-// call sesion kasir
-$s_session = $data->session()->fetch_object();
-$s_kasir = $s_session->pharsing;
 
-// call pricelist
-$pricelist = $data->calprice()->fetch_object();
-$admin = $pricelist->admin;
-$sg = $pricelist->sg;
-$kade = $pricelist->kade;
-$pjkp2u = $pricelist->pjkp2u;
-$materai = $pricelist->materai;
-$airport_surcharge = $pricelist->airport_surcharge;
-$pricelist_id = $pricelist->pricelist_id;
-if (isset($_POST['print_invoice'])) {
-	$npwp = $_POST['npwp'] == '' ? null : $_POST['npwp'];
-	$agent = $_POST['d_agent'];
-	$shipper = $_POST['d_shipper'];
-	$d_smu = $_POST['d_smu'];
-	// var_dump($d_smu); die();
-	$d_smu = substr($d_smu, 0, -1);
-	$smu = explode(",", $d_smu);
-	$count = count($smu);
-	$text = '';
-	$s_count = 1;
-	foreach ($smu as $key => $value) {
-		if ($s_count == $count) {
-			$text = $text . "'" . $value . "'";
-		} else {
-			$text = $text . "'" . $value . "',";
-		}
-		$s_count++;
+$invoiceIds = $_POST['invoice_ids'];
+$invoiceIds = json_decode($invoiceIds);
+$string = '(';
+$keyNumb = 0;
+foreach ($invoiceIds as $key => $value) {
+	if ($keyNumb == 0) {
+		$string .= "'" . $value . "'";
+	} else {
+		$string .= ", '" . $value . "'";
 	}
-} else {
-	echo "<script>window.close()</script>";
+	$keyNumb++;
 }
-
-// die();
+$string .= ')';
+$invoice = $data->getInvoiceByIds($string);
 function penyebut($nilai)
 {
 	$nilai = abs($nilai);
@@ -90,87 +68,7 @@ function penyebut($nilai)
 	<div class="contener">
 		<!-- php here -->
 		<?php
-		$values = "";
-		$d_njg = $data->calnjg();
-		$njg1 = $d_njg->fetch_object();
-		$njg = $njg1->njg;
-		$new_njg = $njg;
-		for ($i = 0; $i < $count; $i++) {
-			$new_njg = $new_njg + 1;
-			$awb = $smu[$i];
-
-			// panggil data cargo
-			$panggil = $data->calltarget($agent, $shipper, $awb);
-			$result = $panggil->fetch_object();
-
-			$pic = $result->pic;
-			$btb = $result->no_do;
-			$flight = $result->flight_no;
-			$date_btb = $result->tanggal;
-			$quantity = $result->quantity;
-			$weight = $result->weight;
-			$volume = $result->volume;
-			$comodity = $result->comodity;
-			$payment_id = $result->id;
-			$kdairline = $result->airline_id;
-			$ra_name = $result->ra_name;
-
-			// if(!$pic){
-			// 	echo "<script>window.close()</script>";
-			// }
-
-
-
-			// if($weight <= $volume && $volume <= 10 ){
-			// 	$net=10;
-			// }elseif($weight < $volume){
-			// 	$net = $volume;
-			// }else{$net = $weight;}
-
-			if ($weight >= $volume && $weight > 10) {
-				$net = $weight;
-			} elseif ($volume > $weight && $volume > 10) {
-				$net = $volume;
-			} else {
-				$net = 10;
-			}
-
-
-
-			// panggil data flight
-			$p_flight = $data->callflight($flight);
-			$f_result = $p_flight->fetch_object();
-
-			$destination = $f_result->destination;
-			$des_tlc = $f_result->tlc;
-			$tlc = $f_result->tlc;
-
-			if ($result->smu_code == '' || $result->smu_code == '273' || $result->smu_code == '181') {
-				$send_flight = $f_result->flight_no;
-			} else {
-				$explodes = explode('-', $result->flight_no);
-				$send_flight = $explodes[1];
-			}
-
-			// new data
-			$tsg = $net * $sg;
-			$tpjkp2u =  $weight <= 10 ? 10 * $pjkp2u : $weight * $pjkp2u;
-			$tkade = $weight <= 10 ? 10 * $kade : $weight * $kade;
-			//  $net * $kade;
-			$tairport_surcharge = $net * $airport_surcharge;
-			$tppn = round((($tsg + $tpjkp2u + $tkade + $admin + $tairport_surcharge) * 11) / 100);
-			if (($tsg + $tpjkp2u + $tkade + $admin + $tairport_surcharge + $tppn) < 10000000) {
-				$tmaterai = 0;
-			} else {
-				$tmaterai = $materai;
-			}
-			$total = round($tsg + $tpjkp2u + $tkade + $admin + $tairport_surcharge + $tppn + $tmaterai);
-			$date = date("Y-m-d");
-			$name = $_SESSION['name'];
-
-			$values .= "('$new_njg','$btb','$awb','$date','$admin','$tsg','$tkade','$tpjkp2u','$tairport_surcharge','$tppn','$tmaterai','$total','$name','$s_kasir', '$pricelist_id', '$npwp'),";
-			// var_dump($values);
-			// die();
+		while ($result = $invoice->fetch_object()) {
 		?>
 			<div class="content">
 				<div class="judul text-center position-relative pt-3">
@@ -190,31 +88,31 @@ function penyebut($nilai)
 										<td class="p-0">
 											<div class="d-flex justify-content-between"><span>No.NJG</span> <span class="ms-2">:</span></div>
 										</td>
-										<td class="pt-0 pe-0 pb-0"><?php echo $new_njg; ?></td>
+										<td class="pt-0 pe-0 pb-0"><?php echo $result->njg; ?></td>
 									</tr>
 									<tr>
 										<td class="p-0">
 											<div class="d-flex justify-content-between"><span>Agent/SHP/PIC</span> <span class="ms-2">:</span></div>
 										</td>
-										<td class="pt-0 pe-0 pb-0"><?php echo $agent; ?>/<?php echo $shipper; ?>/<?php echo $pic; ?></td>
+										<td class="pt-0 pe-0 pb-0"><?php echo $result->agent_name; ?>/<?php echo $result->shipper_name; ?>/<?php echo $result->pic; ?></td>
 									</tr>
 									<tr>
 										<td class="p-0">
 											<div class="d-flex justify-content-between"><span>AWB/BTB</span> <span class="ms-2">:</span></div>
 										</td>
-										<td class="pt-0 pe-0 pb-0"><?php echo $awb; ?>/<?php echo $btb; ?></td>
+										<td class="pt-0 pe-0 pb-0"><?php echo $result->smu; ?>/<?php echo $result->no_do; ?></td>
 									</tr>
 									<tr>
 										<td class="p-0">
 											<div class="d-flex justify-content-between"><span class="text-nowrap">Nama Pembeli/Agent</span> <span class="ms-2">:</span></div>
 										</td>
-										<td class="pt-0 pe-0 pb-0"><?php echo $agent; ?></td>
+										<td class="pt-0 pe-0 pb-0"><?php echo $result->agent_name; ?></td>
 									</tr>
 									<tr>
 										<td class="p-0">
 											<div class="d-flex justify-content-between"><span class="text-nowrap">NPWP Pembeli/Agent</span> <span class="ms-2">:</span></div>
 										</td>
-										<td class="pt-0 pe-0 pb-0"><?php echo @$npwp; ?></td>
+										<td class="pt-0 pe-0 pb-0"><?php echo @$result->npwp; ?></td>
 									</tr>
 								</table>
 							</div>
@@ -226,19 +124,19 @@ function penyebut($nilai)
 										<td class="p-0">
 											<div class="d-flex justify-content-between"><span class="text-nowrap">Tanggal BTB</span> <span class="ms-2">:</span></div>
 										</td>
-										<td class="pt-0 pe-0 pb-0"><?php echo $date_btb; ?></td>
+										<td class="pt-0 pe-0 pb-0"><?php echo $result->btb_date; ?></td>
 									</tr>
 									<tr>
 										<td class="p-0">
 											<div class="d-flex justify-content-between"><span>Destination</span> <span class="ms-2">:</span></div>
 										</td>
-										<td class="pt-0 pe-0 pb-0"><?php echo $tlc; ?></td>
+										<td class="pt-0 pe-0 pb-0"><?php echo $result->tlc; ?></td>
 									</tr>
 									<tr>
 										<td class="p-0">
 											<div class="d-flex justify-content-between"><span>RA</span> <span class="ms-2">:</span></div>
 										</td>
-										<td class="pt-0 pe-0 pb-0"><?php echo @$ra_name; ?></td>
+										<td class="pt-0 pe-0 pb-0"><?php echo @$result->ra_name; ?></td>
 									</tr>
 								</table>
 							</div>
@@ -246,16 +144,31 @@ function penyebut($nilai)
 					</div>
 					<div class="d-flex justify-content-between px-4">
 						<div>
-							QTY: <?php echo $quantity; ?>
+							QTY: <?= $result->quantity; ?>
 						</div>
 						<div>
-							Actual Weight: <?php echo $weight; ?>
+							Actual Weight: <?= $result->weight; ?>
 						</div>
 						<div>
-							Volumetric Weight: <?php echo $volume; ?>
+							Volumetric Weight: <?= $result->volume; ?>
 						</div>
 						<div>
-							Chargable Weight: <?php echo $net; ?>
+							<?php
+							if ($result->weight > $result->volume) {
+								if ($result->weight > 10) {
+									$net = $result->weight;
+								} else {
+									$net = 10;
+								}
+							} else {
+								if ($result->volume > 10) {
+									$net = $result->volume;
+								} else {
+									$net = 10;
+								}
+							}
+							?>
+							Chargable Weight: <?= $net; ?>
 						</div>
 					</div>
 				</div>
@@ -267,12 +180,12 @@ function penyebut($nilai)
 									Jasa Gudang
 								</td>
 								<td class="p-0" width="30%">
-									<?php echo $net; ?> X 1 X <?php echo $sg; ?>
+									<?php echo $net; ?> X 1 X <?php echo $result->pl_sg; ?>
 								</td>
 								<td class="p-0 pe-4" width="30%">
 									<div class="d-flex justify-content-between">
 										<span class="ps-4">=Rp.</span>
-										<span><?php echo number_format($tsg); ?></span>
+										<span><?php echo number_format($result->payment_sg); ?></span>
 									</div>
 								</td>
 							</tr>
@@ -286,7 +199,7 @@ function penyebut($nilai)
 								<td class="p-0 pe-4" width="30%">
 									<div class="d-flex justify-content-between">
 										<span class="ps-4">=Rp.</span>
-										<span><?php echo number_format($admin); ?></span>
+										<span><?php echo number_format($result->payment_admin); ?></span>
 									</div>
 								</td>
 							</tr>
@@ -295,12 +208,12 @@ function penyebut($nilai)
 									JKP2U
 								</td>
 								<td class="p-0" width="30%">
-									<?php echo $weight; ?> X 1 X <?php echo $pjkp2u; ?>
+									<?php echo $result->weight; ?> X 1 X <?php echo $result->pl_pjkp2u; ?>
 								</td>
 								<td class="p-0 pe-4" width="30%">
 									<div class="d-flex justify-content-between">
 										<span class="ps-4">=Rp.</span>
-										<span><?php echo number_format($tpjkp2u); ?></span>
+										<span><?php echo number_format($result->payment_pjkp2u); ?></span>
 									</div>
 								</td>
 							</tr>
@@ -309,12 +222,12 @@ function penyebut($nilai)
 									Kade
 								</td>
 								<td class="p-0" width="30%">
-									<?php echo $weight; ?> X 1 X <?php echo $kade; ?>
+									<?php echo $result->weight; ?> X 1 X <?php echo $result->pl_kade; ?>
 								</td>
 								<td class="p-0 pe-4" width="30%">
 									<div class="d-flex justify-content-between">
 										<span class="ps-4">=Rp.</span>
-										<span><?php echo number_format($tkade); ?></span>
+										<span><?php echo number_format($result->payment_kade); ?></span>
 									</div>
 								</td>
 							</tr>
@@ -323,12 +236,12 @@ function penyebut($nilai)
 									Airport Surcharge
 								</td>
 								<td class="p-0" width="30%">
-									<?php echo $net; ?> X 1 X <?php echo $airport_surcharge; ?>
+									<?php echo $net; ?> X 1 X <?php echo $result->pl_airtax; ?>
 								</td>
 								<td class="p-0 pe-4" width="30%">
 									<div class="d-flex justify-content-between">
 										<span class="ps-4">=Rp.</span>
-										<span><?php echo number_format($tairport_surcharge); ?></span>
+										<span><?php echo number_format($result->payment_airtax); ?></span>
 									</div>
 								</td>
 							</tr>
@@ -341,7 +254,7 @@ function penyebut($nilai)
 								<td class="p-0 pe-4" width="30%">
 									<div class="d-flex justify-content-between">
 										<span class="ps-4">=Rp.</span>
-										<span><?php echo number_format($tsg + $admin + $tpjkp2u + $tkade + $tairport_surcharge); ?></span>
+										<span><?php echo number_format($result->payment_admin + $result->payment_sg + $result->payment_pjkp2u + $result->payment_kade + $result->payment_airtax); ?></span>
 									</div>
 								</td>
 							</tr>
@@ -354,7 +267,7 @@ function penyebut($nilai)
 								<td class="p-0 pe-4" width="30%">
 									<div class="d-flex justify-content-between">
 										<span class="ps-4">=Rp.</span>
-										<span><?php echo number_format($tppn); ?></span>
+										<span><?php echo number_format($result->payment_ppn); ?></span>
 									</div>
 								</td>
 							</tr>
@@ -367,7 +280,7 @@ function penyebut($nilai)
 								<td class="p-0 pe-4" width="30%">
 									<div class="d-flex justify-content-between">
 										<span class="ps-4">=Rp.</span>
-										<span><?php echo number_format($tmaterai); ?></span>
+										<span><?php echo number_format($result->payment_materai); ?></span>
 									</div>
 								</td>
 							</tr>
@@ -380,7 +293,7 @@ function penyebut($nilai)
 								<td class="p-0 pe-4" width="30%">
 									<div class="d-flex justify-content-between">
 										<span class="ps-4">=Rp.</span>
-										<span><strong><?php echo number_format($total); ?></strong></span>
+										<span><strong><?php echo number_format($result->payment_total); ?></strong></span>
 									</div>
 								</td>
 							</tr>
@@ -388,7 +301,7 @@ function penyebut($nilai)
 					</div>
 					<div class="terbilang">
 						<?php
-						$terbilang = $data->terbilang($total);
+						$terbilang = $data->terbilang($result->payment_total);
 						$penyebut = penyebut($terbilang);
 						?>
 						<i><strong>Terbilang : </strong><?php echo ucwords($penyebut) . " Rupiah"; ?></i>
@@ -396,14 +309,14 @@ function penyebut($nilai)
 				</div>
 				<div class="footer">
 					<div class="d-flex justify-content-end">
-						Cengkareng, <?php echo date("d-m-Y", strtotime($date)); ?>
+						Cengkareng, <?php echo date("d-m-Y", strtotime($result->payment_date)); ?>
 					</div>
 					<div class="d-flex justify-content-between mb-3">
 						<div>
 							Metode bayar: CASH
 						</div>
 						<div>
-							Process by: <?php echo $name; ?>
+							Process by: <?php echo $result->payment_cashier; ?>
 						</div>
 					</div>
 					<div class="d-flex justify-content-between">
@@ -417,110 +330,13 @@ function penyebut($nilai)
 							</div>
 						</div>
 						<div class="me-4">
-							<img src="../assets/phpqrcode-master/qrgenerator.php?data=<?= $new_njg . '|' . $_SESSION['id'] . '|' . $_SESSION['name'] ?>" alt="QR Code 1" width="120px">
+							<img src="../assets/phpqrcode-master/qrgenerator.php?data=<?= $result->njg . '|' . $_SESSION['id'] . '|' . $result->payment_cashier ?>" alt="QR Code 1" width="120px">
 						</div>
 					</div>
 				</div>
 			</div>
 		<?php
-			$data->updatestat($awb);
-			$url = "https://apisigo.angkasapura2.co.id/api/invo_dtl_v2";
-
-			$fields = array(
-				'USR' => 'user.api.poslog',
-				'PSW' => 'user.api.poslog',
-				'NO_INVOICE' => $new_njg,
-				'TANGGAL' => date('Y-m-d H:i:s'),
-				'SMU' => $awb,
-				'KDAIRLINE' => $kdairline,
-				'FLIGHT_NUMBER' =>  $send_flight,
-				'DOM_INT' => 'D',
-				'INC_OUT' => 'O',
-				'ASAL' => 'CGK',
-				'TUJUAN' => $des_tlc,
-				'JENIS_KARGO' => $comodity,
-				'TARIF_KARGO' => '1',
-				'KOLI' => $quantity,
-				'BERAT' => $weight,
-				'VOLUME' => $volume,
-				'JML_HARI' => 1,
-				'CARGO_CHG' => $tsg,
-				'KADE' => $tkade,
-				'TOTAL_PENDAPATAN_TANPA_PPN' => $total - $tppn,
-				'TOTAL_PENDAPATAN_DENGAN_PPN' => $total,
-				'PJT_HANDLING_FEE' => '0',
-				'RUSH_HANDLING_FEE' => '0',
-				'RUSH_SERVICE_FEE' => '0',
-				'TRANSHIPMENT_FEE' => '0',
-				'ADMINISTRATION_FEE' => $admin,
-				'DOCUMENTS_FEE' => '0',
-				'PECAH_PU_FEE' => '0',
-				'COOL_COLD_STORAGE_FEE' => '0',
-				'STRONG_ROOM_FEE' => '0',
-				'AC_ROOM_FEE' => '0',
-				'DG_ROOM_FEE' => '0',
-				'AVI_ROOM_FEE' => '0',
-				'DANGEROUS_GOOD_CHECK_FEE' => '0',
-				'DISCOUNT_FEE' => '0',
-				'RKSP_FEE' => '0',
-				'HAWB' => '0',
-				'HAWB_FEE' => '0',
-				'HAWB_MAWB_FEE' => '0',
-				'CSC_FEE' => $tpjkp2u,
-				'ENVIROTAINER_ELEC_FEE' => '0',
-				'ADDITIONAL_COSTS' => $tairport_surcharge,
-				'NAWB_FEE' => '0',
-				'BARCODE_FEE' => '0',
-				'CARGO_DEVELOPMENT_FEE' => '0',
-				'DUTIABLE_SHIPMENT_FEE' => '0',
-				'FHL_FEE' => '0',
-				'FWB_FEE' => '0',
-				'CARGO_INSPECTION_REPORT_FEE' => '0',
-				'MATERAI_FEE' => $tmaterai,
-				'PPN_FEE' => $tppn
-			);
-
-			$curl = curl_init();
-
-			curl_setopt_array($curl, array(
-				CURLOPT_URL => $url,
-				CURLOPT_RETURNTRANSFER => true,
-				CURLOPT_ENCODING => '',
-				CURLOPT_MAXREDIRS => 10,
-				CURLOPT_TIMEOUT => 3,
-				CURLOPT_FOLLOWLOCATION => true,
-				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-				CURLOPT_CUSTOMREQUEST => 'POST',
-				CURLOPT_POSTFIELDS => $fields,
-				CURLOPT_HTTPHEADER => array(
-					'Cookie: dtCookie=CD78B9A24184B932B72CB79ED316B71D|X2RlZmF1bHR8MQ'
-				),
-			));
-
-			$response = curl_exec($curl);
-
-			curl_close($curl);
-			$response = json_decode($response, true);
-
-			if (!$response) {
-				$status = 'no connection';
-			} else {
-				if ($response['status'] == '200') {
-					$status = 'berhasil';
-				} elseif ($response['status'] == '500') {
-					$status = 'internal server eror';
-				} else {
-					$status = 'Error Unknown';
-				}
-			}
-			$fields['PUSH_STATUS'] = $status;
-			$fields['CREATE_BY'] = $_SESSION['name'];
-			$fields['PAYMENT_ID'] = intval($data->last_id()->id) + $i + 1;
-			$data_ap->insert_data($fields);
 		}
-		$values = substr($values, 0, -1);
-		$insert = $data->insert($values);
-
 		?>
 	</div>
 	<script src="../assets/jquery/jquery-3.6.0.js"></script>
@@ -541,8 +357,6 @@ function penyebut($nilai)
 
 		})
 	</script>
-	<?php //header("location: ?"); 
-	?>
 
 
 </body>

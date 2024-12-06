@@ -94,7 +94,7 @@ if (isset($_POST['save_session_excel'])) {
           <td><?php echo $result->ppn; ?></td>
           <td><?php echo $result->materai; ?></td>
           <td><?php echo $result->total; ?></td>
-          <td><?php echo $result->status; ?></td>
+          <td><?php echo $result->payment_status == 0 ? 'void' : $result->status; ?></td>
           <td><?php echo $result->proses_by; ?></td>
           <td><?php echo $result->last_editor; ?></td>
         </tr>

@@ -29,7 +29,7 @@ class Btb
 	public function insert($data_input)
 	{
 		$db = $this->mysqli->conn;
-		$sql = "INSERT INTO cargo (smu_code, smu, no_do, flight_no, shipment_type, comodity, agent_name, shipper_name, pic, quantity, weight, volume, tanggal, status, proses_by, session, ra_id) VALUES ($data_input)";
+		$sql = "INSERT INTO cargo (smu_code, smu, no_do, flight_no, shipment_type, comodity, agent_name, shipper_name, pic, quantity, weight, volume, tanggal, status, proses_by, session, ra_id, shipper_address) VALUES ($data_input)";
 
 		$query = $db->query($sql) or die($db->error);
 		if (!$query) {
@@ -316,15 +316,64 @@ class Btb
 
 	function getCargoById($id)
 	{
+		try {
+			$db = $this->mysqli->conn;
+			$sql = "SELECT *, cargo.id as id
+				FROM `cargo`
+				LEFT JOIN `regulated_agents` ON `regulated_agents`.`ra_id` = `cargo`.`ra_id`
+				LEFT JOIN `agent` ON `agent`.`agent_name` = `cargo`.`agent_name`
+				JOIN `flight` ON `flight`.`flight_no` = `cargo`.`flight_no`
+				JOIN `cargo_class` ON `cargo_class`.`class_code` = `cargo`.`shipment_type`
+				JOIN `cargo_type`  ON `cargo_type`.`cargo_type_id` = `cargo_class`.`type_id`
+				LEFT JOIN `schedule` ON `schedule`.`flight_id` = `flight`.`id` AND `schedule`.`schedule_date` = DATE_FORMAT(`cargo`.`tanggal`, '%Y-%m-%d')
+				WHERE`cargo`.`id` = '$id'
+				LIMIT 1";
+			$query = $db->query($sql);
+			if ($query->num_rows > 0) {
+				return $query->fetch_object();
+			} else {
+				throw new Exception('Data not found');
+			}
+			return ($query);
+		} catch (Exception $e) {
+			return $e;
+		}
+	}
+
+	public function getSmuSchedule($flightNo, $date)
+	{
 		$db = $this->mysqli->conn;
 		$sql = "SELECT *
-			FROM `cargo`
-			JOIN `regulated_agents` ON `regulated_agents`.`ra_id` = `cargo`.`ra_id`
-			WHERE`id` = '$id'
+			FROM `flight`
+			JOIN `schedule` ON `schedule`.`flight_id` = `flight`.`id`
+			WHERE `flight`.`flight_no` = '$flightNo' AND `schedule`.`schedule_date` = '$date'
 			LIMIT 1";
-
-		$query = $db->query($sql)->fetch_object() or die($db->error);
-
+		$query = $db->query($sql) or die($db->error);
 		return ($query);
+	}
+
+	public function updateData($paymentId, $data)
+	{
+		try {
+			$number = 0;
+			$string = '';
+			foreach ($data as $column => $value) {
+				if ($number == 0) {
+					$string .= $column . "='" . $value . "'";
+				} else {
+					$string .= ", " . $column . "='" . $value . "'";
+				}
+				$number++;
+			}
+			$db = $this->mysqli->conn;
+			$sql = "UPDATE cargo SET ";
+			$sql .= $string;
+			$sql .= " WHERE id = '$paymentId'";
+			$query = $db->query($sql);
+
+			return 'updated';
+		} catch (Exception $e) {
+			return null;
+		}
 	}
 }

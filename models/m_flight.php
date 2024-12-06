@@ -1,7 +1,9 @@
-<?php 
-class Flight{
+<?php
+class Flight
+{
 	private $mysqli;
-	function __construct($conn){
+	function __construct($conn)
+	{
 		$this->mysqli = $conn;
 	}
 
@@ -12,7 +14,7 @@ class Flight{
 		FROM `flight`
 		JOIN `airlines` ON `airlines`.`airline_id` = `flight`.`airline_id`
 		JOIN `smu_code` ON `smu_code`.`airline_id` = `airlines`.`airline_id`
-		WHERE `smu_code`.`code` = '".$smu_code."'";
+		WHERE `smu_code`.`code` = '" . $smu_code . "'";
 		$query = $db->query($sql);
 
 		return $query;
@@ -24,10 +26,21 @@ class Flight{
 		FROM `flight`
 		JOIN `airlines` ON `airlines`.`airline_id` = `flight`.`airline_id`
 		JOIN `smu_code` ON `smu_code`.`airline_id` = `airlines`.`airline_id`
-		WHERE `flight`.`airline_id` = '".$airline."' AND `flight`.`tlc` = '".$tlc."'";
+		WHERE `flight`.`airline_id` = '" . $airline . "' AND `flight`.`tlc` = '" . $tlc . "'";
 		$query = $db->query($sql);
 
 		return $query;
 	}
+
+	public function save_schedule($flightId, $date, $time)
+	{
+		$db = $this->mysqli->conn;
+		$sql = "INSERT INTO `schedule`(`flight_id`, `schedule_date`, `schedule_time`) VALUES ('" . $flightId . "','" . $date . "','" . $time . "')";
+		$query = $db->query($sql);
+
+		$db = $this->mysqli->conn;
+		$sql = "SELECT * FROM `schedule` WHERE `flight_id` = '$flightId' AND `schedule_date` = '$date' AND `schedule_time` = '$time'";
+		$query = $db->query($sql)->fetch_object() or die($db->error);
+		return ($query);
+	}
 }
-?>

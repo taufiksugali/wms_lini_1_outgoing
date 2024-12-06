@@ -226,6 +226,7 @@ body{
 	color: #505050;
 }
 .kontener2 .content input,
+.kontener2 .content textarea,
 .kontener2 .content select{
 	border-radius: 5px;
 	border-color: #4a0078;
@@ -233,6 +234,9 @@ body{
 .kontener2 .content input:hover,
 .kontener2 .content input:focus,
 .kontener2 .content input:active,
+.kontener2 .content textarea:hover,
+.kontener2 .content textarea:focus,
+.kontener2 .content textarea:active,
 .kontener2 .content select:hover,
 .kontener2 .content select:focus,
 .kontener2 .content select:active{

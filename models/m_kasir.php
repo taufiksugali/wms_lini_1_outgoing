@@ -20,6 +20,26 @@ class Kasir
 		$sql = "INSERT INTO payment (njg, btb, smu, tanggal, admin, sewa_gudang, kade, pjkp2u, airport_tax, ppn, materai, total, proses_by, session_kasir, pricelist_id, npwp) VALUES $values";
 		$db->query($sql) or die($db->error);
 	}
+
+	public function insert2($values)
+	{
+		try {
+			$db = $this->mysqli->conn;
+			$sql = "INSERT INTO payment (njg, btb, smu, tanggal, admin, sewa_gudang, kade, pjkp2u, airport_tax, ppn, materai, total, proses_by, session_kasir, pricelist_id, npwp) VALUES $values";
+			$db->query($sql);
+			if ($db->error) {
+				throw new Exception($db->error);
+			}
+
+			$db = $this->mysqli->conn;
+			$sql = "SELECT * FROM payment ORDER BY id DESC LIMIT 1";
+			$query = $db->query($sql)->fetch_object() or die($db->error);
+
+			return ($query);
+		} catch (Exception $e) {
+			return $e->getMessage();
+		}
+	}
 	public function create($pharsing)
 	{
 		$db = $this->mysqli->conn;
@@ -208,7 +228,7 @@ class Kasir
 	public function joindata($session)
 	{
 		$db = $this->mysqli->conn;
-		$sql = "SELECT payment.session_kasir, payment.npwp, payment.id, payment.smu, payment.njg, cargo.no_do, cargo.agent_name, cargo.shipper_name, payment.admin, payment.sewa_gudang, payment.kade, payment.pjkp2u, payment.airport_tax, payment.ppn, payment.materai, payment.total, cargo.pic, cargo.status, payment.proses_by, payment.stimestamp AS tanggalan, cargo.last_editor, regulated_agents.ra_name
+		$sql = "SELECT payment.id as payment_id, payment.session_kasir, payment.npwp, payment.id, payment.smu, payment.njg, cargo.no_do, cargo.agent_name, cargo.shipper_name, payment.admin, payment.sewa_gudang, payment.kade, payment.pjkp2u, payment.airport_tax, payment.ppn, payment.materai, payment.total, cargo.pic, cargo.status, payment.proses_by, payment.stimestamp AS tanggalan, cargo.last_editor, regulated_agents.ra_name, payment.payment_status, payment.void_by
 		FROM payment 
 		INNER JOIN cargo ON payment.smu=cargo.smu 
 		LEFT JOIN regulated_agents ON regulated_agents.ra_id = cargo.ra_id
@@ -220,7 +240,7 @@ class Kasir
 	public function joindata_airline($session, $airline)
 	{
 		$db = $this->mysqli->conn;
-		$sql = "SELECT payment.session_kasir, payment.id, payment.smu, payment.njg, cargo.no_do, cargo.agent_name, cargo.shipper_name, payment.admin, 			payment.sewa_gudang, payment.kade, payment.pjkp2u, payment.airport_tax, payment.ppn, payment.materai, payment.total, cargo.pic, 			cargo.status, payment.proses_by, payment.stimestamp AS tanggalan, cargo.last_editor 
+		$sql = "SELECT payment.id as payment_id, payment.session_kasir, payment.id, payment.smu, payment.njg, cargo.no_do, cargo.agent_name, cargo.shipper_name, payment.admin, 			payment.sewa_gudang, payment.kade, payment.pjkp2u, payment.airport_tax, payment.ppn, payment.materai, payment.total, cargo.pic, 			cargo.status, payment.proses_by, payment.stimestamp AS tanggalan, cargo.last_editor, payment.payment_status, payment.void_by 
 		FROM payment 
 		INNER JOIN cargo ON payment.smu=cargo.smu 
 		JOIN `smu_code` ON `smu_code`.`code` = `cargo`.`smu_code`
@@ -276,6 +296,50 @@ class Kasir
 	{
 		$db = $this->mysqli->conn;
 		$sql = "SELECT cargo.smu, cargo.no_do AS no_btb, cargo.tanggal AS tanggalbtb, payment.njg, payment.stimestamp AS tanggalnjg, cargo.agent_name, cargo.shipper_name, cargo.pic, cargo.flight_no, flight.tlc, cargo.comodity, cargo.quantity, cargo.weight, cargo.volume, payment.admin, payment.sewa_gudang, payment.kade, payment.pjkp2u, payment.airport_tax, payment.ppn, payment.materai, payment.total, cargo.session, cargo.proses_by  AS proses_btb, payment.session_kasir, payment.npwp, payment.proses_by AS proses_njg, payment.keterangan FROM payment INNER JOIN cargo ON cargo.smu=payment.smu LEFT JOIN flight ON cargo.flight_no=flight.flight_no WHERE cargo.status='$status' AND payment.session_kasir = '$session'";
+		$query = $db->query($sql) or die($db->error);
+
+		return ($query);
+	}
+
+	public function getSessionData($session)
+	{
+		$db = $this->mysqli->conn;
+		$sql = "SELECT 
+				cargo.smu,
+				cargo.no_do AS no_btb,
+				cargo.tanggal AS tanggalbtb,
+				payment.njg,
+				payment.stimestamp AS tanggalnjg,
+				cargo.agent_name,
+				cargo.shipper_name,
+				cargo.pic,
+				cargo.flight_no,
+				flight.tlc,
+				cargo.comodity,
+				cargo.quantity,
+				cargo.weight,
+				cargo.volume,
+				payment.admin,
+				payment.sewa_gudang,
+				payment.kade,
+				payment.pjkp2u,
+				payment.airport_tax,
+				payment.ppn,
+				payment.materai,
+				payment.total,
+				cargo.session,
+				cargo.proses_by  AS proses_btb,
+				payment.session_kasir,
+				payment.npwp,
+				payment.proses_by AS proses_njg,
+				payment.keterangan,
+				payment.payment_status,
+				payment.void_by,
+				cargo.last_editor
+			FROM payment
+			JOIN cargo ON cargo.no_do = payment.btb
+			JOIN flight on flight.flight_no = cargo.flight_no
+			WHERE payment.session_kasir = '$session'";
 		$query = $db->query($sql) or die($db->error);
 
 		return ($query);
@@ -368,5 +432,99 @@ class Kasir
 		$query = $db->query($sql)->fetch_object() or die($db->error);
 
 		return ($query);
+	}
+
+
+
+	public function getInvoiceById($invoiceId)
+	{
+		$db = $this->mysqli->conn;
+		$sql = "SELECT *, payment.id as payment_id, cargo.id as cargo_id
+				FROM `payment`
+				JOIN `cargo` ON `cargo`.`no_do` = `payment`.`btb`
+				JOIN `smu_code` ON `smu_code`.`code` = `cargo`.`smu_code`
+				JOIN `flight` ON `flight`.`flight_no` = `cargo`.`flight_no` AND `flight`.`airline_id` = `smu_code`.`airline_id`
+				WHERE `payment`.`id` = '$invoiceId'";
+		$query = $db->query($sql)->fetch_object() or die($db->error);
+		return ($query);
+	}
+
+	public function getInvoiceByIds($invoiceIds)
+	{
+		$db = $this->mysqli->conn;
+		$sql = "SELECT 
+					payment.id as payment_id,
+					payment.njg,
+					payment.admin as payment_admin,
+					payment.sewa_gudang as payment_sg,
+					payment.kade as payment_kade,
+					payment.pjkp2u as payment_pjkp2u,
+					payment.ppn as payment_ppn,
+					payment.materai as payment_materai,
+					payment.airport_tax as payment_airtax,
+					payment.total as payment_total,
+					payment.proses_by as payment_cashier,
+					payment.session_kasir,
+					payment.tanggal as payment_date,
+					payment.stimestamp as payment_timestamp,
+					payment.npwp,
+					pricelist.admin as pl_admin,
+					pricelist.sg as pl_sg,
+					pricelist.kade as pl_kade,
+					pricelist.pjkp2u as pl_pjkp2u,
+					pricelist.airport_surcharge as pl_airtax,
+					pricelist.materai as pl_materai,
+					cargo.smu,
+					cargo.no_do,
+					cargo.shipment_type,
+					cargo.flight_no,
+					cargo.shipment_type,
+					cargo.comodity,
+					cargo.agent_name,
+					cargo.shipper_name,
+					cargo.pic,
+					cargo.quantity,
+					cargo.weight,
+					cargo.volume,
+					cargo.tanggal as btb_date,
+					cargo.proses_by as btb_user,
+					cargo.session as btb_session,
+					cargo.id as cargo_id,
+					flight.tlc,
+					ra.ra_name
+				FROM `payment`
+				JOIN `cargo` ON `cargo`.`no_do` = `payment`.`btb`
+				JOIN `smu_code` ON `smu_code`.`code` = `cargo`.`smu_code`
+				JOIN `flight` ON `flight`.`flight_no` = `cargo`.`flight_no` AND `flight`.`airline_id` = `smu_code`.`airline_id`
+				JOIN `pricelist` ON `pricelist`.`pricelist_id` = `payment`.`pricelist_id`
+				LEFT JOIN `regulated_agents` ra ON ra.`ra_id` = `cargo`.`ra_id`
+				WHERE `payment`.`id` IN $invoiceIds";
+		$query = $db->query($sql) or die($db->error);
+		return ($query);
+	}
+
+	public function updateData($paymentId, $data)
+	{
+		try {
+			$number = 0;
+			$string = '';
+			foreach ($data as $column => $value) {
+				if ($number == 0) {
+					$string .= $column . "='" . $value . "'";
+				} else {
+					$string .= ", " . $column . "='" . $value . "'";
+				}
+				$number++;
+			}
+			$db = $this->mysqli->conn;
+			$sql = "UPDATE payment SET ";
+			$sql .= $string;
+			$sql .= " WHERE id = '$paymentId'";
+			$query = $db->query($sql);
+
+			return 'updated';
+		} catch (Exception $e) {
+			return null;
+		}
 	}
 }
