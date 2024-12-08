@@ -44,7 +44,7 @@ if (isset($_POST['s_print'])) {
   $pic                = $_POST['pic'];
   $quantity           = $_POST['qty'];
   $weight             = $_POST['weight'];
-  $volume             = $_POST['volume'];
+  $volume             = intval($_POST['volume']) ? $_POST['volume'] : 0;
   $method             = $_POST['method'];
   $shipper_address    = $_POST['shipper_address'];
   $ra_id              = $_POST['ra'];
