@@ -232,7 +232,7 @@ if (isset($_POST['p_reprint'])) {
   $pic = $_POST['pic'];
   $quantity = $_POST['qty'];
   $weight = $_POST['weight'];
-  $volume = $_POST['volume'];
+  $volume = intval($_POST['volume']) ? $_POST['volume'] : 0;
   $nama = $_SESSION['name'];
   $ra_id = $_POST['ragent'];
   $shipper_adress = $_POST['shipper_address'];

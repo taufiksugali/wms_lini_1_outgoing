@@ -562,6 +562,7 @@ if (isset($_GET['cancel'])) {
 
 		$("#volume").val(total);
 		$("#volumeX").val(total);
+		console.log(total);
 	})
 
 	function setExcelAirline(el) {
@@ -572,41 +573,44 @@ if (isset($_GET['cancel'])) {
 	$("#editDo").on('show.bs.modal', async function(event) {
 		let button = $(event.relatedTarget);
 		let id = button.data('id');
-		let dataCargo = await new Promise((Resolve, Reject) => {
-			$.ajax({
-				url: 'ajax/get_cargo.php?id=' + id,
-				type: 'get',
-				dataType: 'json',
-				success: function(data) {
-					Resolve(data);
-				},
-				error: function(data) {
-					Reject(data);
-				}
-			})
-		}).then(result => {
-			if (result.status == 200) {
-				$("#idSmu").val(result.data.id);
-				$("#awb").val(result.data.smu);
-				$("#comodity").val(result.data.comodity);
-				$("#agent").val(result.data.agent_name);
-				$("#agent").trigger("change");
-				$("#shipper").val(result.data.shipper_name);
-				$("#pic").val(result.data.pic);
-				$("#qty").val(result.data.quantity);
-				$("#weight").val(result.data.weight);
-				$("#volume").val(result.data.volume);
-				$("#volumeX").val(result.data.volume);
-				$("#ragent").val(result.data.ra_id);
-				$("#ragent").trigger("change");
-				$("#shipper_address").val(result.data.shipper_address);
-
-				result.flights.forEach((flight) => {
-					$("#noflight").append(`<option value="${flight.flight_no}" ${flight.flight_no == result.data.flight_no ? 'selected' : ''}>${flight.flight_no}</option>`);
+		if (id) {
+			let dataCargo = await new Promise((Resolve, Reject) => {
+				$.ajax({
+					url: 'ajax/get_cargo.php?id=' + id,
+					type: 'get',
+					dataType: 'json',
+					success: function(data) {
+						Resolve(data);
+					},
+					error: function(data) {
+						Reject(data);
+					}
 				})
-			}
-		}).catch(error => {
-			Swal.fire('Not found', 'Cargo data not found!', 'error');
-		})
+			}).then(result => {
+				if (result.status == 200) {
+					$("#idSmu").val(result.data.id);
+					$("#awb").val(result.data.smu);
+					$("#comodity").val(result.data.comodity);
+					$("#agent").val(result.data.agent_name);
+					$("#agent").trigger("change");
+					$("#shipper").val(result.data.shipper_name);
+					$("#pic").val(result.data.pic);
+					$("#qty").val(result.data.quantity);
+					$("#weight").val(result.data.weight);
+					$("#volume").val(result.data.volume);
+					$("#volumeX").val(result.data.volume);
+					$("#ragent").val(result.data.ra_id);
+					$("#ragent").trigger("change");
+					$("#shipper_address").val(result.data.shipper_address);
+
+					result.flights.forEach((flight) => {
+						$("#noflight").append(`<option value="${flight.flight_no}" ${flight.flight_no == result.data.flight_no ? 'selected' : ''}>${flight.flight_no}</option>`);
+					})
+				}
+			}).catch(error => {
+				Swal.fire('Not found', 'Cargo data not found!', 'error');
+			})
+		}
+		// $("#calculate").attr('data-id', id);
 	})
 </script>
