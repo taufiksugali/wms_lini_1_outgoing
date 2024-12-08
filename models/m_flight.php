@@ -43,4 +43,29 @@ class Flight
 		$query = $db->query($sql)->fetch_object() or die($db->error);
 		return ($query);
 	}
+
+	public function update_schedule($scheduleId, $data)
+	{
+		try {
+			$number = 0;
+			$string = '';
+			foreach ($data as $column => $value) {
+				if ($number == 0) {
+					$string .= $column . "='" . $value . "'";
+				} else {
+					$string .= ", " . $column . "='" . $value . "'";
+				}
+				$number++;
+			}
+			$db = $this->mysqli->conn;
+			$sql = "UPDATE schedule SET ";
+			$sql .= $string;
+			$sql .= " WHERE schedule_id = '$scheduleId'";
+			$query = $db->query($sql);
+
+			return 'updated';
+		} catch (Exception $e) {
+			return null;
+		}
+	}
 }

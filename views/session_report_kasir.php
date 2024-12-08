@@ -246,8 +246,8 @@ $d_airline = $m_airline->call_all_airline();
 										<?php endif; ?>
 										<?php
 										if ($result2->payment_status == '0') {
-											$void_name = $result2->last_editor ? '' : $result2->void_by;
-											echo "void by: $void_name";
+											$void_name = @$result2->void_by;
+											echo "void by: " . @$void_name;
 										}
 										?>
 									</td>

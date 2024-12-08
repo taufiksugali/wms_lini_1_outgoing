@@ -75,8 +75,8 @@ if (isset($_POST['s_print'])) {
   }
   $_SESSION['print']  = "on";
 
-
-  $data_input = "'$head','$awb','$next_do','$noflight','$shipment_type','$comodity','$agent','$shipper','$pic','$quantity','$weight','$volume','$tanggal','$status','$user','$pharsing','$ra_id','$shipper_address'";
+  $ctimestamp = date('y-m-d H:i:s');
+  $data_input = "'$head','$awb','$next_do','$noflight','$shipment_type','$comodity','$agent','$shipper','$pic','$quantity','$weight','$volume','$tanggal','$status','$user','$pharsing','$ra_id','$shipper_address', '$ctimestamp'";
   $execute = $sesi->insert($data_input);
 
 

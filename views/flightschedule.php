@@ -137,6 +137,7 @@ if (@$_POST['date'] && @$_POST['airline']) {
 <script src="assets/datetimepicker-master/jquery.datetimepicker.js"></script>
 <script>
     var cdate = '<?= @$_POST['date'] ?? date('Y-m-d') ?>';
+    var limitDate = '<?= @$_POST['date'] ?? date('Y-m-d') ?>';
     var listTable;
     $(document).ready(function() {
         $('.select2').select2({
@@ -147,6 +148,7 @@ if (@$_POST['date'] && @$_POST['airline']) {
             format: 'Y-m-d',
             timepicker: false
         })
+        limitDate = addDays(cdate, 2);
 
         listTable = $("#schedule-table").DataTable();
         datetimeInit();
@@ -154,19 +156,19 @@ if (@$_POST['date'] && @$_POST['airline']) {
         listTable.on('page.dt', function() {
             datetimeInit()
         });
-
-        $('#schedule-table_filter input').on('input', function() {
+        $('#schedule-table_filter input').on('mousedown', function() {
             datetimeInit()
         })
 
-    })
 
+    })
+    // var cdate = '2024-12-08'
     const datetimeInit = () => {
         $('.datetime').datetimepicker({
             step: 5,
             format: 'Y-m-d H:i',
-            minDate: cdate, // Tanggal minimal adalah cdate
-            maxDate: cdate,
+            minDate: cdate,
+            maxDate: limitDate,
         })
     }
 
@@ -219,4 +221,54 @@ if (@$_POST['date'] && @$_POST['airline']) {
         console.log('tester');
         datetimeInit()
     })
+
+    const addDays = (date, days) => {
+        const result = new Date(date);
+        result.setDate(result.getDate() + days);
+        return result.toISOString().split('T')[0];
+    };
+
+    const updateSchedule = (e) => {
+        let button = e;
+        let schedule_id = e.data('schedule_id');
+        let date = e.data('date');
+        let time = e.parent().parent().find('input').val();
+        if (time == '') {
+            Swal.fire('Warning', 'Please input time', 'warning');
+        } else {
+            Swal.fire({
+                title: 'Update Flight ETD?',
+                showDenyButton: true,
+                confirmButtonText: 'Update',
+                denyButtonText: `Cancel`,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: 'ajax/get_flight.php?action=update_schedule',
+                        data: {
+                            date: date,
+                            time: time,
+                            schedule_id: schedule_id,
+                        },
+                        type: 'post',
+                        dataType: 'json',
+                    }).then(result => {
+                        if (result.status == 200) {
+                            Swal.fire('Updated', 'Schedule has been updated', 'success');
+                        } else if (result.message) {
+                            Swal.fire('Failed', result.message, 'error');
+                        } else {
+                            Swal.fire('Failed', 'Something went wrong', 'error');
+                        }
+                    }).catch(error => {
+                        if (error.responseJSON.message) {
+                            Swal.fire('Failed', error.responseJSON.message, 'error');
+                        } else {
+                            Swal.fire('Failed', 'Something went wrong', 'error');
+                        }
+                    })
+                }
+            })
+        }
+    }
 </script>

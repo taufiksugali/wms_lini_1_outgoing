@@ -29,7 +29,7 @@ class Btb
 	public function insert($data_input)
 	{
 		$db = $this->mysqli->conn;
-		$sql = "INSERT INTO cargo (smu_code, smu, no_do, flight_no, shipment_type, comodity, agent_name, shipper_name, pic, quantity, weight, volume, tanggal, status, proses_by, session, ra_id, shipper_address) VALUES ($data_input)";
+		$sql = "INSERT INTO cargo (smu_code, smu, no_do, flight_no, shipment_type, comodity, agent_name, shipper_name, pic, quantity, weight, volume, tanggal, status, proses_by, session, ra_id, shipper_address, ctimestamp) VALUES ($data_input)";
 
 		$query = $db->query($sql) or die($db->error);
 		if (!$query) {

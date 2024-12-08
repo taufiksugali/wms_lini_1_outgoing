@@ -25,7 +25,7 @@ class Kasir
 	{
 		try {
 			$db = $this->mysqli->conn;
-			$sql = "INSERT INTO payment (njg, btb, smu, tanggal, admin, sewa_gudang, kade, pjkp2u, airport_tax, ppn, materai, total, proses_by, session_kasir, pricelist_id, npwp) VALUES $values";
+			$sql = "INSERT INTO payment (njg, btb, smu, tanggal, admin, sewa_gudang, kade, pjkp2u, airport_tax, ppn, materai, total, proses_by, session_kasir, pricelist_id, npwp, stimestamp) VALUES $values";
 			$db->query($sql);
 			if ($db->error) {
 				throw new Exception($db->error);

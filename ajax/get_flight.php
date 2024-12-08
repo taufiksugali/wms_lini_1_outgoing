@@ -43,4 +43,38 @@ if (@$_GET['action']) {
 			echo json_encode($respond);
 		}
 	}
+
+	if ($_GET['action'] == 'update_schedule') {
+		$connection = new Database($host, $user, $pass, $database);
+		$flightClass = new Flight($connection);
+
+		$scheduleId = $_POST['schedule_id'];
+		$date = $_POST['date'];
+		$time = $_POST['time'];
+
+		$data = [
+			'schedule_time' => $time
+		];
+		$update = $flightClass->update_schedule($scheduleId, $data);
+
+		if ($update == null) {
+			$respond = [
+				'status' => 500,
+				'message' => 'Schedule not updated, please try again!'
+			];
+
+			header('Content-Type: application/json');
+			http_response_code(500);
+			echo json_encode($respond);
+		} else {
+			$respond = [
+				'status' => 200,
+				'message' => 'Schedule updated'
+			];
+
+			header('Content-Type: application/json');
+			http_response_code(200);
+			echo json_encode($respond);
+		}
+	}
 }

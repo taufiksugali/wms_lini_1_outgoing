@@ -5,6 +5,7 @@ include('../models/m_kasir.php');
 include('../models/m_btb.php');
 include('../models/m_hubnet.php');
 include('../models/m_sigo.php');
+date_default_timezone_set("Asia/Jakarta");
 
 if (@$_GET['action']) {
     if ($_GET['action']  == 'create_invoice') {
@@ -57,8 +58,9 @@ if (@$_GET['action']) {
             $total = round($tsg + $tpjkp2u + $tkade + $admin + $tairport_surcharge + $tppn + $tmaterai);
             $date = date("Y-m-d");
             $name = $_SESSION['name'];
+            $stimestamp = date('Y-m-d H:i:s');
 
-            $values = "('$new_njg', '$cargo->no_do', '$cargo->smu', '$date', '$admin', '$tsg','$tkade','$tpjkp2u','$tairport_surcharge','$tppn','$tmaterai','$total', '$name', '$s_kasir', '$pricelist_id', '$npwp')";
+            $values = "('$new_njg', '$cargo->no_do', '$cargo->smu', '$date', '$admin', '$tsg','$tkade','$tpjkp2u','$tairport_surcharge','$tppn','$tmaterai','$total', '$name', '$s_kasir', '$pricelist_id', '$npwp', '$stimestamp')";
             $insert = $kasir->insert2($values);
             if (@$insert->id) {
                 $kasir->updatestat($cargo->smu);
@@ -215,6 +217,8 @@ if (@$_GET['action']) {
                 $sigo->updateData($dataSigo->sigo_id, ['sigo_status' => 3]);
                 $sigoMessage = 'success';
             }
+        } else {
+            $sigoMessage = 'No data sigo recorded.';
         }
         $kasir->updateData($paymentData->payment_id, ['payment_status' => '0', 'keterangan' => $remark, 'void_by' => $_SESSION['name']]);
         $btb->updateData($paymentData->cargo_id, ['status' => 'proced']);

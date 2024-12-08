@@ -5,6 +5,7 @@ include('../models/m_kasir.php');
 include('../models/m_btb.php');
 include('../models/m_sigo.php');
 session_start();
+date_default_timezone_set("Asia/Jakarta");
 if (@$_GET['action']) {
     if ($_GET['action']  == 'store') {
         $connection = new Database($host, $user, $pass, $database);
