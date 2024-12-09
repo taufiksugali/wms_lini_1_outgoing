@@ -26,7 +26,7 @@ if (@$_GET['action']) {
             $d_njg = $kasir->calnjg();
             $njg1 = $d_njg->fetch_object();
             $njg = $njg1->njg;
-            $new_njg = $njg;
+            $new_njg = $njg + 1;
 
             $pricelist = $kasir->calprice()->fetch_object();
             $admin = $pricelist->admin;
