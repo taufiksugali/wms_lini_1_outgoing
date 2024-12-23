@@ -584,7 +584,7 @@ if ($agent->agent_npwp != null) {
             window.location.href = '?page=payment'
         }
 
-        createInvoice(list, reff_number) {
+        createInvoice(list, reff_number, hubnetStatus) {
             let action = new Promise((resolve, reject) => {
                 $("#smudata").html(list.smu + ' : Creating Invoice');
                 $.ajax({
@@ -594,6 +594,7 @@ if ($agent->agent_npwp != null) {
                         id: list.id,
                         reff_number: reff_number,
                         npwp: this.npwp,
+                        hubnet_status: hubnetStatus
                     },
                     dataType: 'json',
                 }).then(result => {
@@ -627,7 +628,7 @@ if ($agent->agent_npwp != null) {
                         dataType: 'json',
                     }).then(async result => {
                         if (result.status == 200) {
-                            let createinv = await this.createInvoice(list, result.reff_number).then(invoice => {
+                            let createinv = await this.createInvoice(list, result.reff_number, 'success').then(invoice => {
                                 if (invoice.status == 200) {
                                     successInput++;
                                     this.invoiceList.push(invoice.invoice_id);
@@ -641,11 +642,25 @@ if ($agent->agent_npwp != null) {
                                 this.sendToSigo(createinv.invoice_id, list);
                             }
                         }
-                    }).catch(error => {
+                    }).catch(async error => {
                         if (error.responseJSON) {
                             $("#logError").append(`${list.smu}: failed to push Hubnet(${error.responseJSON.message}) <br>`);
                         } else {
                             $("#logError").append(`${list.smu}: failed to push Hubnet(${error.status + ' ' + error.statusText}) <br>`);
+                        }
+
+                        let createinv = await this.createInvoice(list, '0', 'failed').then(invoice => {
+                            if (invoice.status == 200) {
+                                successInput++;
+                                this.invoiceList.push(invoice.invoice_id);
+                                return invoice;
+                            }
+                        }).catch(error => {
+                            return false;
+                        });
+
+                        if (createinv) {
+                            this.sendToSigo(createinv.invoice_id, list);
                         }
                     })
                     $("#countup").html(number++);

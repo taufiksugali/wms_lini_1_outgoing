@@ -21,6 +21,7 @@ if (@$_GET['action']) {
 
             $smuId = $_POST['id'];
             $npwp = $_POST['npwp'];
+            $hubnetStatus = $_POST['hubnet_status'];
             $cargo = $btb->getCargoById($smuId);
 
             $d_njg = $kasir->calnjg();
@@ -108,7 +109,7 @@ if (@$_GET['action']) {
                     'hub_address' => $api->api_address,
                     'hub_data' => json_encode($dataSend),
                     'hub_datetime' => date('Y-m-d H:i:s'),
-                    'hub_status' => 1,
+                    'hub_status' => $hubnetStatus == 'success' ? 1 : 0,
                 ];
                 $insertHubnet =  $hubnet->insertData($data);
                 // var_dump($insertHubnet);
