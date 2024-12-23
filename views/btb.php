@@ -53,7 +53,120 @@ $allagent = $data->get_all_agent();
 $allra = $data->get_all_ra();
 ?>
 
+<link href="assets/tom-select/tom-select.default.min.css" rel="stylesheet" crossorigin="anonymous">
+<style>
+    .ts-control>input {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+        z-index: 20;
 
+        box-shadow: none !important;
+    }
+
+    #selectFlight_input {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+        width: auto !important;
+
+    }
+
+    #selectFlight_input:focus {
+        box-shadow: none !important;
+    }
+
+    #selectFlight_input:active {
+        box-shadow: none !important;
+    }
+
+    #selectFlight_input:hover {
+        box-shadow: none !important;
+    }
+
+    #selectCType_input {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+        width: auto !important;
+
+    }
+
+    #selectCType_input:focus {
+        box-shadow: none !important;
+    }
+
+    #selectCType_input:active {
+        box-shadow: none !important;
+    }
+
+    #selectCType_input:hover {
+        box-shadow: none !important;
+    }
+
+    #selectAgent_input {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+        width: auto !important;
+
+    }
+
+    #selectAgent_input:focus {
+        box-shadow: none !important;
+    }
+
+    #selectAgent_input:active {
+        box-shadow: none !important;
+    }
+
+    #selectAgent_input:hover {
+        box-shadow: none !important;
+    }
+
+    #selectCode_input {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+        width: auto !important;
+
+    }
+
+    #selectCode_input:focus {
+        box-shadow: none !important;
+    }
+
+    #selectCode_input:active {
+        box-shadow: none !important;
+    }
+
+    #selectCode_input:hover {
+        box-shadow: none !important;
+    }
+
+
+    #selectRA_input {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+        width: auto !important;
+
+    }
+
+    #selectRA_input:focus {
+        box-shadow: none !important;
+    }
+
+    #selectRA_input:active {
+        box-shadow: none !important;
+    }
+
+    #selectRA_input:hover {
+        box-shadow: none !important;
+    }
+
+    .ts-control>.input {
+        z-index: 10;
+    }
+
+    .non-border {
+        border: none !important;
+    }
+</style>
 
 <div class="row position-relative" style="width: 100%;">
     <div class="col-sm-6">
@@ -93,7 +206,7 @@ $allra = $data->get_all_ra();
                     <div class="mb-3">
                         <label for="awb" class="form-label">Airway Bill<span class="text-danger">*</span></label>
                         <div class="d-flex">
-                            <select class="select2" name="airlist" style="width: 20%;" id="awalan" data-placeholder="Select" data-optionsdata="" onchange="getFlight($(this))" required>
+                            <select class="default-tom-select d-flex" placeholder="Select" name="airlist" style="width: 35%;" id="awalan" onchange="getFlight($(this))" required data-constname="selectCode">
                                 <option></option>
                                 <?php
                                 while ($code = $allcode->fetch_object()) {
@@ -102,10 +215,8 @@ $allra = $data->get_all_ra();
                                 <?php
                                 }
                                 ?>
-                                <!-- <option value="273-">273</option>
-                <option value="818-">818</option> -->
                             </select>
-                            <input type="text" class="form-control form-control-sm ms-2" id="awb" placeholder="AWB Number" name="awb" required maxlength="8" style="width: 70%">
+                            <input type="text" class="form-control form-control-sm ms-2" id="awb" placeholder="AWB Number" name="awb" required maxlength="8" style="width: 63%">
                             <div class="position-relative">
                                 <div class="spinner-border spinner-border-sm position-absolute pt-1" role="status" style="color: #4a0078; left: -1.5em;top : 0.5em;" id="spinnerAwb">
                                     <span class="visually-hidden">Loading...</span>
@@ -114,23 +225,28 @@ $allra = $data->get_all_ra();
 
                         </div>
                         <label for="noflight" class="form-label mt-3">Flight Number<span class="text-danger">*</span></label>
-                        <select class="select2 form-control form-control-sm" id="noflight" data-optionsdata="" data-placeholder="Select Flight Number" name="noflight" required>
-                            <option></option>
-                        </select>
+                        <div>
+                            <select class="default-tom-select" id="noflight" data-optionsdata="" placeholder="Select Flight Number" name="noflight" required style="width: 100%;" data-constname="selectFlight">
+                                <option></option>
+                            </select>
+
+                        </div>
 
                         <div class="row">
                             <div class="col-md-12">
                                 <label for="comodity" class="form-label mt-3">Cargo Type<span class="text-danger">*</span></label> <br>
-                                <select class="select2 form-control" data-placeholder="Select Cargo Type" required data-sampledata='' id="cargoType" name="shipment_type">
-                                    <option></option>
-                                    <?php
-                                    while ($class = $allclass->fetch_object()) {
-                                    ?>
-                                        <option value="<?= $class->class_code ?>"><?= $class->class_code . ' [' . $class->type . ']' ?></option>
-                                    <?php
-                                    }
-                                    ?>
-                                </select>
+                                <div>
+                                    <select class="default-tom-select" data-placeholder="Select Cargo Type" required data-sampledata='' id="cargoType" name="shipment_type" data-constname="selectCType">
+                                        <option></option>
+                                        <?php
+                                        while ($class = $allclass->fetch_object()) {
+                                        ?>
+                                            <option value="<?= $class->class_code ?>"><?= $class->class_code . ' [' . $class->type . ']' ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
                             </div>
                             <div class="col-md-12">
                                 <label for="comodity" class="form-label mt-3">Comodity<span class="text-danger">*</span></label>
@@ -139,7 +255,7 @@ $allra = $data->get_all_ra();
                         </div>
 
                         <label for="agent" class="form-label mt-3">Agent Name<span class="text-danger">*</span></label>
-                        <select name="agent" id="agent" class="form-control form-control-sm select2" data-optionsdata="" data-placeholder="Select Agent" required>
+                        <select name="agent" id="agent" class="default-tom-select" data-optionsdata="" placeholder="Select Agent" required data-constname="selectAgent">
                             <option></option>
                             <?php
                             while ($c_agent = $allagent->fetch_object()) {
@@ -190,7 +306,7 @@ $allra = $data->get_all_ra();
                             </div>
                         </div>
                         <label for="pic" class="form-label mt-3">Regulated Agent<span class="text-danger">*</span></label>
-                        <select class="form-control form-control-sm select2" data-placeholder="Select Regulated Agent" name='ra' id="ra" required>
+                        <select class="default-tom-select" data-placeholder="Select Regulated Agent" name='ra' id="ra" required data-constname="selectRA">
                             <option></option>
                             <?php
                             if (@$allra) {
@@ -327,6 +443,7 @@ $allra = $data->get_all_ra();
 
 <script src="assets/jquery/jquery-3.6.0.js" crossorigin="anonymous"></script>
 <script src="assets/select2/select2.min.js"></script>
+<script src="assets/tom-select/tom-select.complete.js" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function() {
         $("#spinnerAwb").hide();
@@ -337,6 +454,8 @@ $allra = $data->get_all_ra();
             'height': '31px',
             'border-color': '#4a0074',
         });
+        initSmallTomSelect();
+        initDefaultTomSelect();
     });
     var automode = "off";
 
@@ -521,18 +640,28 @@ $allra = $data->get_all_ra();
             data: {},
             beforeSend: function() {
                 $("#noflight").html('');
+                selectFlight.clear();
+                selectFlight.clearOptions();
             },
-            success: function(data) {
+            success: async function(data) {
                 let result = JSON.parse(data);
+                console.log(result);
                 $("#noflight").append('<option></option>');
+                let array = []
                 for (var i = 0; i < result.length; i++) {
                     let id = result[i][2];
                     let text = result[i][2];
-                    $("#noflight").append('<option value="' + id + '">' + text + '</option>');
+                    // $("#noflight").append('<option value="' + id + '">' + text + '</option>');
+                    array.push({
+                        value: id,
+                        text: text
+                    });
                 }
-                $("#noflight").select2({
-                    placeholder: $(this).data('placeholder')
-                });
+                selectFlight.addOption(array)
+                // $("#noflight").select2({
+                //     placeholder: $(this).data('placeholder')
+                // });
+                $("#noflight").trigger('change');
             }
         });
     }
@@ -646,8 +775,13 @@ $allra = $data->get_all_ra();
                     }
                 }).then(result => {
                     if (result.status == 200) {
-                        let new_options = new Option(agent_name, agent_name, false, false);
-                        $("#agent").append(new_options).trigger("change");
+                        // let new_options = new Option(agent_name, agent_name, false, false);
+                        // $("#agent").append(new_options).trigger("change");
+                        selectAgent.addOption([{
+                            value: agent_name,
+                            text: agent_name
+                        }]);
+                        selectAgent.setValue(agent_name);
                         alert("1 agent added !");
                     } else {
                         alert("Add agent error !");
@@ -680,8 +814,13 @@ $allra = $data->get_all_ra();
                     success: function(data) {
                         let result = JSON.parse(data);
                         if (result['status'] == 200) {
-                            let new_options = new Option(result.ra_name, result.ra_id, false, false);
-                            $("#ra").append(new_options).trigger("change");
+                            // let new_options = new Option(result.ra_name, result.ra_id, false, false);
+                            // $("#ra").append(new_options).trigger("change");
+                            selectRA.addOption([{
+                                value: result.ra_id,
+                                text: result.ra_name
+                            }])
+                            selectRA.setValue(result.ra_id);
                             alert("1 regulated agent added !");
                         } else {
                             alert("Add regulated agent error !");
@@ -692,5 +831,51 @@ $allra = $data->get_all_ra();
                 });
             }
         }
+    }
+
+    const initSmallTomSelect = () => {
+        $(document).find('.small-tom-select').each(function() {
+            let element = $(this);
+            new TomSelect(element[0], {
+                onInitialize: function() {
+                    this.control.classList.add('position-relative')
+                    this.control_input.classList.add('position-absolute', 'start-50', 'top-50', 'translate-middle', 'form-control-sm', 'bg-white', 'px-1rem');
+                    this.control_input.style.height = '100%';
+                    this.control_input.style.width = '100%';
+                    this.control_input.style.backgroundColor = 'white';
+                    this.wrapper.classList.add('rounded');
+                    this.wrapper.style.border = 'solid 1px #4a0078';
+                },
+                onChange: function(value) {
+                    $(this.control_input).val(value);
+                },
+                onItemAdd: function(value) {
+                    $(this.control_input).val(value);
+                },
+                onDropdownOpen: function() {
+                    let value = $(this.control).find('.item');
+                    if (value[0]) {
+                        dvalue = $(value[0]).data('value');
+                        $(this.control_input).val(dvalue);
+                    }
+                }
+
+            });
+        })
+    }
+
+    const initDefaultTomSelect = () => {
+        $(document).find('.default-tom-select').each(function() {
+            let constName = $(this).data('constname');
+            let element = $(this);
+            globalThis[constName] = new TomSelect(element[0], {
+                onInitialize: function() {
+                    this.control_input.classList.add('non-border')
+                    $(this.control_input).prop('id', constName + '_input');
+                    this.wrapper.classList.add('rounded');
+                    this.wrapper.style.border = 'solid 1px #4a0078';
+                }
+            });
+        })
     }
 </script>
