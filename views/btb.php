@@ -259,8 +259,13 @@ $allra = $data->get_all_ra();
                             <option></option>
                             <?php
                             while ($c_agent = $allagent->fetch_object()) {
+                                if ($c_agent->agent_status == '0') {
+                                    $disabled = 'disabled';
+                                } else {
+                                    $disabled = '';
+                                }
                             ?>
-                                <option value="<?= $c_agent->agent_name ?>"><?= $c_agent->agent_name ?></option>
+                                <option value="<?= $c_agent->agent_name ?>" <?= $disabled; ?>><?= $c_agent->agent_name ?> <?= $disabled == 'disabled' ? '[Inactive]' : ''; ?></option>
                             <?php
                             }
                             ?>

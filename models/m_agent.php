@@ -79,7 +79,7 @@ class Agent
 				}
 			}
 			$db = $this->mysqli->conn;
-			$sql = "UPDATE `agent` SET agent_name = '" . $data['agent_name'] . "', agent_npwp = '" . $data['agent_npwp'] . "', agent_address = '" . $data['agent_address'] . "' WHERE agent_id = '" . $agent_id . "'";
+			$sql = "UPDATE `agent` SET agent_name = '" . $data['agent_name'] . "', agent_npwp = '" . $data['agent_npwp'] . "', agent_address = '" . $data['agent_address'] . "', agent_status = '" . $data['agent_status'] . "' WHERE agent_id = '" . $agent_id . "'";
 			$query = $db->query($sql);
 			return 'updated';
 		} catch (Exception $e) {

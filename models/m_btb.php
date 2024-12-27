@@ -266,6 +266,15 @@ class Btb
 		return ($query);
 	}
 
+	public function getActiveAgent()
+	{
+		$db = $this->mysqli->conn;
+		$sql = "SELECT * FROM `agent` WHERE `agent`.`agent_status` = '1'";
+		$query = $db->query($sql) or die($db->error);
+
+		return ($query);
+	}
+
 	public function add_agent_name($agent_name)
 	{
 		$db = $this->mysqli->conn;

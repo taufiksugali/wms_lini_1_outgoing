@@ -11,7 +11,7 @@ if (isset($_POST['add_agent'])) {
         $data = [
             'agent_name' => strtoupper($_POST['agent_name']),
             'agent_npwp' => $_POST['agent_npwp'],
-            'agent_address' => $_POST['agent_address']
+            'agent_address' => $_POST['agent_address'],
         ];
         $insert = $agentClass->insertAgent($data);
         if ($insert == 'inserted') {
@@ -31,7 +31,8 @@ if (isset($_POST['update_agent'])) {
         $data = [
             'agent_name' => strtoupper($_POST['uagent_name']),
             'agent_npwp' => $_POST['uagent_npwp'],
-            'agent_address' => $_POST['uagent_address']
+            'agent_address' => $_POST['uagent_address'],
+            'agent_status' => intval($_POST['status']),
         ];
         $agent_id = $_POST['uagent_id'];
         $insert = $agentClass->updateAgent($agent_id, $data);
@@ -147,6 +148,7 @@ if (isset($_SESSION['proses'])) {
                                 <th style="position: sticky;top: 0;">Agent Name</th>
                                 <th style="position: sticky;top: 0;">NPWP</th>
                                 <th style="position: sticky;top: 0;">Address</th>
+                                <th style="position: sticky;top: 0;">Status</th>
                                 <th style="position: sticky;top: 0;">Action</th>
                             </tr>
                         </thead>
@@ -165,8 +167,18 @@ if (isset($_SESSION['proses'])) {
                                         echo '<a href="javascript:void(0);" class="text-dark" style="text-decoration: none;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="' . $agent->agent_address . '">' . $limitedText . '<a>';
                                         ?>
                                     </td>
+                                    <td class="text-center">
+                                        <?php
+                                        if ($agent->agent_status == '1') {
+                                            echo '<span class="badge bg-success">Active</span>';
+                                        } else {
+                                            echo '<span class="badge bg-danger">Inactive</span>';
+                                        }
+
+                                        ?>
+                                    </td>
                                     <td>
-                                        <a href="javascript:;" data-id="<?php echo $agent->agent_id; ?>" data-agent_name="<?= $agent->agent_name; ?>" data-agent_npwp="<?= $agent->agent_npwp; ?>" data-agent_address="<?= $agent->agent_address; ?>" data-bs-toggle="modal" data-bs-target="#modalEditAgent">
+                                        <a href="javascript:;" data-id="<?php echo $agent->agent_id; ?>" data-agent_name="<?= $agent->agent_name; ?>" data-agent_npwp="<?= $agent->agent_npwp; ?>" data-agent_address="<?= $agent->agent_address; ?>" data-bs-toggle="modal" data-bs-target="#modalEditAgent" data-status="<?= $agent->agent_status; ?>">
                                             <button type="button" class="btn btn-sm btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
                                         </a>
                                         <a href="javascript:;" class="btn btn-sm btn-danger" onclick="removeAgent($(this))" data-id="<?php echo $agent->agent_id; ?>">
@@ -214,6 +226,18 @@ if (isset($_SESSION['proses'])) {
                             Address
                         </label>
                         <textarea name="uagent_address" id="uagent_address" class="form-control form-control-sm" rows="2"><?= @old('uagent_address') ?></textarea>
+                    </div>
+                    <div class="form-check d-flex align-items-center">
+                        <input class="form-check-input me-3" type="radio" name="status" id="active" value="1">
+                        <label class="form-check-label text-primary" for="active">
+                            Active
+                        </label>
+                    </div>
+                    <div class="form-check d-flex align-items-center">
+                        <input class="form-check-input me-3" type="radio" name="status" id="inactive" value="0">
+                        <label class="form-check-label text-danger" for="inactive">
+                            Inactive
+                        </label>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -263,10 +287,19 @@ if (isset($_SESSION['proses'])) {
         let agent_name = button.data('agent_name');
         let agent_npwp = button.data('agent_npwp');
         let agent_address = button.data('agent_address');
+        let status = button.data('status');
         $("#uagent_id").val(id);
         $("#uagent_name").val(agent_name);
         $("#uagent_npwp").val(agent_npwp);
         $("#uagent_address").val(agent_address);
+
+        if (status == 1) {
+            $("#inactive").prop('checked', false);
+            $("#active").prop('checked', true);
+        } else {
+            $("#inactive").prop('checked', true);
+            $("#active").prop('checked', false);
+        }
     })
 
     const removeAgent = (element) => {
