@@ -11,7 +11,7 @@ class Report
 		$db = $this->mysqli->conn;
 		$sql = "SELECT cargo.smu,
 		cargo.no_do,
-		cargo.ctimestamp AS tanggalbtb,
+		cargo.tanggal AS tanggalbtb,
 		payment.njg,
 		payment.stimestamp AS tanggalnjg,
 		cargo.agent_name,
@@ -54,7 +54,7 @@ class Report
 		$db = $this->mysqli->conn;
 		$sql = "SELECT cargo.smu,
 		cargo.no_do,
-		cargo.ctimestamp AS tanggalbtb,
+		cargo.tanggal AS tanggalbtb,
 		payment.njg,
 		payment.stimestamp AS tanggalnjg,
 		cargo.agent_name,
@@ -95,7 +95,7 @@ class Report
 		$db = $this->mysqli->conn;
 		$sql = "SELECT cargo.smu,
 			cargo.no_do,
-			cargo.ctimestamp AS tanggalbtb,
+			cargo.tanggal AS tanggalbtb,
 			payment.njg,
 			payment.stimestamp AS tanggalnjg,
 			cargo.agent_name,
@@ -141,7 +141,7 @@ class Report
 		$db = $this->mysqli->conn;
 		$sql = "SELECT cargo.smu,
 			cargo.no_do,
-			cargo.ctimestamp AS tanggalbtb,
+			cargo.tanggal AS tanggalbtb,
 			payment.njg,
 			payment.stimestamp AS tanggalnjg,
 			cargo.agent_name,
