@@ -335,10 +335,12 @@ class Kasir
 				payment.keterangan,
 				payment.payment_status,
 				payment.void_by,
-				cargo.last_editor
+				cargo.last_editor,
+				regulated_agents.ra_name
 			FROM payment
 			JOIN cargo ON cargo.no_do = payment.btb
 			JOIN flight on flight.flight_no = cargo.flight_no
+			LEFT JOIN regulated_agents ON regulated_agents.ra_id = cargo.ra_id
 			WHERE payment.session_kasir = '$session'";
 		$query = $db->query($sql) or die($db->error);
 
