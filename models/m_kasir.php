@@ -85,7 +85,12 @@ class Kasir
 	public function calall($agent, $shipper)
 	{
 		$db = $this->mysqli->conn;
-		$sql = "SELECT * FROM cargo WHERE shipper_name='$shipper' AND agent_name='$agent' AND status BETWEEN 'proced' AND 'revisi' ORDER BY id ASC";
+		$sql = "SELECT cargo.*, flight.flight_no, flight.destination, flight.tlc
+			FROM cargo 
+			JOIN `flight` ON `flight`.`flight_no` = `cargo`.`flight_no`
+			WHERE cargo.shipper_name='$shipper' 
+			AND cargo.agent_name='$agent' 
+			AND cargo.status BETWEEN 'proced' AND 'revisi' ORDER BY id ASC";
 		$query = $db->query($sql) or die($db->error);
 
 		return ($query);
@@ -94,9 +99,10 @@ class Kasir
 	public function calall_by_airline($agent, $shipper, $airline_id)
 	{
 		$db = $this->mysqli->conn;
-		$sql = "SELECT * 
+		$sql = "SELECT cargo.*, smu_code.*, flight.flight_no, flight.destination, flight.tlc
 		FROM cargo 
 		JOIN `smu_code` ON `smu_code`.`code` = `cargo`.`smu_code`
+		JOIN `flight` ON `flight`.`flight_no` = `cargo`.`flight_no`
 		WHERE shipper_name='$shipper' 
 		AND cargo.agent_name='$agent'
 		AND smu_code.airline_id = '$airline_id'

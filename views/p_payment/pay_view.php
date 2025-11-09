@@ -1,4 +1,11 @@
 <?php
+// specialPrice
+$today = new DateTime();
+$startDate = new Datetime('2025-11-10');
+$endDate = new Datetime('2025-12-31');
+$originList = ['sub', 'SUB', 'dps', 'DPS'];
+$sPrice = 1143;
+
 $agent = $data->getAgentByName($_GET['agent']);
 if ($agent->agent_npwp != null) {
 ?>
@@ -94,7 +101,19 @@ if ($agent->agent_npwp != null) {
                         ?>
                     </td>
                     <td><?php echo $adm; ?></td>
-                    <td><?php echo $tsg = $tnet * $sg; ?></td>
+                    <td>
+                        <?php
+                        if ($today >= $startDate && $today <= $endDate) {
+                            if (in_array($fil->tlc, $originList)) {
+                                echo $tsg = $tnet * $sPrice;
+                            } else {
+                                echo $tsg = $tnet * $sg;
+                            }
+                        } else {
+                            echo $tsg = $tnet * $sg;
+                        }
+                        ?>
+                    </td>
                     <td><?php echo $tkade = $tweight <= 10 ? $kade * 10 : $kade * $tweight; ?></td>
                     <td><?php echo $tpjkp2u = $tweight <= 10 ? $pjkp2u * 10 : $pjkp2u * $tweight; ?></td>
                     <td><?php echo $tas = $as * $tnet; ?></td>

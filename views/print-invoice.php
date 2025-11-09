@@ -5,6 +5,12 @@ require_once('../config/config.php');
 require_once('../models/database.php');
 include('../models/m_kasir.php');
 include('../models/m_data_ap2.php');
+
+// specialPrice
+$startDate = new Datetime('2025-11-10');
+$endDate = new Datetime('2025-12-31');
+$originList = ['sub', 'SUB', 'dps', 'DPS'];
+$sPrice = 1143;
 $connection = new Database($host, $user, $pass, $database);
 $data = new Kasir($connection);
 $data_ap = new Data_ap2($connection);
@@ -69,6 +75,7 @@ function penyebut($nilai)
 		<!-- php here -->
 		<?php
 		while ($result = $invoice->fetch_object()) {
+			$createDate = new DateTime($result->payment_date);
 		?>
 			<div class="content">
 				<div class="judul text-center position-relative pt-3">
@@ -180,7 +187,17 @@ function penyebut($nilai)
 									Jasa Gudang
 								</td>
 								<td class="p-0" width="30%">
-									<?php echo $net; ?> X 1 X <?php echo $result->pl_sg; ?>
+									<?php
+									if ($createDate >= $startDate && $createDate <= $endDate) {
+										if (in_array($result->tlc, $originList)) {
+											echo $net . ' X 1 X ' . $sPrice;
+										} else {
+											echo $net . ' X 1 X ' . $result->pl_sg;
+										}
+									} else {
+										echo $net . ' X 1 X ' . $result->pl_sg;
+									}
+									?>
 								</td>
 								<td class="p-0 pe-4" width="30%">
 									<div class="d-flex justify-content-between">

@@ -18,6 +18,13 @@ if (isset($_POST['reprint'])) {
 	echo "<script>window.close()</script>";
 }
 
+// specialPrice
+$createDate = new DateTime($result->payment_date);
+$startDate = new Datetime('2025-11-10');
+$endDate = new Datetime('2025-12-31');
+$originList = ['sub', 'SUB', 'dps', 'DPS'];
+$sPrice = 1143;
+
 // $pricelist= $data->calprice()->fetch_object();
 // $pricelist= $data->getPriceById($result)->fetch_object();
 $admin = $result->p_admin;
@@ -183,7 +190,17 @@ function penyebut($nilai)
 								Jasa Gudang
 							</td>
 							<td class="p-0" width="30%">
-								<?php echo $nett; ?> X 1 X <?php echo $sg; ?>
+								<?php
+								if ($createDate >= $startDate && $createDate <= $endDate) {
+									if (in_array($result->tlc, $originList)) {
+										echo $nett . ' X 1 X ' . $sPrice;
+									} else {
+										echo $nett . ' X 1 X ' . $sg;
+									}
+								} else {
+									echo $nett . ' X 1 X ' . $sg;
+								}
+								?>
 							</td>
 							<td class="p-0 pe-4" width="30%">
 								<div class="d-flex justify-content-between">

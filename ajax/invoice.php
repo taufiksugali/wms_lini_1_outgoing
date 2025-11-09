@@ -12,6 +12,13 @@ if (@$_GET['action']) {
         try {
 
             session_start();
+            // specialPrice
+            $today = new DateTime();
+            $startDate = new Datetime('2025-11-10');
+            $endDate = new Datetime('2025-12-31');
+            $originList = ['sub', 'SUB', 'dps', 'DPS'];
+            $sPrice = 1143;
+
             $connection = new Database($host, $user, $pass, $database);
             $kasir = new Kasir($connection);
             $btb = new Btb($connection);
@@ -31,7 +38,15 @@ if (@$_GET['action']) {
 
             $pricelist = $kasir->calprice()->fetch_object();
             $admin = $pricelist->admin;
-            $sg = $pricelist->sg;
+            if ($today >= $startDate && $today <= $endDate) {
+                if (in_array($cargo->tlc, $originList)) {
+                    $sg = $sPrice;
+                } else {
+                    $sg = $pricelist->sg;
+                }
+            } else {
+                $sg = $pricelist->sg;
+            }
             $kade = $pricelist->kade;
             $pjkp2u = $pricelist->pjkp2u;
             $materai = $pricelist->materai;
