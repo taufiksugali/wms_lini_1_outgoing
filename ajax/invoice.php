@@ -18,6 +18,10 @@ if (@$_GET['action']) {
             $endDate = new Datetime('2025-12-31');
             $originList = ['sub', 'SUB', 'dps', 'DPS'];
             $sPrice = 1143;
+            $startDateDisc2 = new Datetime('2026-02-01');
+            $endDateDisc2 = new Datetime('2026-03-01');
+            $flightDisc2 = ['IP-104', 'IP-110'];
+            $sPriceDisc2 = 1143;
 
             $connection = new Database($host, $user, $pass, $database);
             $kasir = new Kasir($connection);
@@ -44,6 +48,11 @@ if (@$_GET['action']) {
                 } else {
                     $sg = $pricelist->sg;
                 }
+            } else if (
+                ($today >= $startDateDisc2 && $today <= $endDateDisc2) &&
+                (in_array($cargo->flight_no, $flightDisc2))
+            ) {
+                $sg = $sPriceDisc2;
             } else {
                 $sg = $pricelist->sg;
             }

@@ -24,6 +24,10 @@ $startDate = new Datetime('2025-11-10');
 $endDate = new Datetime('2025-12-31');
 $originList = ['sub', 'SUB', 'dps', 'DPS'];
 $sPrice = 1143;
+$startDateDisc2 = new Datetime('2026-02-01');
+$endDateDisc2 = new Datetime('2026-03-01');
+$flightDisc2 = ['IP-104', 'IP-110'];
+$sPriceDisc2 = 1143;
 
 // $pricelist= $data->calprice()->fetch_object();
 // $pricelist= $data->getPriceById($result)->fetch_object();
@@ -197,6 +201,11 @@ function penyebut($nilai)
 									} else {
 										echo $nett . ' X 1 X ' . $sg;
 									}
+								} else if (
+									($createDate >= $startDateDisc2 && $createDate <= $endDateDisc2) &&
+									(in_array($result->flight_no, $flightDisc2))
+								) {
+									echo $nett . ' X 1 X ' . $sPriceDisc2;
 								} else {
 									echo $nett . ' X 1 X ' . $sg;
 								}

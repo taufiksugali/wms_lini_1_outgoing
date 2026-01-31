@@ -5,6 +5,10 @@ $startDate = new Datetime('2025-11-10');
 $endDate = new Datetime('2025-12-31');
 $originList = ['sub', 'SUB', 'dps', 'DPS'];
 $sPrice = 1143;
+$startDateDisc2 = new Datetime('2026-02-01');
+$endDateDisc2 = new Datetime('2026-03-01');
+$flightDisc2 = ['IP-104', 'IP-110'];
+$sPriceDisc2 = 1143;
 
 $agent = $data->getAgentByName($_GET['agent']);
 if ($agent->agent_npwp != null) {
@@ -109,6 +113,11 @@ if ($agent->agent_npwp != null) {
                             } else {
                                 echo $tsg = $tnet * $sg;
                             }
+                        } else  if (
+                            ($today >= $startDateDisc2 && $today <= $endDateDisc2) &&
+                            (in_array($fil->flight_no, $flightDisc2))
+                        ) {
+                            echo $tsg = $tnet * $sPriceDisc2;
                         } else {
                             echo $tsg = $tnet * $sg;
                         }
