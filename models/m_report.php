@@ -38,10 +38,12 @@ class Report
 		payment.keterangan ,
 		payment.npwp,
 		payment.payment_status,
-		payment.void_by
+		payment.void_by,
+		regulated_agents.ra_name
 		FROM payment 
 		INNER JOIN cargo ON cargo.smu=payment.smu 
 		LEFT JOIN flight ON cargo.flight_no=flight.flight_no 
+		LEFT JOIN regulated_agents on regulated_agents.ra_id=cargo.ra_id
 		WHERE cargo.status='$status' 
 		AND payment.stimestamp BETWEEN '$date1' AND '$date2'";
 		$query = $db->query($sql) or die($db->error);
@@ -81,10 +83,12 @@ class Report
 		payment.keterangan ,
 		payment.npwp,
 		payment.payment_status,
-		payment.void_by
+		payment.void_by,
+		regulated_agents.ra_name
 		FROM payment 
 		INNER JOIN cargo ON cargo.smu=payment.smu 
 		LEFT JOIN flight ON cargo.flight_no=flight.flight_no 
+		LEFT JOIN regulated_agents ON regulated_agents.ra_id=cargo.ra_id
 		WHERE payment.stimestamp BETWEEN '$date1' AND '$date2'";
 		$query = $db->query($sql) or die($db->error);
 
@@ -122,12 +126,14 @@ class Report
 			payment.keterangan,
 			payment.npwp,
 			payment.payment_status,
-			payment.void_by
+			payment.void_by,
+			regulated_agents.ra_name
 		FROM payment 
 		INNER JOIN cargo ON cargo.smu=payment.smu 
 		LEFT JOIN flight ON cargo.flight_no=flight.flight_no
 		JOIN `smu_code` ON `smu_code`.`code` = `cargo`.`smu_code`
 		JOIN `airlines` ON `airlines`.`airline_id` = `smu_code`.`airline_id`
+		LEFT JOIN regulated_agents on regulated_agents.ra_id=cargo.ra_id
 		WHERE cargo.status='$status' 
 		AND `airlines`.`airline_name` = '$airline'
 		AND payment.stimestamp BETWEEN '$date1' AND '$date2'";
@@ -168,9 +174,11 @@ class Report
 			payment.keterangan,
 			payment.npwp,
 			payment.payment_status,
-			payment.void_by
+			payment.void_by,
+			regulated_agents.ra_name
 		FROM payment 
 		INNER JOIN cargo ON cargo.smu=payment.smu 
+		LEFT JOIN regulated_agents ON regulated_agents.ra_id=cargo.ra_id
 		LEFT JOIN flight ON cargo.flight_no=flight.flight_no
 		JOIN `smu_code` ON `smu_code`.`code` = `cargo`.`smu_code`
 		JOIN `airlines` ON `airlines`.`airline_id` = `smu_code`.`airline_id`

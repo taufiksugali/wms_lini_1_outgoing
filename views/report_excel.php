@@ -39,6 +39,7 @@ if (isset($_POST['unduh'])) {
 					<th class="text-center">Date_of_BTB</th>
 					<th class="text-center">NJG</th>
 					<th class="text-center">Date_of_NJG</th>
+					<th class="text-center">Regulated Agent</th>
 					<th class="text-center px-3">Agent_name</th>
 					<th class="text-center px-3">Shipper_name</th>
 					<th class="text-center px-3">PIC</th>
@@ -98,6 +99,7 @@ if (isset($_POST['unduh'])) {
 						<td class="text-start px-3"><?php echo $result->tanggalbtb ?></td>
 						<td class="text-start px-3"><?php echo $result->njg ?></td>
 						<td class="text-start px-3"><?php echo $result->tanggalnjg ?></td>
+						<td class="text-start px-3"><?php echo $result->ra_name ?></td>
 						<td class="text-center px-3"><?php echo $result->agent_name ?></td>
 						<td class="text-center px-3"><?php echo $result->shipper_name ?></td>
 						<td class="text-center px-3"><?php echo $result->pic ?></td>
@@ -167,6 +169,7 @@ if (isset($_POST['unduh'])) {
 					<td></td>
 					<td></td>
 					<td></td>
+					<td></td>
 					<td><?php echo $quantity ?></td>
 					<td><?php echo $weight ?></td>
 					<td><?php echo $nweight ?></td>
@@ -199,6 +202,7 @@ if (isset($_POST['unduh'])) {
 					<th class="text-center">Date_of_BTB</th>
 					<th class="text-center">NJG</th>
 					<th class="text-center">Date_of_NJG</th>
+					<th class="text-center">Regulated Agent</th>
 					<th class="text-center px-3">Agent_name</th>
 					<th class="text-center px-3">Shipper_name</th>
 					<th class="text-center px-3">PIC</th>
@@ -259,6 +263,7 @@ if (isset($_POST['unduh'])) {
 						<td class="text-start px-3"><?php echo $resultvoid->tanggalbtb ?></td>
 						<td class="text-start px-3"><?php echo $resultvoid->njg ?></td>
 						<td class="text-start px-3"><?php echo $resultvoid->tanggalnjg ?></td>
+						<td class="text-start px-3"><?php echo $resultvoid->ra_name ?></td>
 						<td class="text-center px-3"><?php echo $resultvoid->agent_name ?></td>
 						<td class="text-center px-3"><?php echo $resultvoid->shipper_name ?></td>
 						<td class="text-center px-3"><?php echo $resultvoid->pic ?></td>
@@ -320,6 +325,7 @@ if (isset($_POST['unduh'])) {
 				<tr>
 					<td></td>
 					<td>Total</td>
+					<td></td>
 					<td></td>
 					<td></td>
 					<td></td>

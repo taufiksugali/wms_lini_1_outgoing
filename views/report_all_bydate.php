@@ -10,7 +10,7 @@ $d_airline = $m_airline->call_all_airline();
 
 ?>
 <div class="kontener2 px-5 py-4">
-	<nav style="--bs-breadcrumb-divider: '》';" aria-label="breadcrumb">
+	<nav style="--bs-breadcrumb-divider: 'ã€‹';" aria-label="breadcrumb">
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item ps-4" aria-current="page"><i class="fa-solid fa-database"></i> Report
 			</li>
@@ -208,11 +208,12 @@ $d_airline = $m_airline->call_all_airline();
 							<th class="text-center px-1">No</th>
 							<th class="text-center">SMU</th>
 							<th class="text-center">BTB</th>
-							<th class="text-center">Date_of_BTB</th>
+							<th class="text-center text-nowrap">Date of BTB</th>
 							<th class="text-center">NJG</th>
-							<th class="text-center">Date_of_NJG</th>
-							<th class="text-center px-3">Agent_name</th>
-							<th class="text-center px-3">Shipper_name</th>
+							<th class="text-center text-nowrap">Date of NJG</th>
+							<th class="text-center text-nowrap">Regulated Agent</th>
+							<th class="text-center px-3 text-nowrap">Agent name</th>
+							<th class="text-center px-3 text-nowrap">Shipper name</th>
 							<th class="text-center px-3">PIC</th>
 							<th class="text-center">Flight</th>
 							<th class="text-center">Destination</th>
@@ -277,6 +278,7 @@ $d_airline = $m_airline->call_all_airline();
 									<td class="text-start px-3"><?php echo $result->tanggalbtb ?></td>
 									<td class="text-start px-3"><?php echo $result->njg ?></td>
 									<td class="text-start px-3"><?php echo $result->tanggalnjg ?></td>
+									<td class="text-start px-3"><?php echo $result->ra_name ?></td>
 									<td class="text-center px-3"><?php echo $result->agent_name ?></td>
 									<td class="text-center px-3"><?php echo $result->shipper_name ?></td>
 									<td class="text-center px-3"><?php echo $result->pic ?></td>
@@ -343,9 +345,10 @@ $d_airline = $m_airline->call_all_airline();
 							<th class="text-center" style="width: fit-content;">No</th>
 							<th class="text-center">SMU</th>
 							<th class="text-center">BTB</th>
-							<th class="text-center">Date_of_BTB</th>
+							<th class="text-center text-nowrap">Date of BTB</th>
 							<th class="text-center">NJG</th>
-							<th class="text-center">Date_of_NJG</th>
+							<th class="text-center text-nowrap">Date of NJG</th>
+							<th class="text-center">Regulated Agent</th>
 							<th class="text-center px-3">Agent_name</th>
 							<th class="text-center px-3">Shipper_name</th>
 							<th class="text-center px-3">PIC</th>
@@ -412,6 +415,7 @@ $d_airline = $m_airline->call_all_airline();
 									<td class="text-start px-3"><?php echo $resultvoid->tanggalbtb ?></td>
 									<td class="text-start px-3"><?php echo $resultvoid->njg ?></td>
 									<td class="text-start px-3"><?php echo $resultvoid->tanggalnjg ?></td>
+									<td class="text-start px-3"><?php echo $resultvoid->ra_name ?></td>
 									<td class="text-center px-3"><?php echo $resultvoid->agent_name ?></td>
 									<td class="text-center px-3"><?php echo $resultvoid->shipper_name ?></td>
 									<td class="text-center px-3"><?php echo $resultvoid->pic ?></td>
