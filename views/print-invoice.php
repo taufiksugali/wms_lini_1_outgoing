@@ -15,6 +15,10 @@ $startDateDisc2 = new Datetime('2026-02-01');
 $endDateDisc2 = new Datetime('2026-03-01');
 $flightDisc2 = ['IP-104', 'IP-110'];
 $sPriceDisc2 = 1143;
+$startDateDisc3 = new Datetime('2026-04-23');
+$endDateDisc3 = new Datetime('2026-07-01');
+$flightDisc3 = ['IP-104', 'IP-110', 'IP-108', 'IP-106'];
+$sPriceDisc3 = 1143;
 $connection = new Database($host, $user, $pass, $database);
 $data = new Kasir($connection);
 $data_ap = new Data_ap2($connection);
@@ -203,6 +207,11 @@ function penyebut($nilai)
 										(in_array($result->flight_no, $flightDisc2))
 									) {
 										echo $net . ' X 1 X ' . $sPriceDisc2;
+									} else if (
+										($createDate >= $startDateDisc3 && $createDate <= $endDateDisc3) &&
+										(in_array($result->flight_no, $flightDisc3))
+									) {
+										echo $net . ' X 1 X ' . $sPriceDisc3;
 									} else {
 										echo $net . ' X 1 X ' . $result->pl_sg;
 									}
