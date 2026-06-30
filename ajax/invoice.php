@@ -23,7 +23,7 @@ if (@$_GET['action']) {
             $flightDisc2 = ['IP-104', 'IP-110'];
             $sPriceDisc2 = 1143;
             $startDateDisc3 = new Datetime('2026-04-23');
-            $endDateDisc3 = new Datetime('2026-07-01');
+            $endDateDisc3 = new Datetime('2027-01-01');
             $flightDisc3 = ['IP-104', 'IP-110', 'IP-108', 'IP-106'];
             $sPriceDisc3 = 1143;
 

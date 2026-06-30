@@ -17,7 +17,8 @@ if (isset($_POST['reprint'])) {
 } else {
 	echo "<script>window.close()</script>";
 }
-
+// var_dump($result);
+// die();
 // specialPrice
 $createDate = new DateTime($result->payment_date);
 $startDate = new Datetime('2025-11-10');
@@ -29,7 +30,7 @@ $endDateDisc2 = new Datetime('2026-04-23');
 $flightDisc2 = ['IP-104', 'IP-110'];
 $sPriceDisc2 = 1143;
 $startDateDisc3 = new Datetime('2026-04-23');
-$endDateDisc3 = new Datetime('2026-07-01');
+$endDateDisc3 = new Datetime('2027-01-01');
 $flightDisc3 = ['IP-104', 'IP-110', 'IP-108', 'IP-106'];
 $sPriceDisc3 = 1143;
 
@@ -105,11 +106,11 @@ function penyebut($nilai)
 	<div class="contener ">
 		<div class="content">
 			<div class="judul text-center position-relative pt-3">
-				<h5>WH-Lini 1 - PT POS LOGISTIK INDONESIA</h5>
+				<h5>WH-Lini 1 - PT Multi Terminal Indonesia</h5>
 				<p>Terminal Kargo Bandara Soekarno-Hatta Jakarta 19100</p>
 				<p>Telp. 021-5500278 Faks. 021-5500277</p>
 				<div class="logo position-absolute start-0 top-0 pt-4">
-					<img src="../assets/image/poslog.png" alt="poslog">
+					<img src="../assets/image/IMG_8195.png" alt="mti">
 				</div>
 			</div>
 			<div class="data">
@@ -359,8 +360,8 @@ function penyebut($nilai)
 				</div>
 				<div class="d-flex justify-content-between">
 					<div class="ms-4">
-						PT Pos Logistik Indonesia <br>
-						Jl. Lapangan Banteng Utara No. 1 , Pasar Baru, Sawah Besar, Jakarta Pusat 10710 <br>
+						PT Multi Terminal Indonesia <br>
+						TANJUNG PERAK - Terminal Jamrud Jalan Perak Timur 620 Surabaya <br>
 						NPWP: <strong>0314651654075000</strong> <br>
 						<div class="border border-dark ps-2">
 							Dokumen ini merupakan dokumen yang dipersamakan dengan Faktur Pajak<br>

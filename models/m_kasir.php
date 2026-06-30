@@ -262,7 +262,7 @@ class Kasir
 	public function joindata_print($smu)
 	{
 		$db = $this->mysqli->conn;
-		$sql = "SELECT payment.njg, cargo.agent_name, cargo.shipper_name, cargo.pic, cargo.tanggal, payment.smu, cargo.no_do, flight.tlc, cargo.quantity, cargo.weight, cargo.volume, payment.sewa_gudang, payment.admin, payment.kade, payment.pjkp2u, payment.airport_tax, payment.ppn, payment.materai, payment.total, payment.proses_by, payment.stimestamp, regulated_agents.ra_name, pricelist.admin as p_admin, pricelist.sg as p_sg, pricelist.kade as p_kade, pricelist.pjkp2u as p_pjkp2u, pricelist.materai as p_materai, pricelist.airport_surcharge as p_airport_surcharge, payment.npwp
+		$sql = "SELECT payment.njg, cargo.agent_name, cargo.shipper_name, cargo.pic, cargo.tanggal, payment.smu, cargo.no_do, flight.tlc, cargo.quantity, cargo.weight, cargo.volume, payment.sewa_gudang, payment.admin, payment.kade, payment.pjkp2u, payment.airport_tax, payment.ppn, payment.materai, payment.total, payment.proses_by, payment.stimestamp, regulated_agents.ra_name, pricelist.admin as p_admin, pricelist.sg as p_sg, pricelist.kade as p_kade, pricelist.pjkp2u as p_pjkp2u, pricelist.materai as p_materai, pricelist.airport_surcharge as p_airport_surcharge, payment.npwp, payment.tanggal as payment_date, flight.flight_no
 		FROM payment 
 		INNER JOIN cargo ON payment.smu=cargo.smu 
 		INNER JOIN  flight ON flight.flight_no=cargo.flight_no  

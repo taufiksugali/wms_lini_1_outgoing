@@ -1,6 +1,6 @@
 <?php
 session_start();
-if ($_SESSION['print']=="off") {
+if ($_SESSION['print'] == "off") {
 	header("location: ../");
 }
 require_once('../config/config.php');
@@ -16,6 +16,7 @@ $destination = $data->destination($print->flight_no)->fetch_object();
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,29 +24,31 @@ $destination = $data->destination($print->flight_no)->fetch_object();
 	<link rel="stylesheet" href="../assets/css/print_do.css">
 	<link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
 	<style>
-		html,body{
+		html,
+		body {
 			padding: 0;
 			margin: 0;
 		}
 	</style>
-	
+
 </head>
+
 <body id="do">
 	<div class="judul">
-		PT. POS LOGISTIK INDONESIA<br>
+		PT. Multi Terminal Indonesia<br>
 		TERMINAL KARGO BANDARA SOEKARNO HATTA <br>
 		JAKARTA 19100 <br>
 		TELP. 021-5500278 FAKS. 021-5500277
 	</div>
 	<div class="content text-center mt-2">
 		BUKTI TIMBANG BARANG
-		<div class = "field px-2 pt-2 text-start">
-			
-			<?php 
-			if($print->smu_code == '' || $print->smu_code == '273' || $print->smu_code == '181'){
+		<div class="field px-2 pt-2 text-start">
+
+			<?php
+			if ($print->smu_code == '' || $print->smu_code == '273' || $print->smu_code == '181') {
 				$flight_number = explode("-", $print->flight_no);
-				$curent_flight = 'PK-'.$flight_number[0];
-			}else{
+				$curent_flight = 'PK-' . $flight_number[0];
+			} else {
 				$curent_flight = $print->flight_no;
 			}
 			?>
@@ -131,20 +134,18 @@ $destination = $data->destination($print->flight_no)->fetch_object();
 	<div class="text-center">
 		================================
 	</div>
-	<?php 
-	if(!isset($_GET['reprint'])){
-
-	}else{ ?>
+	<?php
+	if (!isset($_GET['reprint'])) {
+	} else { ?>
 
 		<div class="mt-2">
 			reprint_by: <?php echo $_SESSION['name']; ?>
 		</div>
 	<?php }
 	?>
-	<?php 
-	if(!isset($_GET['revisi'])){
-
-	}else{ ?>
+	<?php
+	if (!isset($_GET['revisi'])) {
+	} else { ?>
 
 		<div class="mt-2">
 			revisi_by: <?php echo $print->last_editor; ?>
@@ -152,17 +153,18 @@ $destination = $data->destination($print->flight_no)->fetch_object();
 	<?php }
 	?>
 
-	
+
 
 
 	<script src="../assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<!-- jquery -->
 	<script src="../assets/jquery/jquery-3.6.0.js"></script>
-	
+
 	<?php header("Refresh:0; url=../?page=btb"); ?>
 	<script type="text/javascript">
 		window.print();
 	</script>
 
 </body>
-</html>	
+
+</html>
