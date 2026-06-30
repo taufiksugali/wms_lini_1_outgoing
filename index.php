@@ -64,7 +64,7 @@ $data_user = $get->fetch_object();
     </div>
     <div class="header position-relative">
       <div class="title position-absolute top-0 py-2 px-4 d-flex justify-content-between">
-        <img src="assets/image/IMG_8195.png" alt="">
+        <img src="assets/image/IMG_8195.PNG" alt="">
         <div class="useractive position-relative">
           <div class="position-absolute end-0">
             <ul>

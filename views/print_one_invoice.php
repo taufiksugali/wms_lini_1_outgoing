@@ -110,7 +110,7 @@ function penyebut($nilai)
 				<p>Terminal Kargo Bandara Soekarno-Hatta Jakarta 19100</p>
 				<p>Telp. 021-5500278 Faks. 021-5500277</p>
 				<div class="logo position-absolute start-0 top-0 pt-4">
-					<img src="../assets/image/IMG_8195.png" alt="mti">
+					<img src="../assets/image/IMG_8195.PNG" alt="mti">
 				</div>
 			</div>
 			<div class="data">
