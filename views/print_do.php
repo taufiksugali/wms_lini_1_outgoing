@@ -35,7 +35,7 @@ $destination = $data->destination($print->flight_no)->fetch_object();
 
 <body id="do">
 	<div class="judul">
-		PT. Multi Terminal Indonesia<br>
+		PT. Pos Logistik Indonesia<br>
 		TERMINAL KARGO BANDARA SOEKARNO HATTA <br>
 		JAKARTA 19100 <br>
 		TELP. 021-5500278 FAKS. 021-5500277

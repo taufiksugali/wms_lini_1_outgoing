@@ -106,11 +106,11 @@ function penyebut($nilai)
 	<div class="contener ">
 		<div class="content">
 			<div class="judul text-center position-relative pt-3">
-				<h5>WH-Lini 1 - PT Multi Terminal Indonesia</h5>
+				<h5>WH-Lini 1 - PT Pos Logistik Indonesia</h5>
 				<p>Terminal Kargo Bandara Soekarno-Hatta Jakarta 19100</p>
 				<p>Telp. 021-5500278 Faks. 021-5500277</p>
 				<div class="logo position-absolute start-0 top-0 pt-4">
-					<img src="../assets/image/IMG_8195.PNG" alt="mti">
+					<img src="../assets/image/poslog.png" alt="poslog">
 				</div>
 			</div>
 			<div class="data">
@@ -360,8 +360,8 @@ function penyebut($nilai)
 				</div>
 				<div class="d-flex justify-content-between">
 					<div class="ms-4">
-						PT Multi Terminal Indonesia <br>
-						TANJUNG PERAK - Terminal Jamrud Jalan Perak Timur 620 Surabaya <br>
+						PT Pos Logistik Indonesia <br>
+						Jl. Lapangan Banteng Utara No 1, Pasar Baru, Sawah Besar, Jakarta Pusat 10710 <br>
 						NPWP: <strong>0314651654075000</strong> <br>
 						<div class="border border-dark ps-2">
 							Dokumen ini merupakan dokumen yang dipersamakan dengan Faktur Pajak<br>
