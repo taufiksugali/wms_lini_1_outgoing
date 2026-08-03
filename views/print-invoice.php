@@ -27,6 +27,10 @@ $invoiceIds = $_POST['invoice_ids'];
 $invoiceIds = json_decode($invoiceIds);
 $string = '(';
 $keyNumb = 0;
+
+//ilovemonday
+$ilmStartDate = new Datetime('2026-08-03');
+$ilmPrice = 1365;
 foreach ($invoiceIds as $key => $value) {
 	if ($keyNumb == 0) {
 		$string .= "'" . $value . "'";
@@ -213,7 +217,11 @@ function penyebut($nilai)
 									) {
 										echo $net . ' X 1 X ' . $sPriceDisc3;
 									} else {
-										echo $net . ' X 1 X ' . $result->pl_sg;
+										if ($createDate >= $ilmStartDate && $createDate->format('N') == 1) {
+											echo $net . ' X 1 X ' . $ilmPrice;
+										} else {
+											echo $net . ' X 1 X ' . $result->pl_sg;
+										}
 									}
 									?>
 								</td>

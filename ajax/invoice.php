@@ -27,6 +27,10 @@ if (@$_GET['action']) {
             $flightDisc3 = ['IP-104', 'IP-110', 'IP-108', 'IP-106'];
             $sPriceDisc3 = 1143;
 
+            //ilovemonday
+            $ilmStartDate = new Datetime('2026-08-03');
+            $ilmPrice = 1365;
+
             $connection = new Database($host, $user, $pass, $database);
             $kasir = new Kasir($connection);
             $btb = new Btb($connection);
@@ -63,7 +67,11 @@ if (@$_GET['action']) {
             ) {
                 $sg = $sPriceDisc3;
             } else {
-                $sg = $pricelist->sg;
+                if ($today >= $ilmStartDate && $today->format('N') == 1) {
+                    $sg = $ilmPrice;
+                } else {
+                    $sg = $pricelist->sg;
+                }
             }
             $kade = $pricelist->kade;
             $pjkp2u = $pricelist->pjkp2u;

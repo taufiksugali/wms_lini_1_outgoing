@@ -14,6 +14,10 @@ $endDateDisc3 = new Datetime('2027-01-01');
 $flightDisc3 = ['IP-104', 'IP-110', 'IP-108', 'IP-106'];
 $sPriceDisc3 = 1143;
 
+//ilovemonday
+$ilmStartDate = new Datetime('2026-08-03');
+$ilmPrice = 1365;
+
 $agent = $data->getAgentByName($_GET['agent']);
 if ($agent->agent_npwp != null) {
 ?>
@@ -128,7 +132,11 @@ if ($agent->agent_npwp != null) {
                         ) {
                             echo $tsg = $tnet * $sPriceDisc3;
                         } else {
-                            echo $tsg = $tnet * $sg;
+                            if ($today >= $ilmStartDate && $today->format('N') == 1) {
+                                echo $tsg = $tnet * $ilmPrice;
+                            } else {
+                                echo $tsg = $tnet * $sg;
+                            }
                         }
                         ?>
                     </td>
