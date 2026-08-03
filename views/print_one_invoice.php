@@ -34,6 +34,10 @@ $endDateDisc3 = new Datetime('2027-01-01');
 $flightDisc3 = ['IP-104', 'IP-110', 'IP-108', 'IP-106'];
 $sPriceDisc3 = 1143;
 
+//ilovemonday
+$ilmStartDate = new Datetime('2026-08-03');
+$ilmPrice = 1365;
+
 // $pricelist= $data->calprice()->fetch_object();
 // $pricelist= $data->getPriceById($result)->fetch_object();
 $admin = $result->p_admin;
@@ -217,7 +221,11 @@ function penyebut($nilai)
 								) {
 									echo $nett . ' X 1 X ' . $sPriceDisc3;
 								} else {
-									echo $nett . ' X 1 X ' . $sg;
+									if ($createDate >= $ilmStartDate && $createDate->format('N') == 1) {
+										echo $nett . ' X 1 X ' . $ilmPrice;
+									} else {
+										echo $nett . ' X 1 X ' . $sg;
+									}
 								}
 								?>
 							</td>
