@@ -173,19 +173,7 @@ function penyebut($nilai)
 						</div>
 						<div>
 							<?php
-							if ($result->weight > $result->volume) {
-								if ($result->weight > 10) {
-									$net = $result->weight;
-								} else {
-									$net = 10;
-								}
-							} else {
-								if ($result->volume > 10) {
-									$net = $result->volume;
-								} else {
-									$net = 10;
-								}
-							}
+							$net = max($result->weight, $result->volume, 10);
 							?>
 							Chargable Weight: <?= $net; ?>
 						</div>
@@ -251,7 +239,7 @@ function penyebut($nilai)
 									JKP2U
 								</td>
 								<td class="p-0" width="30%">
-									<?php echo $result->weight; ?> X 1 X <?php echo $result->pl_pjkp2u; ?>
+									<?php echo $net; ?> X 1 X <?php echo $result->pl_pjkp2u; ?>
 								</td>
 								<td class="p-0 pe-4" width="30%">
 									<div class="d-flex justify-content-between">

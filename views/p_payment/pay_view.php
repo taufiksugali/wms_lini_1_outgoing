@@ -102,13 +102,7 @@ if ($agent->agent_npwp != null) {
 
                     <td>
                         <?php
-                        if ($tweight >= $tvol && $tweight > 10) {
-                            $tnet = $tweight;
-                        } elseif ($tvol > $tweight && $tvol > 10) {
-                            $tnet = $tvol;
-                        } else {
-                            $tnet = 10;
-                        }
+                        $tnet = max($tweight, $tvol, 10);
                         echo $tnet;
                         ?>
                     </td>
@@ -141,7 +135,7 @@ if ($agent->agent_npwp != null) {
                         ?>
                     </td>
                     <td><?php echo $tkade = $tweight <= 10 ? $kade * 10 : $kade * $tweight; ?></td>
-                    <td><?php echo $tpjkp2u = $tweight <= 10 ? $pjkp2u * 10 : $pjkp2u * $tweight; ?></td>
+                    <td><?php echo $tpjkp2u = $pjkp2u * $tnet; ?></td>
                     <td><?php echo $tas = $as * $tnet; ?></td>
                     <td><?php echo $ppn = (($adm + $tsg + $tkade + $tpjkp2u + $tas) * 11) / 100; ?></td>
                     <td><?php echo $tmaterai = (($adm + $tsg + $tkade + $tpjkp2u + $tas + $ppn) < 10000000) ? 0 : 10000; ?></td>

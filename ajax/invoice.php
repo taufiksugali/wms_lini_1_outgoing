@@ -79,16 +79,10 @@ if (@$_GET['action']) {
             $airport_surcharge = $pricelist->airport_surcharge;
             $pricelist_id = $pricelist->pricelist_id;
 
-            if ($cargo->weight >= $cargo->volume && $cargo->weight > 10) {
-                $net = $cargo->weight;
-            } elseif ($cargo->volume > $cargo->weight && $cargo->volume > 10) {
-                $net = $cargo->volume;
-            } else {
-                $net = 10;
-            }
+            $net  = max($cargo->weight, $cargo->volume, 10);
 
             $tsg = $net * $sg;
-            $tpjkp2u =  $cargo->weight <= 10 ? 10 * $pjkp2u : $cargo->weight * $pjkp2u;
+            $tpjkp2u = $net * $pjkp2u;
             $tkade = $cargo->weight <= 10 ? 10 * $kade : $cargo->weight * $kade;
             $tairport_surcharge = $net * $airport_surcharge;
             $tppn = round((($tsg + $tpjkp2u + $tkade + $admin + $tairport_surcharge) * 11) / 100);
@@ -106,20 +100,7 @@ if (@$_GET['action']) {
             $insert = $kasir->insert2($values);
             if (@$insert->id) {
                 $kasir->updatestat($cargo->smu);
-
-                if ($cargo->weight > $cargo->volume) {
-                    if ($cargo->weight < 10) {
-                        $cw = 10;
-                    } else {
-                        $cw = $cargo->weight;
-                    }
-                } else {
-                    if ($cargo->volume < 10) {
-                        $cw = 10;
-                    } else {
-                        $cw = $cargo->volume;
-                    }
-                }
+                $cw = max($cargo->weight, $cargo->volume, 10);
 
                 $dataSend = [
                     [

@@ -110,20 +110,12 @@
 					<td><?php echo $tadm = $adm * $tsmu; ?></td>
 					<td>
 						<?php
-						if ($tvol <= $tweight) {
-							if ($tweight < 10) {
-								$h_sg = 10;
-							} else {
-								$h_sg = $tweight;
-							}
-						} else {
-							$h_sg = $tvol;
-						}
+						$h_sg = max($tweight, $tvol, 10);
 						echo $tsg = $h_sg * $sg;
 						?>
 					</td>
 					<td><?php echo number_format($tkade = $kade * $tweight); ?></td>
-					<td><?php echo number_format($tpjkp2u = $pjkp2u * $tweight); ?></td>
+					<td><?php echo number_format($tpjkp2u = $pjkp2u * $h_sg); ?></td>
 					<td><?php echo number_format($tas = $as * $h_sg); ?></td>
 					<td><?php echo number_format($ppn = (($tadm + $tsg + $tkade + $tpjkp2u + $tas) * 11) / 100); ?></td>
 					<td><?php echo number_format($tmaterai = (($tadm + $tsg + $tkade + $tpjkp2u + $tas + $ppn) < 10000000) ? 0 : 10000); ?></td>

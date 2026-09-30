@@ -47,23 +47,7 @@ $pjkp2u = $result->p_pjkp2u;
 $materai = $result->p_materai;
 $airport_surcharge = $result->p_airport_surcharge;
 
-// if($result->weight >= 10 || $result->weight > $result->volume){
-// 	$nett = $result->weight;
-// }elseif($result->weight <10 && $result->volume >= 10){
-// 	$nett = $result->volume;
-// }elseif($result->weight <10 && $result->volume < 10){
-// 	$nett = 10;
-// }
-
-if ($result->weight > 10 && $result->weight > $result->volume) {
-	$nett = $result->weight;
-} else if ($result->weight > 10 && $result->weight <= $result->volume) {
-	$nett = $result->volume;
-} else if ($result->weight <= 10 && ($result->weight < $result->volume && $result->volume > 10)) {
-	$nett = $result->volume;
-} else {
-	$nett = 10;
-}
+$nett = max($result->weight, $result->volume, 10);
 
 function penyebut($nilai)
 {
@@ -255,7 +239,7 @@ function penyebut($nilai)
 								JKP2U
 							</td>
 							<td class="p-0" width="30%">
-								<?php echo $result->weight; ?> X 1 X <?php echo $pjkp2u; ?>
+								<?php echo $nett; ?> X 1 X <?php echo $pjkp2u; ?>
 							</td>
 							<td class="p-0 pe-4" width="30%">
 								<div class="d-flex justify-content-between">
